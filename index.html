@@ -12,7 +12,6 @@
         :root { --bg: #020305; --accent: #3b82f6; --glass: rgba(255, 255, 255, 0.03); }
         body { background-color: var(--bg); color: white; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
         
-        /* Premium Mesh Background */
         .mesh-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background: radial-gradient(at 10% 10%, rgba(59, 130, 246, 0.15) 0px, transparent 40%),
@@ -25,7 +24,6 @@
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
         }
 
-        /* Foto dengan Glow Frame (Gaya PDF Page 1) */
         .profile-frame {
             position: relative;
             width: 320px; height: 320px;
@@ -39,7 +37,6 @@
             width: 100%; height: 100%;
             border-radius: 32px;
             object-fit: cover;
-            filter: contrast(1.1);
         }
 
         .glass-card {
@@ -54,7 +51,6 @@
         
         .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Floating Badge (Gaya PDF Page 2) */
         .badge {
             background: rgba(59, 130, 246, 0.1);
             border: 1px solid rgba(59, 130, 246, 0.2);
@@ -84,16 +80,16 @@
         </div>
     </nav>
 
-    <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-20">
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-20 text-center">
         <div data-aos="zoom-out" data-aos-duration="1500" class="profile-frame mb-12">
             <img src="1000064247.jpg" alt="Danuardheya">
             <div class="absolute -bottom-4 -right-4 bg-blue-600 px-6 py-2 rounded-2xl font-bold text-[10px] tracking-widest shadow-2xl">BASED IN ID</div>
         </div>
 
-        <div class="text-center max-w-4xl">
+        <div class="max-w-4xl">
             <div data-aos="fade-up" class="flex justify-center mb-6"><span class="badge">Civil Engineer X Drafter</span></div>
             <h2 data-aos="fade-up" data-aos-delay="100" class="text-6xl md:text-9xl font-extrabold tracking-tighter uppercase mb-8 leading-none text-white">
-                BUILDING <br> <span class="gradient-text italic">THE VISION.</span>
+                DESIGNING <br> <span class="gradient-text italic">THE REALITY.</span>
             </h2>
             <p data-aos="fade-up" data-aos-delay="200" class="text-gray-400 text-sm md:text-xl max-w-2xl mx-auto mb-16 font-light leading-relaxed">
                 Expertised in crafting intuitive technical drawings and structural designs with over several years of industry experience. Spesialisasi dalam menciptakan visualisasi arsitektur yang estetik namun mudah diimplementasikan.
@@ -136,23 +132,6 @@
         </div>
     </section>
 
-    <section class="py-40 px-6">
-        <div class="max-w-5xl mx-auto glass-card p-16 relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-10 opacity-10 text-9xl font-black italic">PROCESS</div>
-            <div data-aos="fade-up">
-                <span class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[10px]">The Method</span>
-                <h3 class="text-3xl md:text-5xl font-extrabold mt-4 mb-10 uppercase tracking-tighter text-white">Strategic Discovery.</h3>
-                <p class="text-gray-400 font-light leading-relaxed mb-12">Alih-alih langsung menggambar, saya memfasilitasi workshop arah desain untuk menentukan jalur visual terbaik bagi klien. Saya memberikan opsi konsep mulai dari yang minimalis profesional hingga yang berani dan artistik.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs tracking-widest uppercase font-bold text-blue-400">
-                    <div class="flex items-center gap-4"><i class="fas fa-check-circle"></i> Research & Analysis</div>
-                    <div class="flex items-center gap-4"><i class="fas fa-check-circle"></i> Design Direction</div>
-                    <div class="flex items-center gap-4"><i class="fas fa-check-circle"></i> Interactive Elements</div>
-                    <div class="flex items-center gap-4"><i class="fas fa-check-circle"></i> Brand Authority</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer id="contact" class="py-40 text-center relative">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
         <h4 data-aos="zoom-in" class="text-4xl md:text-7xl font-black mb-20 tracking-tighter uppercase leading-tight text-white">
@@ -161,24 +140,23 @@
         
         <div class="flex flex-wrap justify-center gap-12 mb-24 px-6">
             <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="group flex items-center gap-4 text-gray-500 hover:text-white transition-all">
-                <span class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-600 transition-all"><i class="fab fa-linkedin-in text-white"></i></span>
+                <span class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 transition-all"><i class="fab fa-linkedin-in text-white"></i></span>
                 <span class="text-[10px] font-bold tracking-widest uppercase">LinkedIn</span>
             </a>
             <a href="https://www.instagram.com/danuardheya" target="_blank" class="group flex items-center gap-4 text-gray-500 hover:text-white transition-all">
-                <span class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-pink-600 group-hover:border-pink-600 transition-all"><i class="fab fa-instagram text-white"></i></span>
+                <span class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-pink-600 transition-all"><i class="fab fa-instagram text-white"></i></span>
                 <span class="text-[10px] font-bold tracking-widest uppercase">Instagram</span>
             </a>
             <a href="https://wa.me/6285700398394" target="_blank" class="group flex items-center gap-4 text-gray-500 hover:text-white transition-all">
-                <span class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-green-600 group-hover:border-green-600 transition-all"><i class="fab fa-whatsapp text-white"></i></span>
+                <span class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-green-600 transition-all"><i class="fab fa-whatsapp text-white"></i></span>
                 <span class="text-[10px] font-bold tracking-widest uppercase">WhatsApp</span>
             </a>
         </div>
-        
         <p class="text-[9px] tracking-[0.8em] text-gray-800 uppercase font-black">Danuardheya Portfolio &bull; Established 2024</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script> AOS.init({ duration: 1200, once: true, easing: 'ease-out-back' }); </script>
+    <script> AOS.init({ duration: 1200, once: true }); </script>
 </body>
-            </html>
+                    </html>
     
