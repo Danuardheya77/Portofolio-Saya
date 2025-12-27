@@ -1,76 +1,104 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Keren Saya</title>
+    <title>Portofolio Himam Aby Maulana</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .gradient-text {
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(90deg, #3b82f6, #a855f7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-black text-white font-sans">
 
-    <nav class="p-6 flex justify-between items-center fixed w-full z-50 bg-gray-900/80 backdrop-blur-md">
-        <h1 class="text-2xl font-bold tracking-tighter">MY<span class="text-blue-500">PORTFOLIO</span></h1>
-        <div class="space-x-6 text-gray-300">
-            <a href="#home" class="hover:text-white transition">Home</a>
-            <a href="#projects" class="hover:text-white transition">Projects</a>
-            <a href="#contact" class="px-4 py-2 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition">Contact</a>
+    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-tighter">HIMAM <span class="text-blue-500">ABY</span></h1>
+            <div class="space-x-8 hidden md:flex">
+                <a href="#home" class="hover:text-blue-500 transition">Home</a>
+                <a href="#projects" class="hover:text-blue-500 transition">Projects</a>
+                <a href="#contact" class="hover:text-blue-500 transition">Contact</a>
+            </div>
         </div>
     </nav>
 
-    <section id="home" class="min-h-screen pt-32 flex flex-col justify-center items-center text-center px-4">
-    <div class="z-20">
-        <h2 data-aos="fade-down" class="text-4xl md:text-7xl font-extrabold mb-4">
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20">
+        <h2 data-aos="fade-down" data-aos-duration="1000" class="text-5xl md:text-8xl font-extrabold mb-6">
             Halo, Saya <br> 
-            <span class="gradient-text text-5xl md:text-8xl block mt-2">Himam Aby Maulana</span>
+            <span class="gradient-text">Himam Aby Maulana</span>
         </h2>
-        <p data-aos="fade-up" class="text-gray-400 text-lg mt-6">
-            Civil Engineer & Drafter | Spesialis 2D AutoCAD & 3D Modeling
+        <p data-aos="fade-up" data-aos-delay="300" class="text-gray-400 text-lg md:text-xl max-w-2xl mb-10">
+            Civil Engineer & Drafter | Spesialis Gambar 2D AutoCAD & 3D Modeling Bangunan.
         </p>
-        <div class="mt-12">
-            <a href="#projects" class="inline-block bg-blue-600 text-white px-10 py-4 rounded-full shadow-2xl relative z-50">
+        <div data-aos="zoom-in" data-aos-delay="600">
+            <a href="#projects" class="bg-blue-600 text-white px-10 py-4 rounded-full hover:bg-blue-700 transition duration-300 shadow-lg shadow-blue-500/20 font-semibold">
                 Lihat Portofolio
             </a>
         </div>
-    </div>
-</section>
-<section id="projects" class="py-24 px-4 mt-20">
-    <h3 class="text-3xl font-bold text-center mb-12">Karya & Spesialisasi</h3>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        
-        <div data-aos="fade-up" class="bg-gray-800 rounded-2xl overflow-hidden border border-gray-700">
-            <div class="h-48 bg-slate-700 flex flex-col items-center justify-center border-b border-gray-700">
-                <span class="text-blue-400 font-bold text-lg">AutoCAD 2D</span>
-            </div>
-            <div class="p-6">
-                <h4 class="text-xl font-bold mb-2 text-white">Penyusunan DED</h4>
-                <p class="text-gray-400 text-sm">Gambar kerja lengkap (Denah, Tampak, Potongan) untuk standar konstruksi.</p>
+    </section>
+
+    <section id="projects" class="py-24 px-6 bg-gray-950">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-3xl md:text-4xl font-bold text-center mb-16">Karya & Spesialisasi</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                
+                <div data-aos="fade-up" class="bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 hover:border-blue-500 transition-all duration-300 group">
+                    <div class="h-52 bg-slate-800 flex flex-col items-center justify-center group-hover:bg-slate-700 transition">
+                        <span class="text-blue-400 font-bold text-xl">AutoCAD 2D</span>
+                        <p class="text-xs text-gray-500 mt-2">DED Specialist</p>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-xl font-bold mb-3">Penyusunan DED</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">Pembuatan gambar kerja detail seperti denah, tampak, dan potongan untuk konstruksi gedung.</p>
+                    </div>
+                </div>
+
+                <div data-aos="fade-up" data-aos-delay="200" class="bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 hover:border-purple-500 transition-all duration-300 group">
+                    <div class="h-52 bg-slate-800 flex flex-col items-center justify-center group-hover:bg-slate-700 transition">
+                        <span class="text-purple-400 font-bold text-xl">3D Modeling</span>
+                        <p class="text-xs text-gray-500 mt-2">SketchUp & V-Ray</p>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-xl font-bold mb-3">Visualisasi Bangunan</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">Pemodelan 3D eksterior dan interior yang memberikan gambaran nyata sebelum pembangunan.</p>
+                    </div>
+                </div>
+
+                <div data-aos="fade-up" data-aos-delay="400" class="bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 hover:border-emerald-500 transition-all duration-300 group">
+                    <div class="h-52 bg-slate-800 flex flex-col items-center justify-center group-hover:bg-slate-700 transition">
+                        <span class="text-emerald-400 font-bold text-xl">Estimasi Biaya</span>
+                        <p class="text-xs text-gray-500 mt-2">QS & Budgeting</p>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-xl font-bold mb-3">Perhitungan RAB</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">Estimasi biaya pembangunan yang akurat berdasarkan volume pekerjaan dan harga material terkini.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
+    </section>
 
-        <div data-aos="fade-up" data-aos-delay="200" class="bg-gray-800 rounded-2xl overflow-hidden border border-gray-700">
-            <div class="h-48 bg-slate-700 flex flex-col items-center justify-center border-b border-gray-700">
-                <span class="text-purple-400 font-bold text-lg">3D Modeling</span>
-            </div>
-            <div class="p-6">
-                <h4 class="text-xl font-bold mb-2 text-white">Visualisasi Bangunan</h4>
-                <p class="text-gray-400 text-sm">Pemodelan dan rendering untuk presentasi desain yang realistis.</p>
-            </div>
-        </div>
+    <footer id="contact" class="py-12 border-t border-gray-900 text-center text-gray-500 text-sm">
+        <p class="mb-2">Hubungi saya untuk kolaborasi proyek teknik sipil.</p>
+        <p>&copy; 2024 Himam Aby Maulana. All rights reserved.</p>
+    </footer>
 
-        <div data-aos="fade-up" data-aos-delay="400" class="bg-gray-800 rounded-2xl overflow-hidden border border-gray-700">
-            <div class="h-48 bg-slate-700 flex flex-col items-center justify-center border-b border-gray-700">
-                <span class="text-emerald-400 font-bold text-lg">Estimasi Biaya</span>
-            </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            duration: 800
+        });
+    </script>
+</body>
+</html>
             <div class="p-6">
                 <h4 class="text-xl font-bold mb-2 text-white">Perhitungan RAB</h4>
                 <p class="text-gray-400 text-sm">Estimasi Rencana Anggaran Biaya berdasarkan volume pekerjaan secara akurat.</p>
