@@ -7,156 +7,142 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #020305; --accent: #3b82f6; --glass: rgba(255, 255, 255, 0.03); }
-        body { background-color: var(--bg); color: white; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
-        
+        :root { --accent: #3b82f6; }
+        body { background-color: #020305; color: white; font-family: 'Plus Jakarta Sans', sans-serif; }
         .mesh-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: radial-gradient(at 10% 10%, rgba(59, 130, 246, 0.15) 0px, transparent 40%),
-                        radial-gradient(at 90% 90%, rgba(139, 92, 246, 0.1) 0px, transparent 40%);
+            background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
+                        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.1) 0px, transparent 50%);
         }
-
-        .noise {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            opacity: 0.04; pointer-events: none;
-            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-        }
-
-        .profile-frame {
-            position: relative;
-            width: 320px; height: 320px;
-            border-radius: 40px;
-            padding: 10px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .profile-frame img {
-            width: 100%; height: 100%;
-            border-radius: 32px;
-            object-fit: cover;
-        }
-
         .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(25px);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 2.5rem;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .glass-card:hover { border-color: var(--accent); transform: translateY(-12px); background: rgba(255, 255, 255, 0.05); }
-        
         .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .badge {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #60a5fa;
-            text-transform: uppercase;
-        }
+        .badge-skill { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 100px; font-size: 11px; font-weight: 600; color: #94a3b8; }
     </style>
 </head>
 <body>
-
     <div class="mesh-bg"></div>
-    <div class="noise"></div>
 
-    <nav class="fixed w-full z-50 bg-black/40 backdrop-blur-2xl border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-10 py-6 flex justify-between items-center">
-            <h1 class="text-base font-light tracking-[0.6em] uppercase text-white">Danuardheya</h1>
-            <div class="hidden md:flex items-center space-x-12 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">
-                <a href="#home" class="hover:text-white transition">Introduction</a>
-                <a href="#projects" class="hover:text-white transition">Portfolio</a>
-                <a href="#contact" class="hover:text-white transition-all bg-white/5 px-6 py-2 rounded-full border border-white/10 text-white">Get in Touch</a>
-            </div>
+    <nav class="fixed w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/5 px-10 py-5 flex justify-between items-center">
+        <span class="font-bold tracking-widest uppercase text-xs">Danuardheya</span>
+        <div class="space-x-8 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+            <a href="#work" class="hover:text-white transition">Work</a>
+            <a href="#process" class="hover:text-white transition">Process</a>
+            <a href="#contact" class="hover:text-white transition">Contact</a>
         </div>
     </nav>
 
-    <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-20 text-center">
-        <div data-aos="zoom-out" data-aos-duration="1500" class="profile-frame mb-12">
-            <img src="1000064247.jpg" alt="Danuardheya">
-            <div class="absolute -bottom-4 -right-4 bg-blue-600 px-6 py-2 rounded-2xl font-bold text-[10px] tracking-widest shadow-2xl">BASED IN ID</div>
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-20">
+        <div data-aos="zoom-out" class="relative mb-10">
+            <img src="1000064247.jpg" alt="Profile" class="w-56 h-56 rounded-[40px] object-cover border border-white/10 shadow-2xl">
+            <div class="absolute -bottom-4 -right-4 bg-blue-600 px-5 py-2 rounded-2xl font-bold text-[10px] tracking-widest">CIVIL ENGINEER</div>
         </div>
-
-        <div class="max-w-4xl">
-            <div data-aos="fade-up" class="flex justify-center mb-6"><span class="badge">Civil Engineer X Drafter</span></div>
-            <h2 data-aos="fade-up" data-aos-delay="100" class="text-6xl md:text-9xl font-extrabold tracking-tighter uppercase mb-8 leading-none text-white">
+        
+        <div class="text-center max-w-4xl">
+            <h2 data-aos="fade-up" class="text-5xl md:text-8xl font-extrabold tracking-tighter uppercase mb-6 leading-none">
                 DESIGNING <br> <span class="gradient-text italic">THE REALITY.</span>
             </h2>
-            <p data-aos="fade-up" data-aos-delay="200" class="text-gray-400 text-sm md:text-xl max-w-2xl mx-auto mb-16 font-light leading-relaxed">
-                Expertised in crafting intuitive technical drawings and structural designs with over several years of industry experience. Spesialisasi dalam menciptakan visualisasi arsitektur yang estetik namun mudah diimplementasikan.
+            <p data-aos="fade-up" data-aos-delay="100" class="text-gray-400 text-lg max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                [span_7](start_span)Expertised in crafting intuitive technical drawings and structural designs with several years of industry experience[span_7](end_span). [span_8](start_span)Spesialisasi dalam menciptakan visualisasi arsitektur yang estetik namun mudah diimplementasikan[span_8](end_span).
             </p>
-        </div>
-    </section>
-
-    <section id="projects" class="py-40 px-6 bg-white/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-                <div data-aos="fade-right">
-                    <span class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[10px]">Projects I've Done</span>
-                    <h3 class="text-4xl md:text-6xl font-extrabold mt-4 uppercase tracking-tighter text-white">Selected Works.</h3>
-                </div>
-                <p class="text-gray-500 max-w-sm text-sm font-light leading-relaxed">Setiap proyek dikerjakan dengan pendekatan strategis untuk memastikan hasil yang stand-out di industri konstruksi.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div data-aos="fade-up" class="glass-card p-12 group">
-                    <div class="text-blue-500 text-4xl mb-10 transition-transform group-hover:scale-110 duration-500"><i class="fas fa-pencil-ruler"></i></div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase tracking-tight text-white">DED Drafting</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed font-light mb-8">Penyusunan Detail Engineering Design (DED) yang akurat, menghindari template generik untuk pengalaman konstruksi yang imersif.</p>
-                    <span class="text-[10px] font-black text-blue-400 tracking-[0.3em] uppercase">Technical Drawing</span>
-                </div>
-
-                <div data-aos="fade-up" data-aos-delay="100" class="glass-card p-12 group">
-                    <div class="text-purple-500 text-4xl mb-10 transition-transform group-hover:scale-110 duration-500"><i class="fas fa-layer-group"></i></div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase tracking-tight text-white">3D Visuals</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed font-light mb-8">Pemodelan 3D dan rendering profesional yang memberikan gambaran nyata sebelum pembangunan dimulai.</p>
-                    <span class="text-[10px] font-black text-purple-400 tracking-[0.3em] uppercase">3D Visualization</span>
-                </div>
-
-                <div data-aos="fade-up" data-aos-delay="200" class="glass-card p-12 group">
-                    <div class="text-emerald-500 text-4xl mb-10 transition-transform group-hover:scale-110 duration-500"><i class="fas fa-file-invoice-dollar"></i></div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase tracking-tight text-white">Budget Analysis</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed font-light mb-8">Estimasi RAB yang transparan dan mendetail, memprioritaskan privasi data dan keamanan anggaran klien.</p>
-                    <span class="text-[10px] font-black text-emerald-400 tracking-[0.3em] uppercase">Cost Estimator</span>
-                </div>
+            
+            <div data-aos="fade-up" data-aos-delay="200" class="flex flex-wrap justify-center gap-3">
+                <span class="badge-skill">Drafter Structure</span>
+                <span class="badge-skill">3D Visualization</span>
+                <span class="badge-skill">DED Specialist</span>
+                <span class="badge-skill">Cost Estimation</span>
             </div>
         </div>
     </section>
 
-    <footer id="contact" class="py-40 text-center relative">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-        <h4 data-aos="zoom-in" class="text-4xl md:text-7xl font-black mb-20 tracking-tighter uppercase leading-tight text-white">
-            Ready to <span class="gradient-text italic">Connect?</span>
-        </h4>
-        
-        <div class="flex flex-wrap justify-center gap-12 mb-24 px-6">
-            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="group flex items-center gap-4 text-gray-500 hover:text-white transition-all">
-                <span class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 transition-all"><i class="fab fa-linkedin-in text-white"></i></span>
-                <span class="text-[10px] font-bold tracking-widest uppercase">LinkedIn</span>
-            </a>
-            <a href="https://www.instagram.com/danuardheya" target="_blank" class="group flex items-center gap-4 text-gray-500 hover:text-white transition-all">
-                <span class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-pink-600 transition-all"><i class="fab fa-instagram text-white"></i></span>
-                <span class="text-[10px] font-bold tracking-widest uppercase">Instagram</span>
-            </a>
-            <a href="https://wa.me/6285700398394" target="_blank" class="group flex items-center gap-4 text-gray-500 hover:text-white transition-all">
-                <span class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-green-600 transition-all"><i class="fab fa-whatsapp text-white"></i></span>
-                <span class="text-[10px] font-bold tracking-widest uppercase">WhatsApp</span>
-            </a>
+    <section id="work" class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="mb-20" data-aos="fade-right">
+            <p class="text-blue-500 font-bold tracking-[0.4em] uppercase text-[10px] mb-4">Selected Projects</p>
+            [span_9](start_span)<h3 class="text-4xl md:text-6xl font-extrabold uppercase tracking-tighter">Projects I've Done[span_9](end_span).</h3>
         </div>
-        <p class="text-[9px] tracking-[0.8em] text-gray-800 uppercase font-black">Danuardheya Portfolio &bull; Established 2024</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div data-aos="fade-up" class="glass-card overflow-hidden group">
+                <div class="aspect-video bg-gray-900 relative overflow-hidden">
+                    <img src="project1.jpg" alt="Project" class="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700">
+                </div>
+                <div class="p-10">
+                    <h4 class="text-2xl font-bold mb-4 uppercase">Industrial Structure Design</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8">
+                        [span_10](start_span)[span_11](start_span)Melibatkan perombakan strategis pada identitas visual struktur untuk memastikan hasil yang menonjol di pasar[span_10](end_span)[span_11](end_span). [span_12](start_span)[span_13](start_span)Bergerak dari template generik menuju pengalaman konstruksi yang imersif dan kustom[span_12](end_span)[span_13](end_span).
+                    </p>
+                    <div class="flex items-center gap-4 text-[10px] font-black tracking-widest uppercase text-blue-400">
+                        <span>Analysis</span> &bull; <span>3D Rendering</span> &bull; <span>DED</span>
+                    </div>
+                </div>
+            </div>
+
+            <div data-aos="fade-up" data-aos-delay="100" class="glass-card overflow-hidden group">
+                <div class="aspect-video bg-gray-900 relative overflow-hidden">
+                    <img src="project2.jpg" alt="Project" class="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700">
+                </div>
+                <div class="p-10">
+                    <h4 class="text-2xl font-bold mb-4 uppercase">Modern Residential Plan</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8">
+                        [span_14](start_span)Menyajikan data teknis dan siklus pembangunan dengan cara yang jelas dan mudah dipahami[span_14](end_span). [span_15](start_span)Memprioritaskan keamanan struktur dan efisiensi anggaran bagi klien[span_15](end_span).
+                    </p>
+                    <div class="flex items-center gap-4 text-[10px] font-black tracking-widest uppercase text-purple-400">
+                        <span>Architecture</span> &bull; <span>RAB Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="py-32 px-6">
+        <div class="max-w-5xl mx-auto glass-card p-12 md:p-20 relative overflow-hidden">
+            <div class="relative z-10">
+                [span_16](start_span)<p class="text-blue-500 font-bold tracking-[0.4em] uppercase text-[10px] mb-6">The Method[span_16](end_span)</p>
+                [span_17](start_span)<h3 class="text-3xl md:text-5xl font-extrabold uppercase mb-10 tracking-tighter">Strategic Discovery[span_17](end_span).</h3>
+                <p class="text-gray-400 text-lg mb-12 font-light leading-relaxed">
+                    [span_18](start_span)Alih-alih langsung menggambar desain akhir, saya memfasilitasi Workshop Arah Desain untuk menentukan jalur visual terbaik[span_18](end_span). [span_19](start_span)Saya menyajikan konsep yang berbeda untuk mendefinisikan jalur baru bagi klien[span_19](end_span):
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+                    <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+                        <span class="block font-bold text-white mb-2 uppercase">Professional</span>
+                        [span_20](start_span)<p class="text-gray-500 text-xs">Bersih, fungsional, dan sangat teknis[span_20](end_span).</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+                        <span class="block font-bold text-white mb-2 uppercase">Bold & Modern</span>
+                        [span_21](start_span)<p class="text-gray-500 text-xs">Tipografi kuat dengan tata letak berani[span_21](end_span).</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+                        <span class="block font-bold text-white mb-2 uppercase">Immersive</span>
+                        [span_22](start_span)<p class="text-gray-500 text-xs">Visual gelap dengan aksen neon yang futuristik[span_22](end_span).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="py-32 text-center border-t border-white/5">
+        <div data-aos="fade-up">
+            <h4 class="text-4xl md:text-7xl font-extrabold uppercase tracking-tighter mb-16 italic">
+                Ready to <span class="gradient-text">Collaborate?</span>
+            </h4>
+            <div class="flex justify-center gap-12 mb-20">
+                <a href="https://wa.me/6285700398394" class="text-gray-500 hover:text-white transition text-2xl"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" class="text-gray-500 hover:text-white transition text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/danuardheya" class="text-gray-500 hover:text-white transition text-2xl"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="text-[9px] tracking-[1em] text-gray-800 uppercase font-black">Danuardheya Portfolio &bull; Established 2024</p>
+        </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script> AOS.init({ duration: 1200, once: true }); </script>
+    <script> AOS.init({ duration: 1000, once: true }); </script>
 </body>
-                    </html>
+    </html>
     
