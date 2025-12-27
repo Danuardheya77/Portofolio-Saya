@@ -3,168 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | Portofolio Teknik Sipil Profesional</title>
+    <title>Danuardheya Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #3b82f6; --bg-dark: #020408; }
-        body { background-color: var(--bg-dark); color: white; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
-        
-        /* Background Mesh Dinamis */
-        .mesh-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
-                        radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
-        }
-
-        /* Foto Frame (Sesuai gaya PDF Page 1) */
-        .profile-wrapper {
-            position: relative;
-            width: 320px; height: 320px;
-            padding: 12px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-            border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);
-        }
-
-        .profile-wrapper img {
-            width: 100%; height: 100%;
-            border-radius: 40px;
-            object-fit: cover;
-            display: block;
-        }
-
+        body { background-color: #050505; color: white; font-family: 'Plus Jakarta Sans', sans-serif; }
         .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 2.5rem;
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
         }
-        .glass-card:hover { border-color: var(--accent); transform: translateY(-15px); background: rgba(255, 255, 255, 0.04); }
-        
+        .glass-card:hover { border-color: #3b82f6; transform: translateY(-5px); }
         .gradient-text {
-            background: linear-gradient(to right, #60a5fa, #c084fc);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background: linear-gradient(90deg, #3b82f6, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .badge-premium {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 8px 20px;
-            border-radius: 100px;
-            color: #60a5fa;
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
+        /* Bingkai Foto Mewah */
+        .photo-frame {
+            width: 280px; height: 280px;
+            border-radius: 2rem;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
 
-    <div class="mesh-bg"></div>
-
-    <nav class="fixed w-full z-50 bg-[#020408]/60 backdrop-blur-xl border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-10 py-6 flex justify-between items-center">
-            <h1 class="text-base font-light tracking-[0.6em] uppercase">Danuardheya</h1>
-            <div class="hidden md:flex items-center space-x-12 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">
-                <a href="#home" class="hover:text-white transition">Intro</a>
-                <a href="#projects" class="hover:text-white transition">Work</a>
-                <a href="#contact" class="hover:text-white transition border border-white/10 px-6 py-2 rounded-full">Contact</a>
+    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-sm font-light tracking-[0.4em] uppercase text-white">Danuardheya</h1>
+            <div class="space-x-8 hidden md:flex text-[10px] uppercase tracking-widest font-bold text-gray-400">
+                <a href="#home" class="hover:text-white transition">Home</a>
+                <a href="#projects" class="hover:text-white transition">Projects</a>
+                <a href="#contact" class="hover:text-white transition text-white border border-white/20 px-4 py-1 rounded-full">Contact</a>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-32 text-center">
-        <div data-aos="zoom-out" data-aos-duration="1500" class="profile-wrapper mb-12">
-            <img src="1000064247.jpg" alt="Danuardheya Professional Photo" onerror="this.src='https://via.placeholder.com/320x320?text=Foto+Tidak+Ditemukan'">
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20">
+        <div data-aos="zoom-in" class="mb-10">
+            <img src="1000064247.jpg" alt="Danuardheya" class="photo-frame">
         </div>
 
-        <div class="max-w-4xl mx-auto">
-            <div data-aos="fade-up" class="mb-8 flex justify-center"><span class="badge-premium">Civil Engineer X Drafter</span></div>
-            <h2 data-aos="fade-up" data-aos-delay="100" class="text-6xl md:text-9xl font-black tracking-tighter uppercase leading-none mb-10">
-                Danuar<span class="gradient-text italic">dheya.</span>
-            </h2>
-            
-            <p data-aos="fade-up" data-aos-delay="200" class="text-gray-400 text-sm md:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-16">
-                Berdedikasi dalam menciptakan gambar teknik presisi dan desain struktur dengan pengalaman industri yang solid. 
-                Fokus pada visualisasi arsitektur yang estetik namun tetap fungsional dan siap untuk diimplementasikan.
-            </p>
-
-            <div data-aos="fade-up" data-aos-delay="300" class="flex flex-col md:flex-row gap-6 justify-center">
-                <a href="https://wa.me/6285700398394" class="bg-blue-600 hover:bg-blue-700 text-white px-12 py-5 rounded-full font-bold text-[10px] uppercase tracking-widest shadow-2xl shadow-blue-500/30 transition-all">Get in Touch</a>
-                <a href="#projects" class="glass-card px-12 py-5 rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-white/5 transition-all">Selected Projects</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="py-40 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-                <div data-aos="fade-right">
-                    <span class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[10px]">Expertise</span>
-                    <h3 class="text-4xl md:text-6xl font-black mt-4 uppercase tracking-tighter">My Capabilities.</h3>
-                </div>
-                <p class="text-gray-500 max-w-sm text-sm font-light leading-relaxed">Mengkombinasikan ketelitian teknis dengan estetika desain untuk hasil konstruksi yang luar biasa.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div data-aos="fade-up" class="glass-card p-12">
-                    <div class="text-blue-500 text-4xl mb-8"><i class="fas fa-pencil-ruler"></i></div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase">DED Drafting</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed font-light">Penyusunan Gambar Kerja (DED) mendetail untuk standar perizinan dan pelaksanaan lapangan.</p>
-                </div>
-                <div data-aos="fade-up" data-aos-delay="100" class="glass-card p-12">
-                    <div class="text-purple-500 text-4xl mb-8"><i class="fas fa-cubes"></i></div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase">3D Visuals</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed font-light">Pemodelan 3D dan rendering profesional untuk presentasi desain yang nyata dan imersif.</p>
-                </div>
-                <div data-aos="fade-up" data-aos-delay="200" class="glass-card p-12">
-                    <div class="text-emerald-500 text-4xl mb-8"><i class="fas fa-coins"></i></div>
-                    <h4 class="text-2xl font-bold mb-4 uppercase">RAB & QS</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed font-light">Estimasi biaya pembangunan yang akurat, transparan, dan terperinci untuk manajemen proyek.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact" class="py-40 bg-[#020408] border-t border-white/5 relative overflow-hidden">
-        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
+        <h2 data-aos="fade-up" class="text-5xl md:text-8xl font-extrabold mb-6 tracking-tighter uppercase">
+            Danuar<span class="gradient-text italic">dheya</span>
+        </h2>
         
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h4 data-aos="zoom-in" class="text-4xl md:text-7xl font-black mb-20 tracking-tighter uppercase leading-tight">
-                Let's Build <br> <span class="gradient-text italic">Something Great.</span>
-            </h4>
-            
-            <div class="flex flex-wrap justify-center gap-12 mb-24">
-                <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="group flex flex-col items-center">
-                    <div class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center text-xl text-gray-500 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all mb-4"><i class="fab fa-linkedin-in"></i></div>
-                    <span class="text-[9px] font-bold tracking-widest uppercase text-gray-600 group-hover:text-white">LinkedIn</span>
-                </a>
-                <a href="https://www.instagram.com/danuardheya" target="_blank" class="group flex flex-col items-center">
-                    <div class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center text-xl text-gray-500 group-hover:bg-pink-600 group-hover:text-white group-hover:border-pink-600 transition-all mb-4"><i class="fab fa-instagram"></i></div>
-                    <span class="text-[9px] font-bold tracking-widest uppercase text-gray-600 group-hover:text-white">Instagram</span>
-                </a>
-                <a href="https://wa.me/6285700398394" target="_blank" class="group flex flex-col items-center">
-                    <div class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center text-xl text-gray-500 group-hover:bg-green-600 group-hover:text-white group-hover:border-green-600 transition-all mb-4"><i class="fab fa-whatsapp"></i></div>
-                    <span class="text-[9px] font-bold tracking-widest uppercase text-gray-600 group-hover:text-white">WhatsApp</span>
-                </a>
-                <a href="https://youtube.com/@abysheha7946" target="_blank" class="group flex flex-col items-center">
-                    <div class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center text-xl text-gray-400 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 transition-all mb-4"><i class="fab fa-youtube"></i></div>
-                    <span class="text-[9px] font-bold tracking-widest uppercase text-gray-500 group-hover:text-white">YouTube</span>
-                </a>
-            </div>
-            
-            <p class="text-[9px] tracking-[0.8em] text-gray-800 uppercase font-black">Danuardheya &bull; Portfolio MMXXIV</p>
+        <p data-aos="fade-up" data-aos-delay="200" class="text-gray-400 text-sm md:text-lg max-w-2xl mb-12 font-light leading-relaxed">
+            Berpengalaman dalam merancang gambar teknik presisi dan desain struktur dengan pengalaman industri yang solid. 
+            Fokus pada visualisasi arsitektur yang estetik namun tetap fungsional dan siap untuk diimplementasikan.
+        </p>
+
+        <div data-aos="fade-up" data-aos-delay="400" class="flex gap-4">
+            <a href="https://wa.me/6285700398394" class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-3 rounded-full font-bold text-xs uppercase tracking-widest transition shadow-lg shadow-blue-500/20">Hubungi Saya</a>
+            <a href="#projects" class="border border-white/10 hover:bg-white/5 text-white px-10 py-3 rounded-full font-bold text-xs uppercase tracking-widest transition">Portfolio</a>
         </div>
+    </section>
+
+    <section id="projects" class="py-24 px-6 bg-[#080808]">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-2xl font-bold text-center mb-16 tracking-widest uppercase">Layanan Spesialis</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div data-aos="fade-up" class="glass-card p-10">
+                    <i class="fas fa-pencil-ruler text-2xl text-blue-500 mb-6"></i>
+                    <h4 class="text-lg font-bold mb-3 uppercase">AutoCAD 2D</h4>
+                    <p class="text-gray-500 text-xs leading-relaxed">Drafting teknis mendetail untuk struktur bangunan dan izin PBG/IMB.</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200" class="glass-card p-10">
+                    <i class="fas fa-cube text-2xl text-purple-500 mb-6"></i>
+                    <h4 class="text-lg font-bold mb-3 uppercase">3D Modeling</h4>
+                    <p class="text-gray-500 text-xs leading-relaxed">Visualisasi 3D realistis menggunakan SketchUp untuk presentasi proyek profesional.</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="400" class="glass-card p-10">
+                    <i class="fas fa-file-invoice-dollar text-2xl text-emerald-500 mb-6"></i>
+                    <h4 class="text-lg font-bold mb-3 uppercase">Estimasi RAB</h4>
+                    <p class="text-gray-500 text-xs leading-relaxed">Perhitungan biaya yang akurat dan transparan untuk manajemen keuangan proyek.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="py-24 border-t border-white/5 bg-black text-center">
+        <div class="flex justify-center gap-10 mb-12">
+            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" class="text-gray-600 hover:text-blue-500 transition text-xl"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/danuardheya" class="text-gray-600 hover:text-pink-500 transition text-xl"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/6285700398394" class="text-gray-600 hover:text-green-500 transition text-xl"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://youtube.com/@abysheha7946" class="text-gray-600 hover:text-red-500 transition text-xl"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p class="text-[9px] tracking-[0.6em] text-gray-800 uppercase font-black">Danuardheya &copy; 2024</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script> AOS.init({ duration: 1200, once: true }); </script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
 </body>
-            </html>
+                </html>
     
