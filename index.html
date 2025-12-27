@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | Civil Engineer & Design Strategist</title>
+    <title>Danuardheya | Civil Engineer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -18,6 +18,9 @@
         .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 2.5rem; }
         .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .badge-skill { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); padding: 6px 16px; border-radius: 100px; font-size: 11px; font-weight: 700; color: #60a5fa; text-transform: uppercase; letter-spacing: 1px; }
+        .gallery-item { position: relative; overflow: hidden; border-radius: 1.5rem; cursor: pointer; }
+        .gallery-overlay { background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); opacity: 0; transition: all 0.4s ease; }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
     </style>
 </head>
 <body>
@@ -27,7 +30,7 @@
         <span class="font-bold tracking-[0.4em] uppercase text-[10px]">Danuardheya</span>
         <div class="hidden md:flex space-x-12 text-[10px] font-extrabold uppercase tracking-widest text-gray-500">
             <a href="#home" class="hover:text-white transition">Intro</a>
-            <a href="#work" class="hover:text-white transition">Portfolio</a>
+            <a href="#work" class="hover:text-white transition">Gallery</a>
             <a href="#process" class="hover:text-white transition">Process</a>
             <a href="#contact" class="hover:text-white transition bg-white/5 px-6 py-2 rounded-full border border-white/10 text-white">Get in Touch</a>
         </div>
@@ -35,8 +38,7 @@
 
     <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-32 text-center">
         <div data-aos="zoom-out" class="relative mb-12">
-            <img src="1000064247.jpg" alt="Danuardheya" class="w-64 h-64 rounded-[50px] object-cover border border-white/10 shadow-2xl">
-            <div class="absolute -bottom-4 -right-4 bg-blue-600 px-6 py-2 rounded-2xl font-black text-[10px] tracking-widest uppercase shadow-xl">Based in Indonesia</div>
+            <img src="1000074104.jpg" alt="Danuardheya" class="w-72 h-72 rounded-[50px] object-cover border border-white/10 shadow-2xl">
         </div>
         
         <div class="max-w-4xl">
@@ -44,7 +46,7 @@
                 DESIGNING <br> <span class="gradient-text italic">THE REALITY.</span>
             </h2>
             <p data-aos="fade-up" data-aos-delay="100" class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-                Ahli dalam merancang gambar teknis yang intuitif dan desain struktural dengan pengalaman bertahun-tahun. Spesialisasi dalam menciptakan visualisasi arsitektur yang estetik namun tetap mudah diimplementasikan di lapangan.
+                [span_3](start_span)Expertised in crafting intuitive technical drawings and structural designs[span_3](end_span). [span_4](start_span)Spesialisasi dalam menciptakan visualisasi arsitektur yang estetik namun tetap mudah diimplementasikan[span_4](end_span).
             </p>
             
             <div data-aos="fade-up" data-aos-delay="200" class="flex flex-wrap justify-center gap-4">
@@ -57,107 +59,81 @@
     </section>
 
     <section id="work" class="py-40 px-6 max-w-7xl mx-auto">
-        <div class="mb-24" data-aos="fade-right">
-            <p class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[10px] mb-4">Case Study: Project History</p>
+        <div class="mb-24 text-center md:text-left" data-aos="fade-right">
+            <p class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[10px] mb-4">Visual Portfolio</p>
             <h3 class="text-4xl md:text-7xl font-extrabold uppercase tracking-tighter">Selected Works.</h3>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div data-aos="fade-up" class="glass-card overflow-hidden group">
-                <div class="aspect-video bg-gray-900 overflow-hidden">
-                    <img src="project-main.jpg" alt="Main Project" class="w-full h-full object-cover transition-transform group-hover:scale-110 duration-1000">
-                </div>
-                <div class="p-12">
-                    <h4 class="text-3xl font-bold mb-6 uppercase tracking-tight">Structural Strategy Overhaul</h4>
-                    <p class="text-gray-500 text-base leading-relaxed mb-10 font-light">
-                        Proyek ini melibatkan perombakan strategis pada identitas visual struktur untuk memastikan hasil yang menonjol di pasar konstruksi. Saya berpindah dari template generik menuju pengalaman pembangunan yang lebih imersif dan presisi tinggi.
-                    </p>
-                    <div class="flex items-center gap-6 text-[10px] font-black tracking-widest uppercase text-blue-400">
-                        <span>Analysis</span> &bull; <span>Structural DED</span> &bull; <span>Implementation</span>
-                    </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div data-aos="fade-up" class="md:col-span-2 gallery-item aspect-[16/9]">
+                <img src="1000074104.jpg" class="w-full h-full object-cover">
+                <div class="gallery-overlay absolute inset-0 flex flex-col justify-end p-8">
+                    <span class="text-blue-400 font-black text-[10px] tracking-widest uppercase mb-2">Featured Project</span>
+                    <h4 class="text-2xl font-bold uppercase tracking-tight">Industrial Structure Overhaul</h4>
+                    [span_5](start_span)[span_6](start_span)<p class="text-gray-300 text-sm mt-2 max-w-md">Moving away from generic templates to a custom, immersive experience[span_5](end_span)[span_6](end_span).</p>
                 </div>
             </div>
 
-            <div data-aos="fade-up" data-aos-delay="150" class="flex flex-col justify-center">
-                <div class="glass-card p-12 relative overflow-hidden">
-                    <div class="absolute -top-10 -right-10 text-[150px] font-black text-white/[0.02] italic pointer-events-none">RESULT</div>
-                    <h4 class="text-3xl font-bold mb-8 uppercase tracking-tight">The Impact.</h4>
-                    <div class="space-y-8 relative z-10">
-                        <div>
-                            <p class="text-xs font-black text-blue-500 uppercase tracking-widest mb-2">Efficiency & Clarity</p>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Menyederhanakan data teknis yang kompleks agar mudah dipahami oleh seluruh tim lapangan, meminimalkan kesalahan konstruksi.</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-black text-purple-500 uppercase tracking-widest mb-2">Authority & Trust</p>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Membangun otoritas klien melalui visualisasi rendering yang transparan, akurat, dan sesuai dengan standar keamanan.</p>
-                        </div>
-                        <div class="pt-6 border-t border-white/5 italic text-gray-300 text-sm">
-                            "Proses pengerjaannya sangat natural, detail, dan sesuai dengan ekspektasi teknis yang kami butuhkan."
-                        </div>
-                    </div>
+            <div data-aos="fade-up" data-aos-delay="100" class="gallery-item aspect-[9/12]">
+                <img src="1000067178.webp" class="w-full h-full object-cover">
+                <div class="gallery-overlay absolute inset-0 flex flex-col justify-end p-8">
+                    <h4 class="text-xl font-bold uppercase">Technical Detail</h4>
+                    <span class="text-gray-400 text-[10px] uppercase tracking-widest mt-2">DED Specialist</span>
                 </div>
+            </div>
+
+            </div>
+
+        <div class="mt-32 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right" class="glass-card p-12">
+                [span_7](start_span)<h4 class="text-3xl font-bold mb-6 uppercase tracking-tight italic">The Impact[span_7](end_span).</h4>
+                <div class="space-y-6">
+                    <p class="text-gray-400 text-sm font-light">
+                        [span_8](start_span)<strong class="text-white">Brand Authority:</strong> Establishing it as a Premium Hub through technical excellence[span_8](end_span).
+                    </p>
+                    <p class="text-gray-400 text-sm font-light">
+                        [span_9](start_span)<strong class="text-white">User Privacy:</strong> Prioritizing security and confidentiality in every sensitive data[span_9](end_span).
+                    </p>
+                </div>
+            </div>
+            <div data-aos="fade-left" class="italic text-gray-500 text-lg leading-relaxed">
+                [span_10](start_span)"We were very happy working with him, the results are excellent, responsive, and the process was quick[span_10](end_span)."
+                <span class="block mt-4 not-italic font-bold text-xs uppercase tracking-widest text-white">— Client Satisfaction</span>
             </div>
         </div>
     </section>
 
     <section id="process" class="py-40 px-6 bg-white/[0.01]">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-24" data-aos="fade-up">
+        <div class="max-w-5xl mx-auto glass-card p-12 md:p-20">
+            <div class="text-center mb-16">
                 <p class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[10px] mb-4">The Method</p>
-                <h3 class="text-4xl md:text-6xl font-extrabold uppercase tracking-tighter">Strategic Discovery.</h3>
+                [span_11](start_span)<h3 class="text-4xl md:text-6xl font-extrabold uppercase tracking-tighter">Strategic Discovery[span_11](end_span).</h3>
             </div>
-            
-            <div class="glass-card p-12 md:p-20">
-                <p class="text-gray-400 text-xl font-light leading-relaxed mb-16 text-center italic">
-                    "Alih-alih langsung melompat ke gambar akhir, saya memulainya dengan Workshop Arah Desain untuk menentukan jalur visual terbaik bagi keamanan dan estetika proyek."
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-                    <div data-aos="fade-up" data-aos-delay="100">
-                        <span class="text-blue-500 text-xs font-black uppercase tracking-widest block mb-4">Phase 01</span>
-                        <h5 class="text-lg font-bold mb-3 uppercase">Research & Analysis</h5>
-                        <p class="text-gray-500 text-xs leading-relaxed">Mendalami kebutuhan struktur dan regulasi lahan agar desain tetap aman dan efisien.</p>
-                    </div>
-                    <div data-aos="fade-up" data-aos-delay="200">
-                        <span class="text-purple-500 text-xs font-black uppercase tracking-widest block mb-4">Phase 02</span>
-                        <h5 class="text-lg font-bold mb-3 uppercase">Direction</h5>
-                        <p class="text-gray-500 text-xs leading-relaxed">Memberikan opsi konsep desain mulai dari gaya minimalis hingga desain yang lebih berani.</p>
-                    </div>
-                    <div data-aos="fade-up" data-aos-delay="300">
-                        <span class="text-emerald-500 text-xs font-black uppercase tracking-widest block mb-4">Phase 03</span>
-                        <h5 class="text-lg font-bold mb-3 uppercase">Execution</h5>
-                        <p class="text-gray-500 text-xs leading-relaxed">Menghasilkan gambar kerja DED dan RAB yang siap untuk diimplementasikan tanpa hambatan.</p>
-                    </div>
-                </div>
+            <p class="text-gray-400 text-center text-lg font-light italic mb-12">
+                [span_12](start_span)"Instead of jumping straight into final design, I facilitated a Design Direction Workshop[span_12](end_span)."
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center text-[11px] uppercase tracking-widest font-black">
+                <div class="p-6 border border-white/5 rounded-2xl">Phase 01: Research</div>
+                <div class="p-6 border border-white/5 rounded-2xl text-purple-400">Phase 02: Direction</div>
+                <div class="p-6 border border-white/5 rounded-2xl text-emerald-400">Phase 03: Execution</div>
             </div>
         </div>
     </section>
 
-    <footer id="contact" class="py-40 text-center relative overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+    <footer id="contact" class="py-40 text-center border-t border-white/5">
         <h4 data-aos="fade-up" class="text-5xl md:text-8xl font-extrabold mb-24 tracking-tighter uppercase italic leading-none">
             Ready to <br> <span class="gradient-text">Collaborate?</span>
         </h4>
-        
-        <div class="flex flex-wrap justify-center gap-16 mb-32 px-6">
-            <a href="https://wa.me/6285700398394" target="_blank" class="group flex flex-col items-center gap-4 transition-all">
-                <span class="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-green-600 transition-all text-2xl shadow-lg shadow-green-600/20"><i class="fab fa-whatsapp text-white"></i></span>
-                <span class="text-[10px] font-black tracking-widest uppercase text-gray-500 group-hover:text-white">WhatsApp</span>
-            </a>
-            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="group flex flex-col items-center gap-4 transition-all text-gray-500 hover:text-white">
-                <span class="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 transition-all text-2xl shadow-lg shadow-blue-600/20"><i class="fab fa-linkedin-in text-white"></i></span>
-                <span class="text-[10px] font-black tracking-widest uppercase text-gray-500 group-hover:text-white">LinkedIn</span>
-            </a>
-            <a href="https://www.instagram.com/danuardheya" target="_blank" class="group flex flex-col items-center gap-4 transition-all text-gray-500 hover:text-white">
-                <span class="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-pink-600 transition-all text-2xl shadow-lg shadow-pink-600/20"><i class="fab fa-instagram text-white"></i></span>
-                <span class="text-[10px] font-black tracking-widest uppercase text-gray-500 group-hover:text-white">Instagram</span>
-            </a>
+        <div class="flex justify-center gap-16 mb-20">
+            <a href="https://wa.me/6285700398394" class="text-gray-500 hover:text-white transition text-2xl"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" class="text-gray-500 hover:text-white transition text-2xl"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/danuardheya" class="text-gray-500 hover:text-white transition text-2xl"><i class="fab fa-instagram"></i></a>
         </div>
-        
-        <p class="text-[10px] tracking-[1.2em] text-gray-800 uppercase font-black">Danuardheya Portfolio &bull; 2024</p>
+        <p class="text-[9px] tracking-[1.2em] text-gray-800 uppercase font-black">Danuardheya Portfolio &bull; 2024</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script> AOS.init({ duration: 1200, once: true, easing: 'ease-out-back' }); </script>
+    <script> AOS.init({ duration: 1200, once: true }); </script>
 </body>
-                        </html>
+    </html>
     
