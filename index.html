@@ -1,224 +1,29 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | Civil Engineer & Design Strategist</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&display=swap" rel="stylesheet">
-    
-    <style>
-        body { background-color: #020305; color: white; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
-        
-        /* Water Ripple & Mesh Background */
-        #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
-        .mesh-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
-                        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.08) 0px, transparent 50%);
-        }
-
-        /* 1. MENU TITIK 3 (STAY) */
-        .fixed-top-menu { 
-            position: fixed; top: 25px; right: 25px; z-index: 10001; 
-            width: 45px; height: 45px; background: rgba(255,255,255,0.05); 
-            backdrop-filter: blur(10px); border-radius: 50%; border: 1px solid rgba(255,255,255,0.1);
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-        }
-
-        /* 2. DRAGGABLE RGB ACCESSIBILITY (KECIL & TRANSPARAN) */
-        #floating-acc {
-            position: fixed; top: 120px; left: 20px; z-index: 10000;
-            width: 42px; height: 42px; cursor: move; touch-action: none;
-        }
-        .rgb-glow-border {
-            position: relative; width: 100%; height: 100%; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .rgb-glow-border::before {
-            content: ''; position: absolute; inset: -2px; border-radius: 50%;
-            background: conic-gradient(red, yellow, green, cyan, blue, magenta, red);
-            animation: rotateRGB 3s linear infinite;
-        }
-        @keyframes rotateRGB { 100% { transform: rotate(360deg); } }
-        .rgb-glow-border::after { content: ''; position: absolute; inset: 2px; background: rgba(2, 3, 5, 0.7); border-radius: 50%; }
-
-        /* Dropdown Styles */
-        .glass-dropdown { 
-            position: absolute; top: 55px; right: 0; background: rgba(5, 5, 10, 0.95); 
-            backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 20px; padding: 20px; width: 220px; display: none;
-        }
-        .glass-dropdown.active { display: block; animation: slideIn 0.3s ease; }
-
-        .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 2.5rem; transition: 0.5s; }
-        .glass-card:hover { border-color: #3b82f6; background: rgba(59, 130, 246, 0.03); }
-        .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .badge-skill { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); padding: 6px 16px; border-radius: 100px; font-size: 11px; font-weight: 700; color: #60a5fa; text-transform: uppercase; letter-spacing: 1px; }
-
-        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
-</head>
-<body>
-
-    <div class="mesh-bg"></div>
-    <canvas id="water-canvas"></canvas>
-
-    <div class="fixed-top-menu" onclick="toggleMenu('main-nav')">
-        <i class="fas fa-ellipsis-v"></i>
-        <div id="main-nav" class="glass-dropdown">
-            <div class="text-[9px] font-black tracking-[0.3em] text-blue-500 mb-4 border-b border-white/10 pb-2 uppercase">Navigation</div>
-            <a href="#home" class="block py-2 text-xs hover:text-blue-400">01. Intro</a>
-            <a href="#3d-gallery" class="block py-2 text-xs hover:text-blue-400">02. 3D Showcase</a>
-            <a href="#engineering" class="block py-2 text-xs hover:text-blue-400">03. Technical DED/RAB</a>
-            <a href="#contact" class="block py-2 text-xs hover:text-blue-400">04. Contact</a>
-        </div>
+<section id="3d-gallery" class="py-40 px-6 max-w-7xl mx-auto">
+    <div class="mb-24" data-aos="fade-right">
+        <p class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[10px] mb-4">Visual Artistry</p>
+        <h3 class="text-4xl md:text-7xl font-extrabold uppercase tracking-tighter">3D Showcase.</h3>
     </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        
+        <div class="glass-card overflow-hidden group" data-aos="fade-up">
+            <div class="aspect-video bg-gray-900">
+                <img src="interior.jpg" alt="3D Interior Danuardheya" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+            </div>
+            <div class="p-8">
+                <h4 class="text-xl font-bold uppercase">Modern Interior Design</h4>
+                <p class="text-xs text-gray-500 mt-2">Pencahayaan & Materialitas realistis untuk ruang hunian.</p>
+            </div>
+        </div>
 
-    <div id="floating-acc" onmousedown="dragStart(event)" ontouchstart="dragStart(event)">
-        <div class="rgb-glow-border" onclick="toggleMenu('acc-nav')">
-            <i class="fas fa-universal-access relative z-10 text-[14px]"></i>
+        <div class="glass-card overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+            <div class="aspect-video bg-gray-900">
+                <img src="exterior.jpg" alt="3D Exterior Danuardheya" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+            </div>
+            <div class="p-8">
+                <h4 class="text-xl font-bold uppercase">Architectural Exterior</h4>
+                <p class="text-xs text-gray-500 mt-2">Desain fasad bangunan dengan presisi struktur dan estetika.</p>
+            </div>
         </div>
-        <div id="acc-nav" class="glass-dropdown" style="right: auto; left: 0;">
-            <div class="text-[9px] font-black tracking-[0.3em] text-emerald-400 mb-4 border-b border-white/10 pb-2 uppercase">Accessibility</div>
-            <div class="py-2 text-xs cursor-pointer" onclick="setLang('id')">ID - Indonesia</div>
-            <div class="py-2 text-xs cursor-pointer" onclick="setLang('en')">EN - English</div>
-            <div class="py-2 text-xs cursor-pointer" onclick="window.scrollBy({top: 500, behavior:'smooth'})">Auto Scroll</div>
-            <div class="py-2 text-xs cursor-pointer" onclick="document.body.classList.toggle('invert')">Invert Theme</div>
-        </div>
+
     </div>
-
-    <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-32 text-center">
-        <div data-aos="zoom-out" class="relative mb-12">
-            <img src="1000064247.jpg" alt="Danuardheya" class="w-64 h-64 rounded-[50px] object-cover border border-white/10 shadow-2xl">
-            <div class="absolute -bottom-4 -right-4 bg-blue-600 px-6 py-2 rounded-2xl font-black text-[10px] tracking-widest uppercase shadow-xl">Civil Engineer</div>
-        </div>
-        
-        <div class="max-w-4xl">
-            <h2 data-aos="fade-up" class="text-6xl md:text-9xl font-extrabold tracking-tighter uppercase mb-8 leading-[0.85]">
-                DESIGNING <br> <span class="gradient-text italic">THE REALITY.</span>
-            </h2>
-            <div data-aos="fade-up" data-aos-delay="200" class="flex flex-wrap justify-center gap-4 mb-8">
-                <span class="badge-skill">3D Interior</span>
-                <span class="badge-skill">3D Exterior</span>
-                <span class="badge-skill">2D DED Specialist</span>
-                <span class="badge-skill">RAB Strategist</span>
-            </div>
-        </div>
-    </section>
-
-    <section id="3d-gallery" class="py-40 px-6 max-w-7xl mx-auto">
-        <div class="mb-24" data-aos="fade-right">
-            <p class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[10px] mb-4">Visual Artistry</p>
-            <h3 class="text-4xl md:text-7xl font-extrabold uppercase tracking-tighter">3D Showcase.</h3>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div class="glass-card overflow-hidden group" data-aos="fade-up">
-                <div class="aspect-video bg-gray-900"><img src="interior.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700"></div>
-                <div class="p-8"><h4 class="text-xl font-bold uppercase">Modern Interior</h4><p class="text-xs text-gray-500 mt-2">Pencahayaan & Materialitas realistis.</p></div>
-            </div>
-            <div class="glass-card overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
-                <div class="aspect-video bg-gray-900"><img src="exterior.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700"></div>
-                <div class="p-8"><h4 class="text-xl font-bold uppercase">Structural Exterior</h4><p class="text-xs text-gray-500 mt-2">Desain fasad & lanskap arsitektural.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="engineering" class="py-40 px-6 bg-white/[0.01]">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div class="glass-card p-12" data-aos="flip-left">
-                <i class="fas fa-drafting-compass text-4xl text-blue-500 mb-8"></i>
-                <h4 class="text-3xl font-bold mb-6 uppercase tracking-tight">Technical 2D DED</h4>
-                <p class="text-gray-500 text-sm leading-relaxed font-light">Penyusunan gambar kerja detail yang presisi dan intuitif untuk memastikan implementasi lapangan tanpa hambatan teknis.</p>
-            </div>
-            <div class="glass-card p-12" data-aos="flip-right">
-                <i class="fas fa-calculator text-4xl text-purple-500 mb-8"></i>
-                <h4 class="text-3xl font-bold mb-6 uppercase tracking-tight">RAB Specialist</h4>
-                <p class="text-gray-500 text-sm leading-relaxed font-light">Analisis anggaran biaya pembangunan yang akurat, mengoptimalkan material untuk efisiensi budget proyek Anda.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact" class="py-40 text-center relative overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-        <h4 data-aos="fade-up" class="text-5xl md:text-8xl font-extrabold mb-24 tracking-tighter uppercase italic leading-none">
-            Ready to <br> <span class="gradient-text">Collaborate?</span>
-        </h4>
-        
-        <div class="flex flex-wrap justify-center gap-12 mb-32 px-6">
-            <a href="https://wa.me/6285700398394" class="group flex flex-col items-center gap-4 transition-all">
-                <span class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-green-600 transition-all text-xl shadow-lg shadow-green-600/20"><i class="fab fa-whatsapp"></i></span>
-                <span class="text-[9px] font-black tracking-widest uppercase text-gray-500">WhatsApp</span>
-            </a>
-            <a href="https://instagram.com/danuardheya" class="group flex flex-col items-center gap-4 transition-all">
-                <span class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-pink-600 transition-all text-xl shadow-lg shadow-pink-600/20"><i class="fab fa-instagram"></i></span>
-                <span class="text-[9px] font-black tracking-widest uppercase text-gray-500">Instagram</span>
-            </a>
-            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" class="group flex flex-col items-center gap-4 transition-all">
-                <span class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 transition-all text-xl shadow-lg shadow-blue-600/20"><i class="fab fa-linkedin-in"></i></span>
-                <span class="text-[9px] font-black tracking-widest uppercase text-gray-500">LinkedIn</span>
-            </a>
-            <a href="https://youtube.com/@abysheha7946" class="group flex flex-col items-center gap-4 transition-all">
-                <span class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-red-600 transition-all text-xl shadow-lg shadow-red-600/20"><i class="fab fa-youtube"></i></span>
-                <span class="text-[9px] font-black tracking-widest uppercase text-gray-500">YouTube</span>
-            </a>
-        </div>
-        
-        <p class="text-[10px] tracking-[1.2em] text-gray-800 uppercase font-black">Danuardheya &bull; 2024</p>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1200, once: true });
-
-        // Dropdown Logic
-        function toggleMenu(id) {
-            document.querySelectorAll('.glass-dropdown').forEach(d => { if(d.id !== id) d.classList.remove('active'); });
-            document.getElementById(id).classList.toggle('active');
-        }
-
-        // Draggable Logic
-        let dragItem = document.querySelector("#floating-acc");
-        let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
-
-        function dragStart(e) {
-            initialX = (e.type === "touchstart" ? e.touches[0].clientX : e.clientX) - xOffset;
-            initialY = (e.type === "touchstart" ? e.touches[0].clientY : e.clientY) - yOffset;
-            if (e.target.closest('.rgb-glow-border')) active = true;
-        }
-        function drag(e) {
-            if (active) {
-                e.preventDefault();
-                currentX = (e.type === "touchmove" ? e.touches[0].clientX : e.clientX) - initialX;
-                currentY = (e.type === "touchmove" ? e.touches[0].clientY : e.clientY) - initialY;
-                xOffset = currentX; yOffset = currentY;
-                dragItem.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-            }
-        }
-        window.addEventListener("mousemove", drag); window.addEventListener("touchmove", drag, {passive: false});
-        window.addEventListener("mouseup", () => active = false); window.addEventListener("touchend", () => active = false);
-
-        // Water Ripple
-        const canvas = document.getElementById('water-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let ripples = [];
-        const createRipple = (e) => ripples.push({x: e.clientX || e.touches[0].clientX, y: e.clientY || e.touches[0].clientY, r: 0, o: 0.6});
-        window.addEventListener('mousedown', createRipple); window.addEventListener('touchstart', createRipple);
-        function anim() {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            ripples.forEach((r, i) => {
-                r.r += 2.5; r.o -= 0.015;
-                ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI*2);
-                ctx.strokeStyle = `rgba(255,255,255,${r.o})`; ctx.stroke();
-                if(r.o <= 0) ripples.splice(i,1);
-            });
-            requestAnimationFrame(anim);
-        }
-        anim();
-    </script>
-</body>
-    </html>
-            
+</section>
