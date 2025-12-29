@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | Portofolio Strategist</title>
+    <title>Danuardheya | Engineering & 3D Visualizer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -11,56 +11,46 @@
     
     <style>
         :root { --accent: #3b82f6; }
-        body { background: #000; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; margin: 0; }
-        
+        body { background: #000; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
         #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
-
-        /* Toolbar Pojok Kanan Atas */
         .top-toolbar { position: fixed; top: 25px; right: 25px; z-index: 10001; display: flex; gap: 10px; }
         .tool-btn { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
-
-        /* Dropdowns */
         .menu-dropdown { position: fixed; top: 80px; right: 25px; z-index: 10001; background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 20px; border: 1px solid var(--accent); display: none; width: 220px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .menu-dropdown.active { display: block; animation: slideIn 0.3s ease; }
-
-        /* Horizontal Slider Layout */
-        .main-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; width: 100vw; height: 100vh; }
-        .main-container::-webkit-scrollbar { display: none; }
-        .page-section { flex: 0 0 100vw; height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; position: relative; }
-
-        /* Profile & Gallery */
-        .profile-img-container { width: 160px; height: 160px; border-radius: 50%; border: 3px solid var(--accent); padding: 5px; background: rgba(59, 130, 246, 0.1); }
-        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        
-        .content-slider { display: flex; overflow-x: auto; gap: 15px; scrollbar-width: none; width: 90%; padding: 10px 0; -webkit-overflow-scrolling: touch; }
-        .content-slider::-webkit-scrollbar { display: none; }
-        .slider-card { flex: 0 0 85%; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); }
-        .slider-card img { width: 100%; height: 350px; object-fit: cover; }
-
-        /* Draggable ACC */
         #floating-acc { position: fixed; top: 120px; left: 20px; z-index: 10000; width: 42px; height: 42px; cursor: move; touch-action: none; }
         .rgb-glow-border { position: relative; width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .rgb-glow-border::before { content: ''; position: absolute; inset: -2px; border-radius: 50%; background: conic-gradient(red, yellow, green, cyan, blue, magenta, red); animation: rotateRGB 3s linear infinite; }
         .rgb-glow-border::after { content: ''; position: absolute; inset: 2px; background: #000; border-radius: 50%; }
         @keyframes rotateRGB { 100% { transform: rotate(360deg); } }
-
+        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 20px; }
+        .profile-img-container { width: 180px; height: 180px; border-radius: 50%; border: 3px solid var(--accent); padding: 5px; background: rgba(59, 130, 246, 0.1); }
+        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .slider-wrap { display: flex; overflow-x: auto; gap: 15px; scrollbar-width: none; padding: 10px 0; width: 100%; -webkit-overflow-scrolling: touch; }
+        .slider-wrap::-webkit-scrollbar { display: none; }
+        .slider-item { flex: 0 0 85%; md:flex: 0 0 45%; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #111; }
+        .slider-item img { width: 100%; height: 280px; object-fit: cover; }
         @keyframes slideIn { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
-
     <canvas id="water-canvas"></canvas>
-
     <div class="top-toolbar">
-        <div class="tool-btn" onclick="window.history.back()"><i class="fas fa-arrow-left"></i></div>
-        <div class="tool-btn" onclick="toggleMenu('dropdown')"><i class="fas fa-ellipsis-v"></i></div>
+        <div class="tool-btn" onclick="window.history.back()"><i class="fas fa-arrow-left text-white/50"></i></div>
+        <div class="tool-btn" onclick="toggleMenu('dropdown')"><i class="fas fa-ellipsis-v text-white/50"></i></div>
     </div>
-
     <div id="dropdown" class="menu-dropdown">
         <div class="p-2 text-[10px] opacity-50 uppercase tracking-widest mb-2 border-b border-white/10">Navigasi</div>
-        <div class="py-2 text-sm cursor-pointer" onclick="scrollToPage(0)">Home</div>
-        <div class="py-2 text-sm cursor-pointer" onclick="scrollToPage(1)">3D Gallery</div>
-        <div class="py-2 text-sm cursor-pointer" onclick="scrollToPage(2)">RAB Strategist</div>
+        <div class="py-2 text-sm cursor-pointer" onclick="location.href='#home'">Beranda</div>
+        <div class="py-2 text-sm cursor-pointer" onclick="location.href='#work'">3D Projects</div>
+        <div class="py-2 text-sm cursor-pointer" onclick="location.href='#cad-section'">2D CAD / DED</div>
+        <div class="py-2 text-sm cursor-pointer" onclick="location.href='#rab-section'">RAB Strategist</div>
+    </div>
+
+    <div class="fixed left-5 bottom-8 z-[9999] flex flex-col gap-5">
+        <a href="https://wa.me/6285700398394" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com/danuardheya" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/@abysheha7946" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-linkedin-in"></i></a>
     </div>
 
     <div id="floating-acc" onmousedown="dragStart(event)" ontouchstart="dragStart(event)">
@@ -75,85 +65,78 @@
         </div>
     </div>
 
-    <div class="fixed left-5 bottom-8 z-[9999] flex flex-col gap-5">
-        <a href="https://wa.me/6285700398394" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://youtube.com/@abysheha7946" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-linkedin-in"></i></a>
-    </div>
-
-    <main class="main-container" id="main-scroll">
-        <section class="page-section">
-            <div data-aos="zoom-in" class="mb-6">
-                <div class="profile-img-container shadow-[0_0_50px_rgba(59,130,246,0.3)]">
-                    <img src="https://lh3.googleusercontent.com/d/13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p" alt="Danuardheya" class="profile-img">
-                </div>
+    <section id="home">
+        <div data-aos="zoom-in" class="mb-8">
+            <div class="profile-img-container shadow-[0_0_60px_rgba(59,130,246,0.3)]">
+                <img src="https://lh3.googleusercontent.com/d/13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p" alt="Danuardheya" class="profile-img">
             </div>
-            <h1 class="text-5xl font-extrabold tracking-tighter mb-2">DANUARDHEYA</h1>
-            <p id="d-hero" class="italic text-blue-500 font-serif text-2xl mb-4">Architecting Reality.</p>
-            <p class="text-gray-500 text-[9px] tracking-[0.5em] uppercase">Swipe for Projects <i class="fas fa-arrow-right ml-2 animate-pulse"></i></p>
-        </section>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-2" data-aos="fade-up">DANUARDHEYA</h1>
+        <p id="d-hero" class="italic text-blue-500 font-serif text-2xl mb-4" data-aos="fade-up" data-aos-delay="100">Architecting Reality.</p>
+        <p class="text-gray-500 text-[10px] tracking-[0.4em] uppercase" data-aos="fade-up" data-aos-delay="200">Civil Engineer & 3D Visualizer</p>
+    </section>
 
-        <section class="page-section">
-            <h2 id="h-work" class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500">3D Interior & Exterior</h2>
-            <div class="content-slider">
-                <div class="slider-card"><img src="https://lh3.googleusercontent.com/d/1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ"></div>
-                <div class="slider-card"><img src="https://lh3.googleusercontent.com/d/1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ"></div>
-                <div class="slider-card"><img src="https://lh3.googleusercontent.com/d/10rS38lvtfYnHmaOp3x3hmhXXy7DgiG1o"></div>
-                <div class="slider-card"><img src="https://lh3.googleusercontent.com/d/1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7"></div>
-                <div class="slider-card"><img src="https://lh3.googleusercontent.com/d/1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye"></div>
-                <div class="slider-card"><img src="https://lh3.googleusercontent.com/d/146en6-VAKyGWQymoPmIrI3o301EqfrQ2"></div>
+    <section id="work">
+        <div class="w-full max-w-6xl">
+            <h2 id="h-work" class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500" data-aos="fade-right">3D Interior & Exterior Showcase</h2>
+            <div class="slider-wrap" data-aos="fade-up">
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10rS38lvtfYnHmaOp3x3hmhXXy7DgiG1o"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye"></div>
             </div>
-            <p class="mt-6 text-[10px] opacity-40 uppercase tracking-widest">Swipe Left to see RAB</p>
-        </section>
+        </div>
+    </section>
 
-        <section class="page-section">
-            <h2 class="text-xl font-bold mb-2 tracking-widest uppercase text-blue-500">RAB Strategist</h2>
-            <p class="text-[10px] text-gray-500 mb-6 uppercase tracking-widest text-center px-10">Analisis Biaya & Strategi Pembangunan</p>
-            
-            <div class="content-slider">
-                <div class="slider-card"><img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe391" alt="RAB Data 1"></div>
-                <div class="slider-card"><img src="https://lh3.googleusercontent.com/d/18-dThDJVOm-KpILfTZ0dy--3wVLoC9PO" alt="RAB Data 2"></div>
-                <div class="slider-card"><img src="https://lh3.googleusercontent.com/d/14J7odYxsNHnG64uxUaxzymFK3cIfgt6e" alt="RAB Data 3"></div>
+    <section id="cad-section">
+        <div class="w-full max-w-6xl">
+            <h2 class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500" data-aos="fade-right">2D CAD & DED Drafting</h2>
+            <div class="slider-wrap" data-aos="fade-up">
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/18-dThDJVOm-KpILfTZ0dy--3wVLoC9PO"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/14J7odYxsNHnG64uxUaxzymFK3cIfgt6e"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X"></div>
             </div>
+            <div class="bg-white/5 p-8 rounded-3xl border border-white/10 mt-10" data-aos="fade-up">
+                <p class="text-[11px] text-gray-400">Gambar teknis presisi tinggi untuk standar konstruksi profesional dan IMB/PBG.</p>
+            </div>
+        </div>
+    </section>
 
-            <div class="mt-8 bg-white/5 p-6 rounded-3xl border border-white/10 w-[85%]">
-                <h3 class="font-bold text-blue-400 text-sm mb-2 uppercase">Precision Budgeting</h3>
-                <p class="text-[10px] text-gray-400 leading-relaxed">Menyediakan perhitungan volume material dan estimasi harga pasar paling akurat untuk efisiensi proyek Anda.</p>
+    <section id="rab-section">
+        <div class="w-full max-w-6xl">
+            <h2 class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500" data-aos="fade-right">RAB Strategis Analyst</h2>
+            <div class="slider-wrap" data-aos="fade-up">
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe391"></div>
             </div>
-        </section>
-    </main>
+            <div class="bg-white/5 p-8 rounded-3xl border border-white/10 mt-10" data-aos="fade-up">
+                <p class="text-[11px] text-gray-400">Manajemen anggaran biaya pembangunan yang akurat dan efisien menggunakan standar SNI terbaru.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center opacity-20 text-[8px] tracking-[1em]">DANUARDHEYA • 2024</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
-
         function toggleMenu(id) { 
             const dropdown = document.getElementById(id);
             const isVisible = dropdown.style.display === 'block';
             document.querySelectorAll('.menu-dropdown').forEach(d => d.style.display = 'none');
             dropdown.style.display = isVisible ? 'none' : 'block';
         }
-
-        function scrollToPage(index) {
-            const container = document.getElementById('main-scroll');
-            container.scrollTo({ left: index * window.innerWidth, behavior: 'smooth' });
-            toggleMenu('dropdown');
-        }
-
-        // Language
         const langData = {
-            id: { hero: "Architecting Reality.", work: "3D Interior & Exterior" },
-            en: { hero: "Defining The Future.", work: "3D Visualization" },
+            id: { hero: "Architecting Reality.", work: "3D Interior & Exterior Showcase" },
+            en: { hero: "Defining The Future.", work: "3D Visualization Portfolio" },
             ar: { hero: "هندسة الواقع.", work: "عرض ثلاثي الأبعاد" },
-            cn: { hero: "构建现实.", work: "3D 展示" }
+            cn: { hero: "构建现实.", work: "3D 室内外展示" }
         };
         function setLang(l) {
             document.getElementById('d-hero').innerText = langData[l].hero;
             document.getElementById('h-work').innerText = langData[l].work;
             toggleMenu('acc-nav');
         }
-
-        // Draggable
         let dragItem = document.querySelector("#floating-acc");
         let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
         function dragStart(e) {
@@ -172,14 +155,12 @@
         }
         window.addEventListener("mousemove", drag); window.addEventListener("touchmove", drag, {passive: false});
         window.addEventListener("mouseup", () => active = false); window.addEventListener("touchend", () => active = false);
-
-        // Water
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         let ripples = [];
-        const rippleFunc = (e) => ripples.push({x: e.clientX || e.touches[0].clientX, y: e.clientY || e.touches[0].clientY, r: 0, o: 0.6});
-        window.addEventListener('mousedown', rippleFunc); window.addEventListener('touchstart', rippleFunc);
+        window.addEventListener('mousedown', (e) => ripples.push({x: e.clientX, y: e.clientY, r: 0, o: 0.6}));
+        window.addEventListener('touchstart', (e) => ripples.push({x: e.touches[0].clientX, y: e.touches[0].clientY, r: 0, o: 0.6}));
         function anim() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
             ripples.forEach((r, i) => {
