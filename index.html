@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | Engineering Story</title>
+    <title>Danuardheya | Master of Engineering</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -13,189 +13,219 @@
         :root { --accent: #3b82f6; --text: #ffffff; }
         body { background: #000; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; margin: 0; }
 
-        /* Welcome Screen (Agar Musik Bisa Bunyi) */
-        #welcome-screen {
-            position: fixed; inset: 0; z-index: 20000; background: #000;
+        /* Overlay Pembuka (Wajib untuk Trigger Suara) */
+        #welcome-overlay {
+            position: fixed; inset: 0; z-index: 99999; background: #000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: 1s ease-in-out;
+            transition: 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .start-btn {
-            padding: 15px 40px; border: 1px solid var(--accent); border-radius: 50px;
+        .enter-btn {
+            padding: 12px 35px; border: 1px solid var(--accent); border-radius: 50px;
             color: white; font-family: 'JetBrains Mono'; cursor: pointer;
-            transition: 0.3s; background: transparent;
+            background: rgba(59, 130, 246, 0.1); font-size: 14px; letter-spacing: 2px;
         }
-        .start-btn:hover { background: var(--accent); box-shadow: 0 0 30px var(--accent); }
+        .enter-btn:hover { background: var(--accent); box-shadow: 0 0 40px var(--accent); }
 
-        /* Water Ripple */
+        /* Water Ripple Effect */
         #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
 
-        /* FIXED MENU & TOOLS */
-        .top-tools { position: fixed; top: 25px; right: 25px; z-index: 10000; display: flex; gap: 15px; }
-        .icon-btn { width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; color: white; }
-        
-        .menu-dropdown { 
-            position: fixed; top: 85px; right: 25px; z-index: 10000; background: rgba(10,10,10,0.95); 
-            backdrop-filter: blur(20px); border-radius: 20px; padding: 20px; border: 1px solid var(--accent); 
-            display: none; width: 220px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+        /* Toolbar Titik 3 & Audio (Kanan Atas) */
+        .top-nav-tools { position: fixed; top: 25px; right: 25px; z-index: 10000; display: flex; gap: 12px; }
+        .circle-tool { width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; }
+        .circle-tool:hover { border-color: var(--accent); background: rgba(59, 130, 246, 0.2); }
+
+        /* Menu Dropdown */
+        .dropdown-box { 
+            position: fixed; top: 85px; right: 25px; z-index: 10000; background: rgba(10,10,10,0.98); 
+            backdrop-filter: blur(30px); border-radius: 25px; padding: 20px; border: 1px solid rgba(59,130,246,0.3); 
+            display: none; width: 230px; 
         }
-        .menu-dropdown.active { display: block; animation: fadeIn 0.3s; }
+        .dropdown-box.active { display: block; animation: slideUp 0.4s ease; }
+        .drop-item { display: flex; align-items: center; gap: 12px; padding: 12px; font-size: 11px; color: #ccc; cursor: pointer; }
+        .drop-item:hover { color: white; background: rgba(255,255,255,0.05); border-radius: 12px; }
 
-        /* Sections Background Story */
-        section { min-height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: center; padding: 40px; }
-        #home { background: radial-gradient(circle at center, #0a192f 0%, #000 100%); }
-        #work { background: linear-gradient(180deg, #000 0%, #061122 100%); }
-        #contact { background: radial-gradient(at bottom, #112244 0%, #000 70%); }
+        /* Story Layers */
+        section { min-height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: center; padding: 60px 25px; transition: background 1s; }
+        #layer1 { background: radial-gradient(circle at center, #0a1321 0%, #000 100%); }
+        #layer2 { background: linear-gradient(180deg, #000 0%, #081224 100%); }
+        #layer3 { background: radial-gradient(at bottom left, #1a365d 0%, #000 80%); }
 
-        /* PERMANENT SOCIAL */
-        .social-bar { position: fixed; left: 25px; bottom: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 20px; }
-        .social-bar a { font-size: 20px; color: white; opacity: 0.4; transition: 0.3s; }
-        .social-bar a:hover { opacity: 1; color: var(--accent); transform: scale(1.2); }
+        /* Permanent Contact (Kiri Bawah) */
+        .permanent-social { position: fixed; left: 25px; bottom: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 22px; }
+        .social-link { font-size: 22px; color: white; opacity: 0.3; transition: 0.5s; }
+        .social-link:hover { opacity: 1; color: var(--accent); transform: scale(1.3) rotate(10deg); }
 
-        .profile-small { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover; }
+        .profile-small { width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body id="main">
+<body id="master-app">
 
-    <div id="welcome-screen">
-        <h2 class="font-serif italic text-2xl mb-8">Ready for the experience?</h2>
-        <button class="start-btn" onclick="startApp()">MASUK & PUTAR MUSIK</button>
+    <div id="welcome-overlay">
+        <h2 class="font-serif italic text-xl mb-6 tracking-widest text-blue-400">Danuardheya Portfolio</h2>
+        <button class="enter-btn" onclick="activateExperience()">MULAI PENGALAMAN</button>
+        <p class="text-[9px] mt-4 opacity-40 uppercase tracking-[0.3em]">Klik untuk memutar audio & visual</p>
     </div>
 
-    <div id="audio-container" style="display:none">
-        <iframe id="youtube-player" src="https://www.youtube.com/embed/VBpOA8eBRBY?enablejsapi=1&autoplay=1&loop=1&playlist=VBpOA8eBRBY" allow="autoplay"></iframe>
+    <div style="display:none">
+        <div id="yt-player"></div>
     </div>
 
     <canvas id="water-canvas"></canvas>
 
-    <div class="top-tools">
-        <div class="icon-btn" onclick="toggleMute()"><i id="music-icon" class="fas fa-volume-mute"></i></div>
-        <div class="icon-btn" onclick="toggleMenu()"><i class="fas fa-ellipsis-v"></i></div>
+    <div class="top-nav-tools">
+        <div class="circle-tool" onclick="toggleAudio()"><i id="audio-icon" class="fas fa-volume-mute"></i></div>
+        <div class="circle-tool" onclick="openMenu()"><i class="fas fa-ellipsis-h"></i></div>
     </div>
 
-    <div id="dropdown" class="menu-dropdown">
-        <div class="p-2 text-[10px] uppercase font-bold tracking-widest text-blue-500 mb-2 border-b border-white/10">Access Menu</div>
-        <div class="cursor-pointer py-2 text-xs" onclick="changeLang('id')">🇮🇩 Bahasa Indonesia</div>
-        <div class="cursor-pointer py-2 text-xs" onclick="changeLang('en')">🇺🇸 English</div>
-        <div class="cursor-pointer py-2 text-xs" onclick="toggleTheme()">🌓 Ganti Tema</div>
-        <div class="cursor-pointer py-2 text-xs" onclick="autoScroll()">🖱️ Auto Scroll</div>
-        <div class="cursor-pointer py-2 text-xs" onclick="window.open('https://wa.me/6285700398394')">🤝 Kolaborasi</div>
+    <div id="main-menu" class="dropdown-box">
+        <div class="text-[9px] font-black tracking-[0.3em] text-blue-500 mb-4 px-2">SYSTEM ACCESS</div>
+        <div class="drop-item" onclick="setL('id')"><i class="fas fa-flag"></i> Bahasa Indonesia</div>
+        <div class="drop-item" onclick="setL('en')"><i class="fas fa-globe-americas"></i> English</div>
+        <div class="drop-item" onclick="themeSwap()"><i class="fas fa-adjust"></i> Mode Terang/Gelap</div>
+        <div class="drop-item" onclick="scrollAuto()"><i class="fas fa-magic"></i> Auto Exploration</div>
+        <div class="drop-item" onclick="window.location.reload()"><i class="fas fa-sync"></i> Refresh Page</div>
     </div>
 
-    <div class="social-bar">
-        <a href="https://wa.me/6285700398394"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://youtube.com/@abysheha7946"><i class="fab fa-youtube"></i></a>
-        <a href="https://instagram.com/danuardheya"><i class="fab fa-instagram"></i></a>
+    <div class="permanent-social">
+        <a href="https://wa.me/6285700398394" class="social-link"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://youtube.com/@abysheha7946" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="https://instagram.com/danuardheya" class="social-link"><i class="fab fa-instagram"></i></a>
     </div>
 
-    <section id="home" class="text-center">
-        <div data-aos="fade-down" class="mb-8">
-            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="profile-small mx-auto shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+    <section id="layer1" class="text-center">
+        <div data-aos="zoom-in" class="mb-10">
+            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="profile-small mx-auto shadow-[0_0_50px_rgba(59,130,246,0.2)]">
         </div>
-        <h1 id="t-hero" class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4" data-aos="fade-up">
-            Designing <span class="font-serif italic text-blue-500">Dreams.</span>
+        <h1 id="hero-title" class="text-4xl md:text-7xl font-extrabold tracking-tighter mb-6 uppercase" data-aos="fade-up">
+            Beyond <span class="font-serif italic text-blue-500">Limits.</span>
         </h1>
-        <p id="d-hero" class="text-gray-400 max-w-lg mx-auto text-sm font-light leading-relaxed" data-aos="fade-up" data-aos-delay="200">
-            Sebuah perjalanan teknis mengubah sketsa menjadi struktur nyata yang abadi.
+        <p id="hero-desc" class="text-gray-400 max-w-lg mx-auto text-xs md:text-sm font-light tracking-wide leading-relaxed px-4" data-aos="fade-up" data-aos-delay="200">
+            Membangun masa depan melalui perpaduan seni desain 3D dan presisi perhitungan teknik sipil.
         </p>
     </section>
 
-    <section id="work">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold mb-10 tracking-tighter uppercase" data-aos="fade-right">The Showcase</h2>
-            <div class="flex overflow-x-auto gap-8 pb-10" data-aos="fade-up">
-                <img src="https://lh3.googleusercontent.com/d/1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz" class="w-80 h-96 object-cover rounded-[40px] border border-white/10">
-                <img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39" class="w-80 h-96 object-cover rounded-[40px] border border-white/10">
-                <img src="https://lh3.googleusercontent.com/d/1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk" class="w-80 h-96 object-cover rounded-[40px] border border-white/10">
+    <section id="layer2">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="flex items-center gap-4 mb-14" data-aos="fade-right">
+                <div class="h-[1px] w-20 bg-blue-500"></div>
+                <h2 id="work-title" class="text-2xl font-bold uppercase tracking-widest">Masterpieces</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
-                <div class="bg-white/5 p-10 rounded-[40px] border border-white/5" data-aos="zoom-in">
-                    <h3 class="text-xl font-bold mb-4">Precision Engineering</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Dari Gambar Kerja (DED) hingga analisis biaya pembangunan yang akurat.</p>
+            
+            <div class="flex overflow-x-auto gap-8 pb-10 px-2 no-scrollbar" data-aos="fade-up">
+                <img src="https://lh3.googleusercontent.com/d/1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz" class="w-72 h-96 object-cover rounded-[35px] border border-white/5 grayscale hover:grayscale-0 transition-all duration-700">
+                <img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39" class="w-72 h-96 object-cover rounded-[35px] border border-white/5 grayscale hover:grayscale-0 transition-all duration-700">
+                <img src="https://lh3.googleusercontent.com/d/1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk" class="w-72 h-96 object-cover rounded-[35px] border border-white/5 grayscale hover:grayscale-0 transition-all duration-700">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+                <div class="p-10 rounded-[35px] bg-white/[0.02] border border-white/5 hover:bg-blue-600/5 transition" data-aos="fade-up">
+                    <h3 class="font-bold text-lg mb-4">Engineering DED</h3>
+                    <p id="ded-desc" class="text-xs text-gray-500 leading-relaxed">Penyusunan gambar kerja teknis dengan tingkat ketelitian tinggi untuk hasil konstruksi yang aman dan efisien.</p>
                 </div>
-                <div class="bg-white/5 p-10 rounded-[40px] border border-white/5" data-aos="zoom-in" data-aos-delay="200">
-                    <h3 class="text-xl font-bold mb-4">Visual Strategy</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed">Menghidupkan imajinasi arsitektural dalam balutan 3D yang sangat realistis.</p>
+                <div class="p-10 rounded-[35px] bg-white/[0.02] border border-white/5 hover:bg-purple-600/5 transition" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="font-bold text-lg mb-4">RAB Strategic</h3>
+                    <p id="rab-desc" class="text-xs text-gray-400 leading-relaxed">Perencanaan anggaran biaya yang transparan dan akurat guna mendukung manajemen proyek yang optimal.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer id="contact" class="py-32 text-center">
-        <h2 class="text-7xl font-black opacity-5 mb-10 tracking-widest">CONNECT</h2>
-        <p class="font-mono text-[9px] tracking-[1.5em] opacity-20 uppercase">Danuardheya Portfolio • 2024</p>
-    </footer>
+    <section id="layer3" class="text-center">
+        <h2 class="text-8xl font-black opacity-[0.03] mb-8 select-none">ARCHITECTURE</h2>
+        <div class="font-mono text-[9px] tracking-[2em] opacity-30 mt-20">DANUARDHEYA • 2024</div>
+    </section>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1200 });
+        AOS.init({ duration: 1500 });
 
-        // MUSIC & WELCOME LOGIC
-        const player = document.getElementById('youtube-player');
-        let muted = true;
+        // Youtube Player Logic
+        let player;
+        let isPlaying = false;
 
-        function startApp() {
-            document.getElementById('welcome-screen').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('welcome-screen').style.display = 'none';
-            }, 1000);
-            
-            // Unmute & Play
-            player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            player.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-            document.getElementById('music-icon').className = "fas fa-volume-up";
-            muted = false;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                height: '0', width: '0',
+                videoId: 'VBpOA8eBRBY', // ID Video dari link Anda
+                playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': 'VBpOA8eBRBY' },
+                events: { 'onReady': onPlayerReady }
+            });
         }
 
-        function toggleMute() {
-            if (muted) {
-                player.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-                document.getElementById('music-icon').className = "fas fa-volume-up";
-                muted = false;
-            } else {
-                player.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
-                document.getElementById('music-icon').className = "fas fa-volume-mute";
-                muted = true;
+        function onPlayerReady(event) {
+            // Player siap, tapi browser tetap butuh klik untuk suara
+        }
+
+        function activateExperience() {
+            // Hilangkan Overlay
+            document.getElementById('welcome-overlay').style.opacity = '0';
+            document.getElementById('welcome-overlay').style.pointerEvents = 'none';
+            
+            // Putar Musik & Unmute
+            if(player && player.playVideo) {
+                player.playVideo();
+                player.unMute();
+                isPlaying = true;
+                document.getElementById('audio-icon').className = "fas fa-volume-up text-blue-500";
             }
         }
 
-        // TOOLBAR FEATURES
-        function toggleMenu() { document.getElementById('dropdown').classList.toggle('active'); }
-        function autoScroll() { window.scrollBy({ top: 800, behavior: 'smooth' }); }
-        function toggleTheme() { document.body.classList.toggle('bg-white'); document.body.classList.toggle('text-black'); }
+        function toggleAudio() {
+            if(isPlaying) {
+                player.mute();
+                document.getElementById('audio-icon').className = "fas fa-volume-mute";
+                isPlaying = false;
+            } else {
+                player.unMute();
+                document.getElementById('audio-icon').className = "fas fa-volume-up text-blue-500";
+                isPlaying = true;
+            }
+        }
 
-        // XPERIA WATER EFFECT
+        // Dropdown Menu
+        function openMenu() { document.getElementById('main-menu').classList.toggle('active'); }
+        window.onclick = function(e) { if(!e.target.closest('.top-nav-tools')) document.getElementById('main-menu').classList.remove('active'); }
+
+        // Features
+        function themeSwap() { document.body.classList.toggle('bg-white'); document.body.classList.toggle('text-black'); }
+        function scrollAuto() { window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }); }
+
+        // Water Ripple
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let ripples = [];
-        class Ripple {
-            constructor(x, y) { this.x = x; this.y = y; this.r = 2; this.op = 0.5; }
+        let drops = [];
+        class Drop {
+            constructor(x, y) { this.x = x; this.y = y; this.r = 1; this.o = 0.6; }
+            update() { this.r += 2.5; this.o -= 0.015; }
             draw() {
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(255, 255, 255, ${this.op})`; ctx.stroke();
-                this.r += 3; this.op -= 0.02;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+                ctx.strokeStyle = `rgba(255,255,255,${this.o})`; ctx.stroke();
             }
         }
-        window.addEventListener('mousedown', (e) => ripples.push(new Ripple(e.clientX, e.clientY)));
-        function anim() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ripples = ripples.filter(r => r.op > 0); ripples.forEach(r => r.draw());
-            requestAnimationFrame(anim);
-        }
-        anim();
+        window.addEventListener('mousedown', (e) => drops.push(new Drop(e.clientX, e.clientY)));
+        window.addEventListener('touchstart', (e) => drops.push(new Drop(e.touches[0].clientX, e.touches[0].clientY)));
 
-        function changeLang(l) {
-            const t = {
-                id: { h: "Designing Dreams.", d: "Perjalanan teknis mengubah sketsa menjadi nyata." },
-                en: { h: "Designing Reality.", d: "A technical journey turning sketches into structures." }
+        function drawAnim() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            drops = drops.filter(d => d.o > 0);
+            drops.forEach(d => { d.update(); d.draw(); });
+            requestAnimationFrame(drawAnim);
+        }
+        drawAnim();
+
+        function setL(l) {
+            const content = {
+                id: { h: "Beyond Limits.", d: "Membangun masa depan melalui perpaduan desain 3D dan presisi teknik sipil." },
+                en: { h: "Infinity Space.", d: "Building the future through 3D design and civil engineering precision." }
             };
-            document.getElementById('t-hero').innerHTML = t[l].h;
-            document.getElementById('d-hero').innerText = t[l].d;
-            toggleMenu();
+            document.getElementById('hero-title').innerHTML = content[l].h;
+            document.getElementById('hero-desc').innerText = content[l].d;
         }
     </script>
 </body>
-    </html>
-    
+                        </html>
+            
