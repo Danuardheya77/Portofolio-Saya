@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | Portfolio</title>
+    <title>Danuardheya | Civil Engineer & Design Strategist</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -12,100 +12,101 @@
         :root { --bg-color: #020305; --text-color: white; --card-bg: rgba(255, 255, 255, 0.02); }
         .light-mode { --bg-color: #f8fafc; --text-color: #0f172a; --card-bg: rgba(0, 0, 0, 0.03); }
 
-        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; transition: background 0.5s ease; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.5s ease; }
         
-        /* Glow Running Effect */
+        .mesh-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; opacity: 0.5;
+            background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.1) 0px, transparent 50%);
+        }
+
+        /* RGB GLOW TOOLBAR */
         @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .glow-wrapper { position: fixed; bottom: 30px; right: 30px; z-index: 9999; width: 50px; height: 50px; cursor: move; touch-action: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .glow-border { position: absolute; width: 100%; height: 100%; border-radius: 50%; padding: 2px;
+            background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000); background-size: 400%; animation: rotateGlow 3s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; opacity: 0.8; }
+        .toolbar-menu { position: relative; display: flex; flex-direction: column; gap: 15px; opacity: 0; visibility: hidden; transition: 0.3s; margin-bottom: 250px; background: rgba(0,0,0,0.6); backdrop-blur: 10px; p: 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .glow-wrapper:hover .toolbar-menu { opacity: 1; visibility: visible; }
         
-        .glow-wrapper {
-            position: fixed; bottom: 30px; right: 30px; z-index: 9999;
-            width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-            cursor: move; touch-action: none; border-radius: 50%;
-        }
-
-        .glow-border {
-            position: absolute; width: 100%; height: 100%;
-            border-radius: 50%; padding: 2px;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
-            background-size: 400% 400%;
-            animation: rotateGlow 3s linear infinite;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
-            opacity: 0.7;
-        }
-
-        .toolbar-content { position: relative; display: flex; flex-direction: column; gap: 15px; opacity: 0; visibility: hidden; transition: 0.3s; margin-bottom: 60px; }
-        .glow-wrapper:hover .toolbar-content { opacity: 1; visibility: visible; }
-
-        .tool-btn { background: none; border: none; color: var(--text-color); font-size: 1.1rem; cursor: pointer; transition: 0.3s; opacity: 0.6; }
-        .tool-btn:hover { opacity: 1; transform: scale(1.2); }
-
-        .glass-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid rgba(128, 128, 128, 0.1); border-radius: 2rem; }
-        .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .slider-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 20px; }
+        /* SLIDER */
+        .slider-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 20px; -webkit-overflow-scrolling: touch; }
         .slider-item { flex: 0 0 auto; scroll-snap-align: start; width: 85%; max-width: 600px; }
-        .slider-item img { width: 100%; height: auto; border-radius: 1.5rem; }
+        .slider-item img { width: 100%; height: auto; border-radius: 2rem; border: 1px solid rgba(128,128,128,0.1); }
+
+        .glass-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid rgba(128, 128, 128, 0.1); border-radius: 2.5rem; transition: 0.4s; }
+        .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
-<body id="app-body">
-    <div class="fixed top-0 left-0 w-full h-full -z-10 opacity-20 pointer-events-none">
-        <div class="absolute top-0 left-0 w-96 h-96 bg-blue-600 rounded-full blur-[120px]"></div>
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-600 rounded-full blur-[120px]"></div>
-    </div>
+<body id="main-body">
+    <div class="mesh-bg"></div>
 
-    <div id="draggable-wrapper" class="glow-wrapper">
+    <div id="drag-box" class="glow-wrapper">
         <div class="glow-border"></div>
-        
-        <div class="toolbar-content bg-black/50 backdrop-blur-xl p-4 rounded-3xl border border-white/10">
-            <div class="flex flex-col gap-2 border-b border-white/10 pb-2">
-                <button onclick="changeLang('id')" class="tool-btn text-[10px] font-bold">ID</button>
-                <button onclick="changeLang('en')" class="tool-btn text-[10px] font-bold">EN</button>
-                <button onclick="changeLang('cn')" class="tool-btn text-[10px] font-bold">CN</button>
+        <div class="toolbar-menu p-4">
+            <div class="flex flex-col gap-3 text-center">
+                <button onclick="setL('id')" class="text-[10px] font-bold hover:text-blue-400">ID</button>
+                <button onclick="setL('en')" class="text-[10px] font-bold hover:text-blue-400">EN</button>
+                <button onclick="setL('cn')" class="text-[10px] font-bold hover:text-blue-400">CN</button>
+                <hr class="border-white/10">
+                <button onclick="tSize('p')" class="text-sm"><i class="fas fa-plus"></i></button>
+                <button onclick="tSize('m')" class="text-sm"><i class="fas fa-minus"></i></button>
+                <button onclick="tTheme()" class="text-sm"><i class="fas fa-adjust"></i></button>
             </div>
-            <button onclick="changeTextSize('plus')" class="tool-btn"><i class="fas fa-font"></i>+</button>
-            <button onclick="changeTextSize('minus')" class="tool-btn"><i class="fas fa-font"></i>-</button>
-            <button onclick="toggleTheme()" class="tool-btn"><i class="fas fa-adjust"></i></button>
         </div>
-
-        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <i class="fas fa-universal-access text-xl opacity-80"></i>
-        </div>
+        <i class="fas fa-hand-pointer absolute opacity-50 pointer-events-none"></i>
     </div>
 
     <nav class="fixed w-full z-50 bg-black/10 backdrop-blur-md px-10 py-6 flex justify-between items-center">
         <span class="font-bold tracking-[0.4em] uppercase text-[10px]">Danuardheya</span>
     </nav>
 
-    <section class="min-h-screen flex flex-col justify-center items-center px-6 text-center">
+    <section class="min-h-screen flex flex-col justify-center items-center px-6 pt-32 text-center">
         <div data-aos="zoom-out" class="mb-12">
-            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="w-64 h-64 rounded-[50px] object-cover shadow-2xl">
+            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="w-64 h-64 rounded-[50px] object-cover shadow-2xl border border-white/10">
         </div>
-        <h2 id="hero-title" data-aos="fade-up" class="text-6xl md:text-9xl font-extrabold tracking-tighter uppercase mb-8 leading-[0.85]">
-            DESIGNING <br> <span class="gradient-text italic text-id">THE REALITY.</span>
+        <h2 id="t-hero" data-aos="fade-up" class="text-6xl md:text-9xl font-extrabold tracking-tighter uppercase mb-8 leading-[0.85]">
+            DESIGNING <br> <span class="gradient-text italic">THE REALITY.</span>
         </h2>
-        <p id="hero-desc" data-aos="fade-up" data-aos-delay="100" class="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p id="d-hero" data-aos="fade-up" data-aos-delay="100" class="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
             Spesialis dalam visualisasi 3D, detail gambar kerja (DED), hingga perhitungan RAB yang akurat.
         </p>
     </section>
 
-    <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
-        <h3 id="project-label" class="text-4xl font-extrabold uppercase mb-12">3D Projects.</h3>
-        <div class="slider-container" data-aos="fade-up">
+    <section id="work" class="py-40 px-6 max-w-7xl mx-auto">
+        <div class="mb-12" data-aos="fade-right">
+            <p class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[10px] mb-4">Portfolio</p>
+            <h3 id="h-project" class="text-4xl md:text-6xl font-extrabold uppercase tracking-tighter">3D Interior & Exterior.</h3>
+            <p class="text-[10px] opacity-40 uppercase tracking-widest mt-2">Swipe to explore →</p>
+        </div>
+
+        <div class="slider-container mb-24" data-aos="fade-up">
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz"></div>
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39"></div>
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk"></div>
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O"></div>
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1yZizqsVFZ-oEaAPpdpk-VWzRSYCtDIkO"></div>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="glass-card p-12 border-l-4 border-l-purple-500" data-aos="fade-up">
+                <i class="fas fa-drafting-compass text-3xl text-purple-500 mb-6"></i>
+                <h4 id="h-2d" class="text-2xl font-bold mb-4 uppercase">2D CAD & Detailing</h4>
+                <p id="d-2d" class="text-gray-500 text-sm font-light leading-relaxed">Penyusunan gambar teknis presisi tinggi, mulai dari denah hingga detail arsitektural eksekusi lapangan.</p>
+            </div>
+            <div class="glass-card p-12 border-l-4 border-l-emerald-500" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-calculator text-3xl text-emerald-500 mb-6"></i>
+                <h4 id="h-rab" class="text-2xl font-bold mb-4 uppercase">Perhitungan RAB</h4>
+                <p id="d-rab" class="text-gray-500 text-sm font-light leading-relaxed">Estimasi biaya pembangunan akurat untuk memastikan proyek berjalan sesuai budget klien secara transparan.</p>
+            </div>
+        </div>
     </section>
 
-    <footer class="py-20 text-center">
-        <div class="flex justify-center gap-10 mb-10">
-            <a href="https://wa.me/6285700398394" class="text-xl opacity-40 hover:opacity-100 transition"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://youtube.com/@abysheha7946" class="text-xl opacity-40 hover:opacity-100 transition"><i class="fab fa-youtube"></i></a>
+    <footer class="py-40 text-center border-t border-white/5">
+        <h4 class="text-4xl font-extrabold mb-20 italic uppercase tracking-tighter">Ready to <span class="gradient-text">Work?</span></h4>
+        <div class="flex justify-center gap-12 mb-20">
+            <a href="https://wa.me/6285700398394" class="text-2xl opacity-40 hover:opacity-100 transition hover:text-green-500"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://youtube.com/@abysheha7946" class="text-2xl opacity-40 hover:opacity-100 transition hover:text-red-500"><i class="fab fa-youtube"></i></a>
+            <a href="https://instagram.com/danuardheya" class="text-2xl opacity-40 hover:opacity-100 transition hover:text-pink-500"><i class="fab fa-instagram"></i></a>
         </div>
         <p class="text-[9px] tracking-[1em] opacity-20 font-black">DANUARDHEYA • 2024</p>
     </footer>
@@ -114,62 +115,39 @@
     <script>
         AOS.init({ duration: 1200 });
 
-        // LOGIKA THEME
-        function toggleTheme() { document.body.classList.toggle('light-mode'); }
+        // THEME & SIZE
+        function tTheme() { document.body.classList.toggle('light-mode'); }
+        let fs = 100;
+        function tSize(m) { fs = (m === 'p') ? fs+10 : fs-10; document.getElementById('main-body').style.fontSize = fs+"%"; }
 
-        // LOGIKA BAHASA
-        const translations = {
-            id: {
-                title: "MERANCANG <br> <span class='gradient-text italic'>REALITA.</span>",
-                desc: "Spesialis dalam visualisasi 3D, detail gambar kerja (DED), hingga perhitungan RAB yang akurat.",
-                project: "Proyek 3D."
-            },
-            en: {
-                title: "DESIGNING <br> <span class='gradient-text italic'>REALITY.</span>",
-                desc: "Specialist in 3D visualization, detailed engineering design (DED), and accurate budget estimation (RAB).",
-                project: "3D Projects."
-            },
-            cn: {
-                title: "设计 <br> <span class='gradient-text italic'>现实.</span>",
-                desc: "专注于 3D 可视化、详细施工图 (DED) 和精准的成本核算 (RAB)。",
-                project: "3D 项目."
-            }
+        // MULTI LANGUAGE
+        const lang = {
+            id: { hero: "MERANCANG <br> <span class='gradient-text italic'>REALITA.</span>", desc: "Spesialis dalam visualisasi 3D, detail gambar kerja (DED), hingga perhitungan RAB yang akurat.", proj: "3D Interior & Eksterior.", h2d: "2D CAD & Detailing", d2d: "Gambar teknis presisi tinggi untuk eksekusi lapangan.", hrab: "Perhitungan RAB", drab: "Estimasi biaya pembangunan akurat dan transparan." },
+            en: { hero: "DESIGNING <br> <span class='gradient-text italic'>THE REALITY.</span>", desc: "Specialist in 3D visualization, detailed engineering design (DED), and accurate budget estimation (RAB).", proj: "3D Interior & Exterior.", h2d: "2D CAD & Detailing", d2d: "High-precision technical drawings for field execution.", hrab: "Budget Estimation", drab: "Accurate and transparent construction cost estimation." },
+            cn: { hero: "设计 <br> <span class='gradient-text italic'>现实.</span>", desc: "专注于 3D 可视化、详细施工图 (DED) 和精准的成本核算 (RAB)。", proj: "3D 室内外设计.", h2d: "2D CAD 绘图", d2d: "用于现场施工的高精度技术图纸。", hrab: "成本核算", drab: "准确透明的建筑成本估算。" }
         };
-
-        function changeLang(lang) {
-            document.getElementById('hero-title').innerHTML = translations[lang].title;
-            document.getElementById('hero-desc').innerText = translations[lang].desc;
-            document.getElementById('project-label').innerText = translations[lang].project;
+        function setL(l) {
+            document.getElementById('t-hero').innerHTML = lang[l].hero;
+            document.getElementById('d-hero').innerText = lang[l].desc;
+            document.getElementById('h-project').innerText = lang[l].proj;
+            document.getElementById('h-2d').innerText = lang[l].h2d;
+            document.getElementById('d-2d').innerText = lang[l].d2d;
+            document.getElementById('h-rab').innerText = lang[l].hrab;
+            document.getElementById('d-rab').innerText = lang[l].drab;
         }
 
-        // LOGIKA AKSESIBILITAS (TEKS)
-        let fontSize = 100;
-        function changeTextSize(type) {
-            fontSize = type === 'plus' ? fontSize + 10 : fontSize - 10;
-            document.getElementById('app-body').style.fontSize = fontSize + "%";
-        }
-
-        // DRAGGABLE LOGIC
-        const wrapper = document.getElementById('draggable-wrapper');
-        let xOffset = 0, yOffset = 0, active = false;
-
-        wrapper.addEventListener("mousedown", dragStart);
-        document.addEventListener("mouseup", () => active = false);
-        document.addEventListener("mousemove", drag);
-        wrapper.addEventListener("touchstart", (e) => dragStart(e.touches[0]));
-        document.addEventListener("touchend", () => active = false);
-        document.addEventListener("touchmove", (e) => drag(e.touches[0]));
-
-        function dragStart(e) { active = true; initialX = e.clientX - xOffset; initialY = e.clientY - yOffset; }
-        function drag(e) {
-            if (active) {
-                e.preventDefault ? e.preventDefault() : null;
-                currentX = e.clientX - initialX; currentY = e.clientY - initialY;
-                xOffset = currentX; yOffset = currentY;
-                wrapper.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-            }
-        }
+        // DRAGGABLE TOOLBAR
+        const dragBox = document.getElementById('drag-box');
+        let xO = 0, yO = 0, act = false;
+        dragBox.addEventListener("mousedown", dS);
+        document.addEventListener("mouseup", () => act = false);
+        document.addEventListener("mousemove", dM);
+        dragBox.addEventListener("touchstart", (e) => dS(e.touches[0]));
+        document.addEventListener("touchend", () => act = false);
+        document.addEventListener("touchmove", (e) => dM(e.touches[0]));
+        function dS(e) { act = true; iX = e.clientX - xO; iY = e.clientY - yO; }
+        function dM(e) { if (act) { currentX = e.clientX - iX; currentY = e.clientY - iY; xO = currentX; yO = currentY; dragBox.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`; } }
     </script>
 </body>
     </html>
-            
+                                                                                                 
