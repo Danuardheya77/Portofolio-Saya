@@ -7,198 +7,226 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@400;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
     
     <style>
         :root { 
             --accent: #3b82f6; --neon: #00f2ff; 
-            --bg: #020617; --text: #ffffff; --grid: rgba(59, 130, 246, 0.05);
+            --bg: #020617; --text: #ffffff;
         }
-        .light-mode { --bg: #f8fafc; --text: #0f172a; --grid: rgba(59, 130, 246, 0.15); }
-
-        body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: all 0.5s ease; overflow-x: hidden; margin: 0; }
-        
-        /* Engineering Grid Overlay */
-        body::before {
-            content: ""; position: fixed; inset: 0;
-            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-            background-size: 50px 50px; z-index: -1;
+        /* Light Mode - Warm Glow */
+        .light-mode { 
+            --bg: #fffcf2; --text: #252422; 
+        }
+        .light-mode .glow-warm {
+            box-shadow: 0 0 15px #ffb703, 0 0 30px rgba(255, 183, 3, 0.3);
+            border-color: #ffb703 !important;
         }
 
-        /* Hero Background Architectural */
+        body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: 0.5s; overflow-x: hidden; margin: 0; }
+
+        /* Dark Mode - Running RGB Glow */
+        @keyframes rgbRunning {
+            0% { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; }
+            33% { border-color: #00ff00; box-shadow: 0 0 15px #00ff00; }
+            66% { border-color: #0000ff; box-shadow: 0 0 15px #0000ff; }
+            100% { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; }
+        }
+        .dark-rgb-glow { animation: rgbRunning 4s linear infinite; }
+
         .hero-section {
-            position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-center;
-            background-image: linear-gradient(to bottom, rgba(2,6,23,0.8), var(--bg)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070');
+            position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: linear-gradient(to bottom, rgba(2,6,23,0.7), var(--bg)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000');
             background-size: cover; background-position: center;
         }
 
-        .brand-name { font-family: 'Playfair Display', serif; font-size: 2.5rem; letter-spacing: 0.1em; font-style: italic; }
-        
-        @keyframes rgbBorder {
-            0% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; }
-            33% { border-color: #00ff00; box-shadow: 0 0 8px #00ff00; }
-            66% { border-color: #0000ff; box-shadow: 0 0 8px #0000ff; }
-            100% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; }
-        }
-        .rgb-active { animation: rgbBorder 3s linear infinite !important; border-width: 2px !important; }
-
         .tool-btn { 
             background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); 
-            width: 45px; height: 45px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+            width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
             display: flex; align-items: center; justify-content: center; cursor: pointer;
         }
 
         .menu-dropdown { 
             position: fixed; z-index: 10001; background: rgba(2, 6, 23, 0.98); 
             backdrop-filter: blur(25px); border-radius: 20px; padding: 20px; 
-            border: 1px solid rgba(59, 130, 246, 0.3); display: none; width: 240px;
+            border: 1px solid rgba(255,255,255,0.1); display: none; width: 220px;
         }
 
-        .work-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 25px; width: 100%; }
-        @media (min-width: 768px) { .work-grid { grid-template-columns: repeat(3, 1fr); } .brand-name { font-size: 3.5rem; } }
-
-        .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s ease; }
-        .image-card:hover { transform: translateY(-10px); border-color: var(--neon); }
-
-        #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
-        #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; }
+        #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; cursor: move; }
+        .brand-name { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-style: italic; }
         
-        /* Greeting Bubble */
         .greeting-bubble {
-            position: absolute; bottom: 75px; left: 0; background: white; color: black;
-            padding: 8px 15px; border-radius: 15px; font-size: 11px; font-weight: bold;
-            white-space: nowrap; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            position: absolute; bottom: 80px; left: 0; background: white; color: black;
+            padding: 10px 20px; border-radius: 20px; font-size: 12px; font-weight: 800;
+            display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 10003;
         }
-        
-        input[type=range] { -webkit-appearance: none; background: transparent; }
-        input[type=range]::-webkit-slider-runnable-track { background: rgba(59, 130, 246, 0.3); height: 2px; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; background: #00f2ff; border-radius: 50%; margin-top: -6px; }
+
+        .image-card { border-radius: 15px; overflow: hidden; transition: 0.4s; border: 1px solid rgba(255,255,255,0.1); }
+        .image-card:hover { transform: scale(1.03); border-color: var(--neon); }
     </style>
 </head>
-<body>
-    <canvas id="water-canvas"></canvas>
+<body class="dark-mode"> <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:9998;"></canvas>
 
-    <div class="fixed top-[25px] right-[25px] z-[10001] flex gap-3">
-        <div class="tool-btn rgb-active" onclick="toggleTheme()"><i id="theme-icon" class="fas fa-moon text-xs"></i></div>
-        <div class="tool-btn" onclick="toggleMenu('dropdown')"><i class="fas fa-bars opacity-50 text-xs"></i></div>
+    <div class="fixed top-6 right-6 z-[10001] flex gap-4">
+        <div id="theme-btn" class="tool-btn dark-rgb-glow" onclick="toggleTheme()">
+            <i id="theme-icon" class="fas fa-moon"></i>
+        </div>
+        <div id="nav-btn" class="tool-btn dark-rgb-glow" onclick="toggleMenu('dropdown')">
+            <i class="fas fa-th-large"></i>
+        </div>
     </div>
 
-    <div id="dropdown" class="menu-dropdown top-[85px] right-[25px]">
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-400 t-nav-home" onclick="location.href='#home'">Beranda</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-400 t-nav-work" onclick="location.href='#work'">Proyek 3D</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-400 t-nav-cad" onclick="location.href='#cad'">Gambar Teknik</div>
+    <div id="dropdown" class="menu-dropdown top-24 right-6">
+        <div class="py-3 text-sm cursor-pointer border-b border-white/10" onclick="location.href='#home'">Home</div>
+        <div class="py-3 text-sm cursor-pointer border-b border-white/10" onclick="location.href='#work'">3D Projects</div>
+        <div class="py-3 text-sm cursor-pointer" onclick="location.href='#contact'">Contact</div>
     </div>
 
     <div id="acc-box">
-        <div class="tool-btn rgb-active w-12 h-12 rounded-full" onclick="toggleMenu('lang-nav')">
-            <i class="fas fa-language text-cyan-400"></i>
+        <div id="acc-btn" class="tool-btn dark-rgb-glow shadow-2xl">
+            <i class="fas fa-language text-xl"></i>
         </div>
-        <div id="lang-nav" class="menu-dropdown mt-3 left-0 top-full">
-            <div class="text-[10px] opacity-40 mb-3 tracking-widest uppercase">Select Language</div>
-            <div class="grid grid-cols-1 gap-1 text-[11px]">
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('id')">Indonesian</div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('en')">English</div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('ja')">Japanese</div>
+        <div id="lang-nav" class="menu-dropdown mt-4 left-0">
+            <div class="text-[10px] opacity-50 mb-3 uppercase tracking-tighter">Choose Language</div>
+            <div class="grid grid-cols-1 gap-2 text-xs">
+                <div class="p-2 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('id')">Indonesian</div>
+                <div class="p-2 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('en')">English</div>
+                <div class="p-2 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('ja')">Japanese</div>
             </div>
         </div>
     </div>
 
-    <div class="fixed bottom-6 left-6 z-[10002]" onclick="showGreeting()" style="cursor: pointer;">
+    <div class="fixed bottom-8 left-8 z-[10002]" onclick="showGreeting()">
         <div id="greet-msg" class="greeting-bubble">Halo!</div>
-        <div class="w-14 h-14 rounded-full border-2 border-cyan-400 overflow-hidden bg-white p-1 hover:scale-110 transition-transform shadow-lg">
+        <div class="w-16 h-16 rounded-full border-2 border-white/20 p-1 bg-white shadow-xl hover:scale-110 transition">
             <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-contain rounded-full">
         </div>
     </div>
 
-    <section id="home" class="hero-section">
-        <div class="mb-6" data-aos="zoom-in">
-            <div class="w-32 h-32 md:w-36 md:h-36 rounded-full border-2 border-cyan-400 p-1.5 bg-white shadow-2xl">
-                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
+    <section id="home" class="hero-section text-center">
+        <div class="mb-8" data-aos="fade-down">
+            <div class="w-36 h-36 rounded-full border-4 border-white/10 p-2 bg-white/5 backdrop-blur-md">
+                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full shadow-2xl">
             </div>
         </div>
-        <h1 class="brand-name font-bold mb-1" data-aos="fade-up">Danuardheya</h1>
-        <p id="t-hero" class="text-cyan-400 tracking-[0.5em] text-[10px] md:text-xs uppercase font-light">Architectural Design Studio</p>
+        <h1 class="brand-name font-bold" data-aos="fade-up">Danuardheya</h1>
+        <p id="t-hero" class="text-blue-400 tracking-[0.6em] text-[10px] uppercase mt-4">Architectural Design Studio</p>
     </section>
 
-    <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 id="t-work-title" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400 mb-12">3D Visual Showcase</h2>
-        <div class="work-grid" data-aos="fade-up">
+    <section id="work" class="py-20 px-10 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800"></div>
-            </div>
+        </div>
     </section>
 
-    <div class="fixed bottom-6 right-6 z-[10001] flex flex-col items-center gap-2 opacity-30 hover:opacity-100 transition-all">
-        <span id="t-scroll-label" class="text-[8px] text-cyan-400 font-bold uppercase">Auto Scroll</span>
-        <div class="flex items-center gap-3">
-            <div onclick="toggleAutoScroll()" id="sc-btn" class="w-10 h-10 border border-cyan-500/30 rounded-full flex items-center justify-center cursor-pointer">
-                <i id="sc-icon" class="fas fa-play text-[10px] text-cyan-400"></i>
-            </div>
-            <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-16" oninput="changeSpeed()">
+    <div class="fixed bottom-8 right-8 z-[10001] flex items-center gap-4 opacity-40 hover:opacity-100 transition">
+        <div onclick="toggleAutoScroll()" id="sc-btn" class="w-10 h-10 border border-white/30 rounded-full flex items-center justify-center cursor-pointer">
+            <i id="sc-icon" class="fas fa-play text-[10px]"></i>
         </div>
+        <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-20" oninput="changeSpeed()">
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        AOS.init();
 
-        // Dictionary
-        const trans = {
-            id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D", navHome: "Beranda", scroll: "Gulir Otomatis" },
-            en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE", navHome: "Home", scroll: "Auto Scroll" },
-            ja: { hero: "現実を構築する", work: "3D展示", navHome: "ホーム", scroll: "スクロール" }
-        };
-
-        function setLang(l) {
-            const t = trans[l];
-            document.getElementById('t-hero').innerText = t.hero;
-            document.getElementById('t-work-title').innerText = t.work;
-            document.querySelector('.t-nav-home').innerText = t.navHome;
-            document.getElementById('t-scroll-label').innerText = t.scroll;
-            toggleMenu('lang-nav');
+        // THEME & GLOW LOGIC
+        function toggleTheme() {
+            const body = document.body;
+            const btns = document.querySelectorAll('.tool-btn');
+            body.classList.toggle('light-mode');
+            
+            btns.forEach(btn => {
+                if(body.classList.contains('light-mode')) {
+                    btn.classList.remove('dark-rgb-glow');
+                    btn.classList.add('glow-warm');
+                    document.getElementById('theme-icon').className = 'fas fa-sun';
+                } else {
+                    btn.classList.add('dark-rgb-glow');
+                    btn.classList.remove('glow-warm');
+                    document.getElementById('theme-icon').className = 'fas fa-moon';
+                }
+            });
         }
+
+        // ACCESSIBILITY DRAG & CLICK FIX
+        const accBox = document.getElementById("acc-box");
+        const accBtn = document.getElementById("acc-btn");
+        let isDragging = false;
+        let startPos = { x: 0, y: 0 };
+
+        accBox.addEventListener("mousedown", (e) => {
+            isDragging = false;
+            startPos = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener("mousemove", (e) => {
+            if (Math.abs(e.clientX - startPos.x) > 5 || Math.abs(e.clientY - startPos.y) > 5) {
+                isDragging = true;
+            }
+        });
+
+        accBtn.addEventListener("click", () => {
+            if (!isDragging) toggleMenu('lang-nav');
+        });
 
         // Smart Greeting
         function showGreeting() {
             const h = new Date().getHours();
             const m = document.getElementById('greet-msg');
-            let g = "";
-            if (h >= 5 && h < 11) g = "Selamat Pagi! ☀️";
-            else if (h >= 11 && h < 15) g = "Selamat Siang! 🌤️";
-            else if (h >= 15 && h < 18) g = "Selamat Sore! 🌥️";
-            else g = "Selamat Malam! 🌙";
-            m.innerText = g; m.style.display = 'block';
-            setTimeout(() => m.style.display = 'none', 3000);
+            let g = h<11?"Pagi! ☀️":h<15?"Siang! 🌤️":h<18?"Sore! 🌥️":"Malam! 🌙";
+            m.innerText = "Selamat " + g;
+            m.style.display = 'block';
+            setTimeout(() => m.style.display='none', 3000);
         }
 
-        // Auto Scroll & Theme Logic
+        // Standard Functions
+        function toggleMenu(id) {
+            const d = document.getElementById(id);
+            const isVisible = d.style.display === 'block';
+            document.querySelectorAll('.menu-dropdown').forEach(m => m.style.display = 'none');
+            d.style.display = isVisible ? 'none' : 'block';
+        }
+
+        // Auto Scroll
         let isSc = false, scInt, spd = 2;
         function toggleAutoScroll() {
             isSc = !isSc;
-            const i = document.getElementById('sc-icon'), b = document.getElementById('sc-btn');
-            if(isSc) { i.classList.replace('fa-play', 'fa-pause'); b.classList.add('rgb-active'); runSc(); }
-            else { i.classList.replace('fa-pause', 'fa-play'); b.classList.remove('rgb-active'); clearInterval(scInt); }
+            if(isSc) { runSc(); document.getElementById('sc-icon').className='fas fa-pause text-[10px]'; }
+            else { clearInterval(scInt); document.getElementById('sc-icon').className='fas fa-play text-[10px]'; }
         }
-        function runSc() { clearInterval(scInt); scInt = setInterval(() => { window.scrollBy(0, 1); if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) toggleAutoScroll(); }, 50 / spd); }
+        function runSc() {
+            clearInterval(scInt);
+            scInt = setInterval(() => { window.scrollBy(0, 1); }, 50 / spd);
+        }
         function changeSpeed() { spd = document.getElementById('sc-speed').value; if(isSc) runSc(); }
-        
-        function toggleTheme() { document.body.classList.toggle('light-mode'); }
-        function toggleMenu(id) { const d = document.getElementById(id); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
+
+        // Drag Logic Simple
+        let xOff = 0, yOff = 0;
+        accBox.onmousedown = (e) => {
+            let startX = e.clientX - xOff, startY = e.clientY - yOff;
+            document.onmousemove = (ev) => {
+                xOff = ev.clientX - startX; yOff = ev.clientY - startY;
+                accBox.style.transform = `translate(${xOff}px, ${yOff}px)`;
+            };
+            document.onmouseup = () => document.onmousemove = null;
+        };
 
         // Water Ripple
         const canvas = document.getElementById('water-canvas'); const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let ripples = []; window.addEventListener('mousedown', (e) => ripples.push({x: e.clientX, y: e.clientY, r: 0, o: 0.6}));
-        function anim() { ctx.clearRect(0,0,canvas.width,canvas.height); ripples.forEach((r, i) => { r.r += 2; r.o -= 0.01; ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI*2); ctx.strokeStyle = `rgba(0, 242, 255, ${r.o})`; ctx.stroke(); if(r.o <= 0) ripples.splice(i,1); }); requestAnimationFrame(anim); }
-        anim();
-
-        // Drag Accessibility
-        const accBox = document.getElementById("acc-box");
-        let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
-        accBox.addEventListener("mousedown", dragStart); window.addEventListener("mousemove", drag); window.addEventListener("mouseup", () => active = false);
-        function dragStart(e) { initialX = e.clientX - xOffset; initialY = e.clientY - yOffset; if (e.target.closest('.tool-btn')) active = true; }
-        function drag(e) { if (active) { currentX = e.clientX - initialX; currentY = e.clientY - initialY; xOffset = currentX; yOffset = currentY; accBox.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`; } }
+        let rips = []; window.onmousedown = (e) => rips.push({x:e.clientX, y:e.clientY, r:0, o:0.5});
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            rips.forEach((r,i) => {
+                r.r+=2; r.o-=0.01; ctx.beginPath(); ctx.arc(r.x,r.y,r.r,0,Math.PI*2);
+                ctx.strokeStyle=`rgba(255,255,255,${r.o})`; ctx.stroke();
+                if(r.o<=0) rips.splice(i,1);
+            }); requestAnimationFrame(draw);
+        } draw();
     </script>
 </body>
-</html>
+    </html>
+    
