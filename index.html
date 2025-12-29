@@ -18,7 +18,7 @@
             overflow-x: hidden; 
         }
 
-        /* Futuristic Background Grid */
+        /* Futuristic Background Grid Overlay */
         body::before {
             content: "";
             position: fixed;
@@ -39,20 +39,28 @@
             width: 45px; height: 45px; border-radius: 12px; 
             display: flex; align-items: center; justify-content: center; 
             cursor: pointer; border: 1px solid rgba(255,255,255,0.1); 
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: 0.4s; 
         }
-        .tool-btn:hover { border-color: var(--neon); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
 
         .menu-dropdown { 
             position: fixed; top: 85px; right: 25px; z-index: 10001; 
-            background: rgba(2, 6, 23, 0.9); backdrop-filter: blur(25px); 
+            background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(25px); 
             border-radius: 20px; padding: 20px; border: 1px solid rgba(59, 130, 246, 0.3); 
-            display: none; width: 220px; box-shadow: 0 25px 50px rgba(0,0,0,0.8); 
+            display: none; width: 240px; box-shadow: 0 25px 50px rgba(0,0,0,0.8); 
         }
         .menu-dropdown.active { display: block; animation: slideIn 0.4s ease-out; }
 
         #floating-acc { position: fixed; top: 120px; left: 20px; z-index: 10000; width: 45px; height: 45px; cursor: move; touch-action: none; }
         
+        .profile-img-container { 
+            width: 180px; height: 180px; border-radius: 50%; 
+            border: 2px solid var(--neon); padding: 7px; 
+            background: rgba(0, 242, 255, 0.05);
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.15);
+            overflow: hidden;
+        }
+        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
         .rgb-glow-border { 
             position: relative; width: 100%; height: 100%; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
@@ -68,30 +76,23 @@
         @keyframes rotateRGB { 100% { transform: rotate(360deg); } }
         @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 20px; position: relative; }
+        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 20px; }
         
-        .profile-img-container { 
-            width: 180px; height: 180px; border-radius: 50%; 
-            border: 2px solid var(--neon); padding: 7px; 
-            background: rgba(0, 242, 255, 0.05);
-            box-shadow: 0 0 50px rgba(0, 242, 255, 0.15);
-        }
-        
-        .slider-wrap { display: flex; overflow-x: auto; gap: 15px; scrollbar-width: none; padding: 10px 0; width: 100%; -webkit-overflow-scrolling: touch; }
+        .slider-wrap { display: flex; overflow-x: auto; gap: 20px; scrollbar-width: none; padding: 20px 0; width: 100%; -webkit-overflow-scrolling: touch; }
         .slider-wrap::-webkit-scrollbar { display: none; }
-
+        
         .slider-item { 
             flex: 0 0 85%; md:flex: 0 0 45%; border-radius: 24px; 
             overflow: hidden; border: 1px solid rgba(255,255,255,0.08); 
             background: rgba(255,255,255,0.02); backdrop-filter: blur(10px);
             transition: 0.5s;
         }
-        .slider-item:hover { transform: translateY(-10px); border-color: var(--accent); }
-        .slider-item img { width: 100%; height: 280px; object-fit: cover; }
+        .slider-item:hover { transform: translateY(-10px); border-color: var(--neon); }
+        .slider-item img { width: 100%; height: 350px; object-fit: cover; }
 
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
         }
@@ -107,10 +108,10 @@
     
     <div id="dropdown" class="menu-dropdown">
         <div id="t-nav-title" class="p-2 text-[10px] opacity-50 uppercase tracking-widest mb-2 border-b border-white/10">Navigation</div>
-        <div id="t-nav-home" class="py-2 text-sm cursor-pointer hover:text-blue-400 transition" onclick="location.href='#home'">Home</div>
-        <div id="t-nav-3d" class="py-2 text-sm cursor-pointer hover:text-blue-400 transition" onclick="location.href='#work'">3D Projects</div>
-        <div id="t-nav-cad" class="py-2 text-sm cursor-pointer hover:text-blue-400 transition" onclick="location.href='#cad-section'">2D CAD / DED</div>
-        <div id="t-nav-rab" class="py-2 text-sm cursor-pointer hover:text-blue-400 transition" onclick="location.href='#rab-section'">RAB Strategist</div>
+        <div id="t-nav-home" class="py-2 text-sm cursor-pointer hover:text-blue-400" onclick="location.href='#home'">Beranda</div>
+        <div id="t-nav-3d" class="py-2 text-sm cursor-pointer hover:text-blue-400" onclick="location.href='#work'">Proyek 3D</div>
+        <div id="t-nav-cad" class="py-2 text-sm cursor-pointer hover:text-blue-400" onclick="location.href='#cad-section'">2D CAD / DED</div>
+        <div id="t-nav-rab" class="py-2 text-sm cursor-pointer hover:text-blue-400" onclick="location.href='#rab-section'">Analis RAB</div>
     </div>
 
     <div id="floating-acc" onmousedown="dragStart(event)" ontouchstart="dragStart(event)">
@@ -128,25 +129,33 @@
     <section id="home">
         <div data-aos="zoom-in" class="mb-8">
             <div class="profile-img-container">
-                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" alt="Danuardheya" class="profile-img">
+                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" alt="Logo" class="profile-img">
             </div>
         </div>
-        <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-blue-500" data-aos="fade-up">DANUARDHEYA</h1>
-        <p id="t-hero" class="text-blue-400 font-light tracking-widest text-xl md:text-2xl mb-2" data-aos="fade-up" data-aos-delay="100">ARCHITECTING REALITY</p>
-        <p id="t-subhero" class="text-gray-500 text-[11px] tracking-[0.5em] uppercase" data-aos="fade-up" data-aos-delay="200">Civil Engineer & 3D Visualizer</p>
+        <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-blue-500 text-center" data-aos="fade-up">DANUARDHEYA</h1>
+        <p id="t-hero" class="text-blue-400 font-light tracking-widest text-xl text-center uppercase" data-aos="fade-up" data-aos-delay="100">ARCHITECTING REALITY</p>
+        <p id="t-subhero" class="text-gray-500 text-[11px] tracking-[0.5em] uppercase text-center mt-2" data-aos="fade-up" data-aos-delay="200">Civil Engineer & 3D Visualizer</p>
     </section>
 
     <section id="work">
         <div class="w-full max-w-6xl">
             <div class="flex items-center gap-4 mb-8" data-aos="fade-right">
                 <div class="h-[1px] w-12 bg-blue-500"></div>
-                <h2 id="t-h-work" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">3D Architecture Visuals</h2>
+                <h2 id="t-h-work" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">3D Interior & Exterior Showcase</h2>
             </div>
             <div class="slider-wrap" data-aos="fade-up">
                 <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800"></div>
                 <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800"></div>
                 <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800"></div>
                 <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800"></div>
+                <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800"></div>
+                <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800"></div>
+                <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC&sz=w800"></div>
+                <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll&sz=w800"></div>
+                <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=13HPMYy_WXBT190cxMeROkomIofbmg2M0&sz=w800"></div>
+                <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=13_QC3PSpTFgsRz9OKGUfWDjybteLfytu&sz=w800"></div>
+                <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye&sz=w800"></div>
+                <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=146en6-VAKyGWQymoPmIrI3o301EqfrQ2&sz=w800"></div>
                 <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1kSpfXzm_pg8SJLs08mEAxLtnnn2GwQI_&sz=w800"></div>
                 <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O&sz=w800"></div>
                 <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7&sz=w800"></div>
@@ -191,14 +200,8 @@
 
     <footer class="py-20 text-center">
         <div class="opacity-20 text-[10px] tracking-[1.5em] mb-4">DANUARDHEYA • 2025</div>
-        <div id="t-footer-sub" class="text-[8px] text-blue-500/50 uppercase tracking-widest">Digital Engineering Portfolio</div>
+        <div id="t-footer-sub" class="text-[8px] text-blue-500 uppercase tracking-widest">Digital Engineering Portfolio</div>
     </footer>
-
-    <div class="fixed left-5 bottom-8 z-[9999] flex flex-col gap-6">
-        <a href="https://wa.me/6285700398394" target="_blank" class="text-white/30 hover:text-cyan-400 transition-all text-xl"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://instagram.com/danuardheya" target="_blank" class="text-white/30 hover:text-cyan-400 transition-all text-xl"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="text-white/30 hover:text-cyan-400 transition-all text-xl"><i class="fab fa-linkedin-in"></i></a>
-    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -208,29 +211,29 @@
             id: {
                 hero: "MEMBANGUN REALITAS",
                 subhero: "Insinyur Sipil & Visualisator 3D",
-                hWork: "Visual Arsitektur 3D",
+                hWork: "Pameran Interior & Eksterior 3D",
                 hCad: "Cetak Biru Teknik",
                 cadDesc: "Drafting teknis presisi tinggi untuk standar konstruksi profesional dan perizinan bangunan (IMB/PBG).",
                 hRab: "Strategis Anggaran",
                 rabDesc: "Manajemen anggaran biaya pembangunan yang akurat dan efisien menggunakan standar SNI terbaru.",
-                navHome: "Beranda", nav3d: "Proyek 3D", navCad: "CAD / DED", navRab: "Analis RAB", navTitle: "Navigasi",
+                navHome: "Beranda", nav3d: "Proyek 3D", navCad: "CAD / DED", navRab: "Analis RAB", navTitle: "NAVIGASI",
                 footerSub: "Portofolio Teknik Digital"
             },
             en: {
                 hero: "ARCHITECTING REALITY",
                 subhero: "Civil Engineer & 3D Visualizer",
-                hWork: "3D Architecture Visuals",
+                hWork: "3D Interior & Exterior Showcase",
                 hCad: "Engineering Blueprints",
                 cadDesc: "High-precision technical drafting for professional construction standards and building permits.",
                 hRab: "Cost Strategist",
                 rabDesc: "Accurate and efficient construction budget management using the latest SNI standards.",
-                navHome: "Home", nav3d: "3D Projects", navCad: "CAD / DED", navRab: "RAB Analyst", navTitle: "Navigation",
+                navHome: "Home", nav3d: "3D Projects", navCad: "CAD / DED", navRab: "RAB Analyst", navTitle: "NAVIGATION",
                 footerSub: "Digital Engineering Portfolio"
             },
             ar: {
                 hero: "هندسة الواقع",
                 subhero: "مهندس مدني ومصور ثلاثي الأبعاد",
-                hWork: "مرئيات معمارية ثلاثية الأبعاد",
+                hWork: "عرض التصميم الداخلي والخارجي ثلاثي الأبعاد",
                 hCad: "المخططات الهندسية",
                 cadDesc: "صياغة فنية عالية الدقة لمعايير البناء المهنية وتصاريح البناء.",
                 hRab: "مخطط التكلفة",
@@ -241,7 +244,7 @@
             cn: {
                 hero: "构建现实",
                 subhero: "土木工程师和 3D 视觉师",
-                hWork: "3D 建筑视觉效果",
+                hWork: "3D 室内外展示",
                 hCad: "工程蓝图",
                 cadDesc: "符合专业施工标准和建筑许可的高精度技术制图。",
                 hRab: "成本策略师",
@@ -270,12 +273,13 @@
         }
 
         function toggleMenu(id) { 
-            const dropdown = document.getElementById(id);
-            const isVisible = dropdown.style.display === 'block';
-            document.querySelectorAll('.menu-dropdown').forEach(d => d.style.display = 'none');
-            dropdown.style.display = isVisible ? 'none' : 'block';
+            const d = document.getElementById(id);
+            const isVisible = d.style.display === 'block';
+            document.querySelectorAll('.menu-dropdown').forEach(m => m.style.display = 'none');
+            d.style.display = isVisible ? 'none' : 'block';
         }
 
+        // Drag Logic
         let dragItem = document.querySelector("#floating-acc");
         let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
         function dragStart(e) {
@@ -295,6 +299,7 @@
         window.addEventListener("mousemove", drag); window.addEventListener("touchmove", drag, {passive: false});
         window.addEventListener("mouseup", () => active = false); window.addEventListener("touchend", () => active = false);
 
+        // Water Ripple
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
