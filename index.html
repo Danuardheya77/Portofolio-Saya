@@ -3,114 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | The Architect of Reality</title>
+    <title>Danuardheya | Design Strategy & Civil Engineering</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=Playfair+Display:ital,wght@1,700&family=Montserrat:wght@500&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --accent: #3b82f6; --bg: #050505; --text: #ffffff; }
-        .light-mode { --bg: #f8fafc; --text: #0f172a; --accent: #2563eb; }
+        :root { --bg: #050608; --text: #e2e8f0; --accent: #3b82f6; }
+        .light-mode { --bg: #fcfcfc; --text: #1e293b; --accent: #2563eb; }
 
-        body { background-color: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.5s; overflow-x: hidden; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         
-        /* BACKGROUND ANIMATION */
-        .bg-grid { position: fixed; inset: 0; background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 40px 40px; z-index: -1; }
-        
-        /* RGB GLOW TOOLBAR (REFINED) */
+        /* Typography System */
+        .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-art { font-family: 'Playfair Display', serif; }
+        .font-nav { font-family: 'Montserrat', sans-serif; letter-spacing: 0.2em; }
+        .font-quote { font-family: 'Cormorant Garamond', serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Floating RGB Toolbar */
         @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .glow-wrapper { position: fixed; bottom: 30px; right: 30px; z-index: 9999; width: 55px; height: 55px; cursor: move; touch-action: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.8); backdrop-blur: 10px; }
-        .glow-border { position: absolute; inset: -3px; border-radius: 50%; background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000); background-size: 400%; animation: rotateGlow 3s linear infinite; z-index: -1; }
-        .toolbar-menu { position: absolute; bottom: 70px; right: 0; display: flex; flex-direction: column; gap: 10px; opacity: 0; visibility: hidden; transition: 0.4s; transform: translateY(20px); }
-        .glow-wrapper:hover .toolbar-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .glow-wrapper { position: fixed; bottom: 30px; right: 30px; z-index: 9999; width: 50px; height: 50px; cursor: move; touch-action: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); backdrop-blur: 10px; }
+        .glow-border { position: absolute; inset: -2px; border-radius: 50%; background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000); background-size: 400%; animation: rotateGlow 4s linear infinite; z-index: -1; opacity: 0.6; }
+        .toolbar-menu { position: absolute; bottom: 65px; right: 0; display: flex; flex-direction: column; gap: 8px; opacity: 0; visibility: hidden; transition: 0.3s; background: rgba(0,0,0,0.8); padding: 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); }
+        .glow-wrapper:hover .toolbar-menu { opacity: 1; visibility: visible; }
 
-        /* UIN SAID STYLE NEWS CARD */
-        .news-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .news-card:hover { background: rgba(59, 130, 246, 0.05); border-color: var(--accent); transform: scale(1.02); }
-
-        /* TYPOGRAPHY */
-        .headline { font-family: 'Playfair Display', serif; }
-        .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200%; animation: flow 5s linear infinite; }
-        @keyframes flow { 0% { background-position: 0%; } 100% { background-position: 200%; } }
-
-        /* SLIDER */
-        .slider-wrap { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 30px; padding: 20px 0; scrollbar-width: none; }
-        .slider-item { flex: 0 0 85%; scroll-snap-align: center; border-radius: 30px; overflow: hidden; position: relative; }
-        .slider-item img { width: 100%; height: 500px; object-fit: cover; }
+        /* Proportionate Elements */
+        .profile-small { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); padding: 5px; }
+        .slider-wrap { display: flex; overflow-x: auto; gap: 20px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .slider-item { flex: 0 0 80%; scroll-snap-align: center; border-radius: 20px; overflow: hidden; }
+        .slider-item img { width: 100%; height: auto; object-fit: contain; background: #111; }
+        
+        .glass-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; transition: 0.4s; }
+        .glass-card:hover { border-color: var(--accent); background: rgba(59, 130, 246, 0.05); }
     </style>
 </head>
-<body id="master-body">
-    <div class="bg-grid"></div>
+<body id="app-body">
 
     <div id="drag-tool" class="glow-wrapper">
         <div class="glow-border"></div>
-        <div class="toolbar-menu bg-black/80 p-4 rounded-3xl border border-white/10">
-            <button onclick="setL('id')" class="text-xs font-bold py-2">ID</button>
-            <button onclick="setL('en')" class="text-xs font-bold py-2">EN</button>
-            <button onclick="setL('cn')" class="text-xs font-bold py-2">CN</button>
-            <hr class="opacity-20">
-            <button onclick="tTheme()" class="py-2"><i class="fas fa-adjust"></i></button>
+        <div class="toolbar-menu">
+            <button onclick="setL('id')" class="font-mono text-[10px] hover:text-blue-500">ID</button>
+            <button onclick="setL('en')" class="font-mono text-[10px] hover:text-blue-500">EN</button>
+            <button onclick="tT()" class="text-sm mt-2"><i class="fas fa-adjust"></i></button>
         </div>
-        <i class="fas fa-ellipsis-v opacity-50"></i>
+        <i class="fas fa-grid-2 text-xs opacity-50"></i>
     </div>
 
-    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-black/40 backdrop-blur-2xl px-8 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-4">
-            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-xs">D</div>
-            <span class="font-bold tracking-[0.3em] uppercase text-[10px] opacity-80">Danuardheya <span class="text-blue-500">Eng.</span></span>
-        </div>
-        <div class="hidden md:flex gap-8 text-[9px] font-black uppercase tracking-widest opacity-60">
-            <a href="#home" class="hover:text-blue-500">Home</a>
-            <a href="#news" class="hover:text-blue-500">Articles</a>
-            <a href="#contact" class="hover:text-blue-500">Connect</a>
+    <nav class="fixed w-full z-50 bg-transparent backdrop-blur-md border-b border-white/5 px-10 py-5 flex justify-between items-center">
+        <span class="font-nav text-[10px] font-bold text-blue-500 uppercase">Danuardheya</span>
+        <div class="hidden md:flex gap-10 font-nav text-[9px] uppercase tracking-tighter opacity-50">
+            <a href="#home">Intro</a>
+            <a href="#work">Work</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
-    <section id="home" class="min-h-screen pt-40 px-6 flex flex-col items-center">
-        <div data-aos="zoom-in" class="relative group">
-            <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="relative w-40 h-40 rounded-full object-cover border-2 border-white/10">
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-20 text-center">
+        <div data-aos="fade-down" class="mb-10">
+            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="profile-small shadow-2xl">
         </div>
-
-        <div class="text-center mt-12 max-w-5xl">
-            <h1 id="t-hero" class="headline text-6xl md:text-[120px] leading-none mb-8" data-aos="fade-up">
-                Architecting <br> <span class="gradient-text italic">The Future.</span>
+        
+        <div class="max-w-4xl">
+            <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-blue-500 mb-6" data-aos="fade-up">Civil Engineer & Strategist</p>
+            <h1 id="t-hero" class="font-heading text-4xl md:text-6xl mb-6 tracking-tighter leading-tight" data-aos="fade-up" data-aos-delay="100">
+                Crafting <span class="font-art italic text-blue-400">Dimensions</span> <br> Through Precision.
             </h1>
-            <p id="d-hero" class="text-gray-500 text-lg md:text-2xl font-light tracking-wide max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
-                Mengonversi visi abstrak menjadi struktur nyata dengan presisi sipil dan estetika modern.
+            <p id="d-hero" class="font-quote text-xl md:text-2xl text-gray-500 max-w-2xl mx-auto italic" data-aos="fade-up" data-aos-delay="200">
+                "Menerjemahkan imajinasi arsitektural ke dalam perhitungan teknis yang kokoh dan estetika yang abadi."
             </p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 w-full max-w-4xl" data-aos="fade-up">
-            <div class="text-center">
-                <div class="text-4xl font-black headline">08+</div>
-                <div class="text-[9px] uppercase tracking-widest opacity-40 mt-2">Projects Completed</div>
-            </div>
-            <div class="text-center">
-                <div class="text-4xl font-black headline text-blue-500">99%</div>
-                <div class="text-[9px] uppercase tracking-widest opacity-40 mt-2">Accuracy Rate</div>
-            </div>
-            <div class="text-center">
-                <div class="text-4xl font-black headline">03+</div>
-                <div class="text-[9px] uppercase tracking-widest opacity-40 mt-2">Years Exp.</div>
-            </div>
-            <div class="text-center">
-                <div class="text-4xl font-black headline text-purple-500">∞</div>
-                <div class="text-[9px] uppercase tracking-widest opacity-40 mt-2">Creative Vision</div>
-            </div>
+        <div class="flex gap-12 mt-16 font-mono text-[11px] opacity-40 uppercase tracking-widest" data-aos="fade-up" data-aos-delay="300">
+            <div><span class="block text-xl font-heading text-white">08+</span> Proj</div>
+            <div><span class="block text-xl font-heading text-white">03+</span> Year</div>
+            <div><span class="block text-xl font-heading text-white">99%</span> Accu</div>
         </div>
     </section>
 
-    <section id="news" class="py-40 px-6 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <div data-aos="fade-right">
-                <h2 id="h-project" class="headline text-5xl md:text-7xl">3D Showcase.</h2>
-                <div class="h-1 w-40 bg-blue-600 mt-4"></div>
-            </div>
-            <p class="text-[10px] font-bold opacity-30 tracking-[0.3em] uppercase">Scroll to explore gallery</p>
+    <section id="work" class="py-32 px-6 max-w-6xl mx-auto">
+        <div class="flex items-baseline gap-4 mb-16" data-aos="fade-right">
+            <h2 id="h-project" class="font-heading text-3xl uppercase tracking-tighter">3D Portfolio</h2>
+            <span class="font-mono text-[9px] opacity-30">/ Visual Exploration</span>
         </div>
 
-        <div class="slider-wrap" data-aos="fade-up">
+        <div class="slider-wrap mb-24" data-aos="fade-up">
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz"></div>
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39"></div>
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk"></div>
@@ -118,51 +96,46 @@
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1yZizqsVFZ-oEaAPpdpk-VWzRSYCtDIkO"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20">
-            <div class="news-card p-12 rounded-[40px]" data-aos="fade-up">
-                <div class="text-blue-500 text-[10px] font-black tracking-widest mb-6 uppercase">Technical Article 01</div>
-                <h3 id="h-2d" class="headline text-3xl mb-4">Precision 2D Detailing.</h3>
-                <p id="d-2d" class="text-gray-500 font-light leading-relaxed mb-8">Setiap garis adalah komitmen. Menyediakan Gambar Kerja (DED) yang tidak hanya indah di kertas, tapi sempurna di lapangan.</p>
-                <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition cursor-pointer">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="glass-card p-10" data-aos="fade-up">
+                <span class="font-mono text-[9px] text-blue-500 mb-4 block">01 / TECHNICAL</span>
+                <h3 id="h-2d" class="font-heading text-xl mb-4 uppercase">2D CAD Detailing</h3>
+                <p id="d-2d" class="text-sm text-gray-500 leading-relaxed font-light">
+                    Transformasi konsep ke dalam dokumen teknis DED yang akurat, menjamin setiap detail terencana untuk konstruksi nyata.
+                </p>
             </div>
-
-            <div class="news-card p-12 rounded-[40px]" data-aos="fade-up" data-aos-delay="200">
-                <div class="text-purple-500 text-[10px] font-black tracking-widest mb-6 uppercase">Economic Article 02</div>
-                <h3 id="h-rab" class="headline text-3xl mb-4">Strategic Cost Plan (RAB).</h3>
-                <p id="d-rab" class="text-gray-500 font-light leading-relaxed mb-8">Efisiensi tanpa kompromi. Menghitung setiap rupiah untuk memastikan material terbaik dengan budget paling optimal.</p>
-                <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition cursor-pointer">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
+            <div class="glass-card p-10" data-aos="fade-up" data-aos-delay="100">
+                <span class="font-mono text-[9px] text-purple-500 mb-4 block">02 / MANAGEMENT</span>
+                <h3 id="h-rab" class="font-heading text-xl mb-4 uppercase">Cost Analysis (RAB)</h3>
+                <p id="d-rab" class="text-sm text-gray-500 leading-relaxed font-light">
+                    Optimalisasi anggaran melalui perhitungan Bill of Quantity yang transparan, menyeimbangkan biaya dan kualitas material.
+                </p>
             </div>
         </div>
     </section>
 
-    <footer id="contact" class="py-40 bg-white/[0.02] border-t border-white/5 text-center">
-        <h2 class="headline text-5xl md:text-[100px] opacity-10 mb-20">CONNECT.</h2>
-        <div class="flex flex-wrap justify-center gap-12 mb-32">
-            <a href="https://wa.me/6285700398394" class="text-3xl hover:text-blue-500 transition-all hover:scale-125"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://youtube.com/@abysheha7946" class="text-3xl hover:text-red-500 transition-all hover:scale-125"><i class="fab fa-youtube"></i></a>
-            <a href="https://instagram.com/danuardheya" class="text-3xl hover:text-pink-500 transition-all hover:scale-125"><i class="fab fa-instagram"></i></a>
+    <footer id="contact" class="py-32 text-center border-t border-white/5">
+        <p class="font-art text-3xl mb-12">Let's build something <span class="text-blue-500">extraordinary</span>.</p>
+        <div class="flex justify-center gap-10 mb-20">
+            <a href="https://wa.me/6285700398394" class="opacity-40 hover:opacity-100 transition"><i class="fab fa-whatsapp text-2xl"></i></a>
+            <a href="https://youtube.com/@abysheha7946" class="opacity-40 hover:opacity-100 transition"><i class="fab fa-youtube text-2xl"></i></a>
+            <a href="https://instagram.com/danuardheya" class="opacity-40 hover:opacity-100 transition"><i class="fab fa-instagram text-2xl"></i></a>
         </div>
-        <div class="text-[10px] font-black tracking-[1.5em] opacity-20 uppercase">Danuardheya Engineering Portfolio © 2024</div>
+        <div class="font-mono text-[8px] opacity-20 uppercase tracking-[1.5em]">Danuardheya Portfolio &copy; 2024</div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1500, once: true });
+        AOS.init({ duration: 1200, once: true });
+        
+        // Theme
+        function tT() { document.body.classList.toggle('light-mode'); }
 
-        // TEMA
-        function tTheme() { document.body.classList.toggle('light-mode'); }
-
-        // MULTI BAHASA (STORYTELLING ENGINE)
+        // Lang
         const lang = {
-            id: { hero: "Membangun <br> <span class='gradient-text italic'>Masa Depan.</span>", desc: "Mengonversi visi abstrak menjadi struktur nyata dengan presisi sipil dan estetika modern.", proj: "Galeri 3D.", h2d: "Detail Presisi 2D.", d2d: "Setiap garis adalah komitmen. Menyediakan Gambar Kerja (DED) yang sempurna di lapangan.", hrab: "Perencanaan Biaya Strategis (RAB).", drab: "Efisiensi tanpa kompromi. Menghitung budget paling optimal." },
-            en: { hero: "Architecting <br> <span class='gradient-text italic'>The Future.</span>", desc: "Converting abstract visions into physical structures with civil precision and modern aesthetics.", proj: "3D Showcase.", h2d: "Precision 2D Detailing.", d2d: "Every line is a commitment. Providing DED that is perfect for the field.", hrab: "Strategic Cost Planning (RAB).", drab: "Efficiency without compromise. Optimizing budget for best materials." },
-            cn: { hero: "构筑 <br> <span class='gradient-text italic'>未来.</span>", desc: "以土木工程的精准度和现代美学将抽象愿景转化为实体结构。", proj: "3D 作品展示.", h2d: "2D 精准制图.", d2d: "每一行都是承诺。提供适用于现场的完美施工图。", hrab: "战略成本规划 (RAB).", drab: "不妥协的效率。为最佳材料优化预算。" }
+            id: { hero: "Crafting <span class='font-art italic text-blue-400'>Dimensions</span> <br> Through Precision.", desc: "\"Menerjemahkan imajinasi arsitektural ke dalam perhitungan teknis yang kokoh.\"", proj: "3D Portfolio", h2d: "2D CAD Detailing", d2d: "Transformasi konsep ke dalam dokumen teknis DED yang akurat.", hrab: "Analisis Biaya (RAB)", drab: "Optimalisasi anggaran melalui perhitungan BoQ yang transparan." },
+            en: { hero: "Defining <span class='font-art italic text-blue-400'>Space</span> <br> with Engineering.", desc: "\"Translating architectural imagination into solid technical calculations.\"", proj: "3D Showcase", h2d: "2D Engineering", d2d: "Transforming concepts into accurate DED technical documents.", hrab: "Strategic Budgeting", drab: "Budget optimization through transparent BoQ calculations." }
         };
-
         function setL(l) {
             document.getElementById('t-hero').innerHTML = lang[l].hero;
             document.getElementById('d-hero').innerText = lang[l].desc;
@@ -173,18 +146,14 @@
             document.getElementById('d-rab').innerText = lang[l].drab;
         }
 
-        // DRAGGABLE TOOLBAR LOGIC
-        const dragBox = document.getElementById('drag-tool');
-        let xO = 0, yO = 0, act = false;
-        dragBox.addEventListener("mousedown", dS);
-        document.addEventListener("mouseup", () => act = false);
-        document.addEventListener("mousemove", dM);
-        dragBox.addEventListener("touchstart", (e) => dS(e.touches[0]));
-        document.addEventListener("touchend", () => act = false);
-        document.addEventListener("touchmove", (e) => dM(e.touches[0]));
-        function dS(e) { act = true; iX = e.clientX - xO; iY = e.clientY - yO; }
-        function dM(e) { if (act) { currentX = e.clientX - iX; currentY = e.clientY - iY; xO = currentX; yO = currentY; dragBox.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`; } }
+        // Draggable
+        const dt = document.getElementById('drag-tool');
+        let x=0,y=0,a=false;
+        dt.addEventListener("mousedown",s); document.addEventListener("mouseup",()=>a=false); document.addEventListener("mousemove",m);
+        dt.addEventListener("touchstart",(e)=>s(e.touches[0])); document.addEventListener("touchend",()=>a=false); document.addEventListener("touchmove",(e)=>m(e.touches[0]));
+        function s(e){a=true; iX=e.clientX-x; iY=e.clientY-y;}
+        function m(e){if(a){cx=e.clientX-iX; cy=e.clientY-iY; x=cx; y=cy; dt.style.transform=`translate3d(${cx}px,${cy}px,0)`;}}
     </script>
 </body>
-    </html>
-                    
+                </html>
+        
