@@ -10,27 +10,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
     
     <style>
-        :root { --accent: #3b82f6; --neon: #00f2ff; }
+        :root { --accent: #3b82f6; --neon: #00f2ff; --bg-gradient: radial-gradient(circle at 50% 50%, #0a192f 0%, #020617 100%); --text-color: #fff; }
+        .light-mode { --bg-gradient: radial-gradient(circle at 50% 50%, #f0f9ff 0%, #e2e8f0 100%); --text-color: #1e293b; }
+
         body { 
-            background: radial-gradient(circle at 50% 50%, #0a192f 0%, #020617 100%);
-            color: #fff; 
+            background: var(--bg-gradient);
+            color: var(--text-color); 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             overflow-x: hidden; 
+            transition: background 0.5s, color 0.5s;
         }
 
-        /* Futuristic Background Grid Overlay */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px), 
-                              linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
-            mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+        /* RGB Running Border Animation */
+        @keyframes rgbRunning {
+            0% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+            33% { border-color: #00ff00; box-shadow: 0 0 10px #00ff00; }
+            66% { border-color: #0000ff; box-shadow: 0 0 10px #0000ff; }
+            100% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
         }
 
-        /* Side Decorations for Desktop */
+        .rgb-toolbar {
+            border: 2px solid #ff0000;
+            animation: rgbRunning 3s linear infinite;
+        }
+
+        /* Decorative Side Text */
         .side-branding {
             position: fixed; left: 30px; top: 50%; transform: translateY(-50%);
             writing-mode: vertical-rl; text-orientation: mixed;
@@ -40,67 +44,42 @@
         @media (min-width: 1024px) { .side-branding { display: block; } }
 
         #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
-        .top-toolbar { position: fixed; top: 25px; right: 25px; z-index: 10001; display: flex; gap: 10px; }
         
+        /* Toolbar */
+        .top-toolbar { position: fixed; top: 25px; right: 25px; z-index: 10001; display: flex; gap: 10px; }
         .tool-btn { 
-            background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); 
+            background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); 
             width: 45px; height: 45px; border-radius: 12px; 
             display: flex; align-items: center; justify-content: center; 
             cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.4s; 
         }
 
+        /* Dropdowns */
         .menu-dropdown { 
             position: fixed; top: 85px; right: 25px; z-index: 10001; 
             background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(25px); 
             border-radius: 20px; padding: 20px; border: 1px solid rgba(59, 130, 246, 0.3); 
-            display: none; width: 240px; box-shadow: 0 25px 50px rgba(0,0,0,0.8); 
+            display: none; width: 260px; max-height: 70vh; overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8); 
         }
 
-        /* Vertical Image Layouts */
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 20px;
-            width: 100%;
-        }
+        /* Vertical Image Grid */
+        .work-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; width: 100%; }
         @media (min-width: 768px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 1024px) { .work-grid { grid-template-columns: repeat(3, 1fr); } }
 
-        .image-card {
-            position: relative; border-radius: 20px; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05); transition: 0.5s ease;
-            background: rgba(255,255,255,0.02);
-        }
-        .image-card:hover { transform: translateY(-10px); border-color: var(--neon); box-shadow: 0 20px 40px rgba(0, 242, 255, 0.1); }
+        .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.5s; background: rgba(255,255,255,0.02); }
+        .image-card:hover { transform: translateY(-10px); border-color: var(--neon); }
         .image-card img { width: 100%; height: auto; display: block; }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px;
-        }
-
-        /* Contact Icons Style */
-        .social-btn {
-            width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(59, 130, 246, 0.2); transition: 0.4s;
-            color: white; font-size: 20px;
-        }
-        .social-btn:hover {
-            background: var(--accent); color: white;
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 0 20px var(--accent);
-        }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
 
         #floating-acc { position: fixed; top: 120px; left: 20px; z-index: 10000; width: 45px; height: 45px; cursor: move; touch-action: none; }
-        .rgb-glow-border { position: relative; width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #000; }
-        .rgb-glow-border::before { content: ''; position: absolute; inset: -2px; border-radius: 50%; background: conic-gradient(from 0deg, #00f2ff, #3b82f6, #00f2ff); animation: rotateRGB 2s linear infinite; }
-        .rgb-glow-border::after { content: ''; position: absolute; inset: 2px; background: #020617; border-radius: 50%; }
-        @keyframes rotateRGB { 100% { transform: rotate(360deg); } }
-
+        .rgb-glow-border { position: relative; width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #000; border: 2px solid transparent; animation: rgbRunning 3s linear infinite; }
+        
         section { padding: 80px 20px; width: 100%; max-width: 1200px; margin: 0 auto; }
-        .profile-img-container { width: 160px; height: 160px; border-radius: 50%; border: 2px solid var(--neon); padding: 5px; background: rgba(0, 242, 255, 0.05); overflow: hidden; margin: 0 auto; }
-        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .social-btn { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,255,255,0.03); border: 1px solid rgba(59, 130, 246, 0.2); transition: 0.4s; color: inherit; }
+        .social-btn:hover { background: var(--accent); transform: scale(1.1); box-shadow: 0 0 15px var(--accent); color: white; }
     </style>
 </head>
 <body>
@@ -108,8 +87,12 @@
     <div class="side-branding">TECHNICAL PRECISION • ARCHITECTURAL VISUALIZATION</div>
     
     <div class="top-toolbar">
-        <div class="tool-btn" onclick="window.history.back()"><i class="fas fa-arrow-left text-white/50"></i></div>
-        <div class="tool-btn" onclick="toggleMenu('dropdown')"><i class="fas fa-th-large text-white/50"></i></div>
+        <div class="tool-btn rgb-toolbar" onclick="toggleTheme()" id="theme-btn">
+            <i class="fas fa-moon"></i>
+        </div>
+        <div class="tool-btn" onclick="toggleMenu('dropdown')">
+            <i class="fas fa-th-large opacity-50"></i>
+        </div>
     </div>
     
     <div id="dropdown" class="menu-dropdown">
@@ -121,141 +104,102 @@
     </div>
 
     <div id="floating-acc" onmousedown="dragStart(event)" ontouchstart="dragStart(event)">
-        <div class="rgb-glow-border" onclick="toggleMenu('acc-nav')"><i class="fas fa-language relative z-10 text-[14px] text-cyan-400"></i></div>
+        <div class="rgb-glow-border" onclick="toggleMenu('acc-nav')">
+            <i class="fas fa-language relative z-10 text-[14px] text-cyan-400"></i>
+        </div>
         <div id="acc-nav" class="menu-dropdown" style="top: 55px; left: 0; right: auto;">
-            <div class="py-2 text-xs flex justify-between cursor-pointer" onclick="setLang('id')"><span>Indonesia</span> <span>ID</span></div>
-            <div class="py-2 text-xs flex justify-between cursor-pointer" onclick="setLang('en')"><span>English</span> <span>EN</span></div>
+            <div class="text-[10px] opacity-50 mb-3 tracking-widest uppercase">Select Language</div>
+            <div class="grid grid-cols-1 gap-1">
+                <div class="py-2 px-3 text-xs hover:bg-blue-500/20 rounded-lg cursor-pointer flex justify-between" onclick="setLang('id')"><span>Indonesia</span> <span>ID</span></div>
+                <div class="py-2 px-3 text-xs hover:bg-blue-500/20 rounded-lg cursor-pointer flex justify-between" onclick="setLang('en')"><span>English</span> <span>EN</span></div>
+                <div class="py-2 px-3 text-xs hover:bg-blue-500/20 rounded-lg cursor-pointer flex justify-between" onclick="setLang('ar')"><span>العربية</span> <span>AR</span></div>
+                <div class="py-2 px-3 text-xs hover:bg-blue-500/20 rounded-lg cursor-pointer flex justify-between" onclick="setLang('cn')"><span>中文</span> <span>ZH</span></div>
+                <div class="py-2 px-3 text-xs hover:bg-blue-500/20 rounded-lg cursor-pointer flex justify-between" onclick="setLang('jp')"><span>日本語</span> <span>JA</span></div>
+                <div class="py-2 px-3 text-xs hover:bg-blue-500/20 rounded-lg cursor-pointer flex justify-between" onclick="setLang('kr')"><span>한국어</span> <span>KO</span></div>
+                <div class="py-2 px-3 text-xs hover:bg-blue-500/20 rounded-lg cursor-pointer flex justify-between" onclick="setLang('de')"><span>Deutsch</span> <span>DE</span></div>
+                <div class="py-2 px-3 text-xs hover:bg-blue-500/20 rounded-lg cursor-pointer flex justify-between" onclick="setLang('fr')"><span>Français</span> <span>FR</span></div>
+                <div class="py-2 px-3 text-xs hover:bg-blue-500/20 rounded-lg cursor-pointer flex justify-between" onclick="setLang('es')"><span>Español</span> <span>ES</span></div>
+                <div class="py-2 px-3 text-xs hover:bg-blue-500/20 rounded-lg cursor-pointer flex justify-between" onclick="setLang('ru')"><span>Русский</span> <span>RU</span></div>
+            </div>
         </div>
     </div>
 
     <section id="home" class="min-h-screen flex flex-col justify-center items-center">
         <div data-aos="zoom-in" class="mb-8">
-            <div class="profile-img-container"><img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" alt="Logo" class="profile-img"></div>
+            <div class="profile-img-container" style="width:150px; height:150px; border-radius:50%; border:2px solid var(--neon); overflow:hidden;">
+                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover">
+            </div>
         </div>
-        <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-blue-500 text-center" data-aos="fade-up">DANUARDHEYA</h1>
-        <p id="t-hero" class="text-blue-400 font-light tracking-[0.4em] text-sm md:text-xl text-center uppercase" data-aos="fade-up">ARCHITECTING REALITY</p>
-        <p id="t-subhero" class="text-gray-500 text-[10px] tracking-[0.5em] uppercase text-center mt-4" data-aos="fade-up" data-aos-delay="200">Civil Engineer & 3D Visualizer</p>
+        <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter mb-4 text-center" data-aos="fade-up">DANUARDHEYA</h1>
+        <p id="t-hero" class="text-blue-400 font-light tracking-[0.4em] text-sm md:text-xl text-center uppercase">ARCHITECTING REALITY</p>
     </section>
 
     <section id="work">
-        <div class="flex items-center gap-4 mb-12" data-aos="fade-right">
+        <div class="flex items-center gap-4 mb-12">
             <div class="h-[1px] w-12 bg-blue-500"></div>
             <h2 id="t-h-work" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">3D Visual Showcase</h2>
         </div>
-        
         <div class="work-grid" data-aos="fade-up">
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13HPMYy_WXBT190cxMeROkomIofbmg2M0&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13_QC3PSpTFgsRz9OKGUfWDjybteLfytu&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=146en6-VAKyGWQymoPmIrI3o301EqfrQ2&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1kSpfXzm_pg8SJLs08mEAxLtnnn2GwQI_&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz&sz=w800"></div>
-        </div>
-    </section>
-
-    <section id="cad-section">
-        <div class="flex items-center gap-4 mb-12" data-aos="fade-right">
-            <div class="h-[1px] w-12 bg-blue-500"></div>
-            <h2 id="t-h-cad" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">DED & Blueprints</h2>
-        </div>
-        <div class="work-grid">
-            <div class="image-card" data-aos="fade-up"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800"></div>
-            <div class="image-card" data-aos="fade-up" data-aos-delay="100"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800"></div>
-            <div class="image-card" data-aos="fade-up" data-aos-delay="200"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800"></div>
-        </div>
-    </section>
-
-    <section id="rab-section">
-        <div class="flex items-center gap-4 mb-12" data-aos="fade-right">
-            <div class="h-[1px] w-12 bg-blue-500"></div>
-            <h2 id="t-h-rab" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">Budget Analyst</h2>
-        </div>
-        <div class="glass-card overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-0" data-aos="zoom-in">
-            <div class="p-10 flex flex-col justify-center">
-                <h3 class="text-2xl font-bold mb-4">Cost Strategic Management</h3>
-                <p id="t-rab-desc" class="text-gray-400 text-sm leading-relaxed">Optimization of material costs and labor with professional accuracy based on SNI standards.</p>
             </div>
-            <div>
-                <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-64 object-cover">
-            </div>
-        </div>
     </section>
 
     <section id="contact" class="text-center">
-        <div class="flex items-center justify-center gap-4 mb-8" data-aos="fade-up">
-            <div class="h-[1px] w-8 bg-blue-500"></div>
-            <h2 id="t-contact" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">Connect With Me</h2>
-            <div class="h-[1px] w-8 bg-blue-500"></div>
-        </div>
-        <div class="flex flex-wrap justify-center gap-6" data-aos="zoom-in">
-            <a href="https://wa.me/nomor-wa-anda" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://instagram.com/username-anda" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://youtube.com/channel-anda" class="social-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="https://linkedin.com/in/username-anda" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <h2 id="t-contact" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400 mb-8">Connect With Me</h2>
+        <div class="flex justify-center gap-6">
+            <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
         </div>
     </section>
 
-    <footer class="py-20 text-center">
-        <div class="opacity-20 text-[10px] tracking-[1.5em] mb-4">DANUARDHEYA • 2025</div>
-        <div id="t-footer-sub" class="text-[8px] text-blue-500 uppercase tracking-widest">Digital Engineering Portfolio</div>
+    <footer class="py-10 text-center opacity-30 text-[10px] tracking-[1em]">
+        DANUARDHEYA • 2025
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
-        
-        function toggleMenu(id) { 
+        AOS.init();
+
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.querySelector('#theme-btn i');
+            body.classList.toggle('light-mode');
+            if(body.classList.contains('light-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+
+        // Language Logic (Contoh 3 bahasa utama)
+        const translations = {
+            id: { hero: "MEMBANGUN REALITAS", hWork: "Pameran Visual 3D", contact: "Terhubung Dengan Saya" },
+            en: { hero: "ARCHITECTING REALITY", hWork: "3D Visual Showcase", contact: "Connect With Me" },
+            jp: { hero: "現実を構築する", hWork: "3Dビジュアルショーケース", contact: "お問い合わせ" }
+            // Tambahkan sisanya di sini...
+        };
+
+        function setLang(l) {
+            const t = translations[l] || translations['en'];
+            document.getElementById('t-hero').innerText = t.hero;
+            document.getElementById('t-h-work').innerText = t.hWork;
+            document.getElementById('t-contact').innerText = t.contact;
+            toggleMenu('acc-nav');
+        }
+
+        function toggleMenu(id) {
             const d = document.getElementById(id);
             const isVisible = d.style.display === 'block';
             document.querySelectorAll('.menu-dropdown').forEach(m => m.style.display = 'none');
             d.style.display = isVisible ? 'none' : 'block';
         }
 
-        const translations = {
-            id: {
-                hero: "MEMBANGUN REALITAS",
-                hWork: "Pameran Visual 3D",
-                hCad: "DED & Cetak Biru",
-                hRab: "Analisis Anggaran",
-                contact: "Terhubung Dengan Saya",
-                rabDesc: "Optimalisasi biaya material dan tenaga kerja dengan akurasi profesional berdasarkan standar SNI.",
-                footerSub: "Portofolio Teknik Digital"
-            },
-            en: {
-                hero: "ARCHITECTING REALITY",
-                hWork: "3D Visual Showcase",
-                hCad: "DED & Blueprints",
-                hRab: "Budget Analysis",
-                contact: "Connect With Me",
-                rabDesc: "Optimization of material costs and labor with professional accuracy based on SNI standards.",
-                footerSub: "Digital Engineering Portfolio"
-            }
-        };
-
-        function setLang(l) {
-            const t = translations[l];
-            document.getElementById('t-hero').innerText = t.hero;
-            document.getElementById('t-h-work').innerText = t.hWork;
-            document.getElementById('t-h-cad').innerText = t.hCad;
-            document.getElementById('t-h-rab').innerText = t.hRab;
-            document.getElementById('t-contact').innerText = t.contact;
-            document.getElementById('t-rab-desc').innerText = t.rabDesc;
-            document.getElementById('t-footer-sub').innerText = t.footerSub;
-            toggleMenu('acc-nav');
-        }
-
+        // Drag Logic
         let dragItem = document.querySelector("#floating-acc");
         let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
         function dragStart(e) {
@@ -275,12 +219,12 @@
         window.addEventListener("mousemove", drag); window.addEventListener("touchmove", drag, {passive: false});
         window.addEventListener("mouseup", () => active = false); window.addEventListener("touchend", () => active = false);
 
+        // Water Ripple
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         let ripples = [];
         window.addEventListener('mousedown', (e) => ripples.push({x: e.clientX, y: e.clientY, r: 0, o: 0.6}));
-        window.addEventListener('touchstart', (e) => ripples.push({x: e.touches[0].clientX, y: e.touches[0].clientY, r: 0, o: 0.6}));
         function anim() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
             ripples.forEach((r, i) => {
@@ -294,4 +238,5 @@
         anim();
     </script>
 </body>
-</html>
+                                               </html>
+                                               
