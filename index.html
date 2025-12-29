@@ -3,92 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | Civil Engineer & Design Strategist</title>
+    <title>Danuardheya | The Architect of Reality</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-color: #020305; --text-color: white; --card-bg: rgba(255, 255, 255, 0.02); }
-        .light-mode { --bg-color: #f8fafc; --text-color: #0f172a; --card-bg: rgba(0, 0, 0, 0.03); }
+        :root { --accent: #3b82f6; --bg: #050505; --text: #ffffff; }
+        .light-mode { --bg: #f8fafc; --text: #0f172a; --accent: #2563eb; }
 
-        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.5s ease; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.5s; overflow-x: hidden; }
         
-        .mesh-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; opacity: 0.5;
-            background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
-                        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.1) 0px, transparent 50%);
-        }
-
-        /* FOTO PROFIL BULAT KECIL */
-        .profile-img {
-            width: 150px; height: 150px; /* Ukuran lebih kecil */
-            border-radius: 50%; /* Menjadi bulat sempurna */
-            object-fit: cover;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-        }
-
-        /* RGB GLOW TOOLBAR */
+        /* BACKGROUND ANIMATION */
+        .bg-grid { position: fixed; inset: 0; background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 40px 40px; z-index: -1; }
+        
+        /* RGB GLOW TOOLBAR (REFINED) */
         @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .glow-wrapper { position: fixed; bottom: 30px; right: 30px; z-index: 9999; width: 50px; height: 50px; cursor: move; touch-action: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .glow-border { position: absolute; width: 100%; height: 100%; border-radius: 50%; padding: 2px;
-            background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000); background-size: 400%; animation: rotateGlow 3s linear infinite;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; opacity: 0.8; }
-        .toolbar-menu { position: relative; display: flex; flex-direction: column; gap: 15px; opacity: 0; visibility: hidden; transition: 0.3s; margin-bottom: 250px; background: rgba(0,0,0,0.8); backdrop-blur: 10px; p: 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
-        .glow-wrapper:hover .toolbar-menu { opacity: 1; visibility: visible; }
-        
-        /* SLIDER */
-        .slider-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 20px; -webkit-overflow-scrolling: touch; }
-        .slider-item { flex: 0 0 auto; scroll-snap-align: start; width: 85%; max-width: 600px; }
-        .slider-item img { width: 100%; height: auto; border-radius: 2rem; border: 1px solid rgba(128,128,128,0.1); }
+        .glow-wrapper { position: fixed; bottom: 30px; right: 30px; z-index: 9999; width: 55px; height: 55px; cursor: move; touch-action: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.8); backdrop-blur: 10px; }
+        .glow-border { position: absolute; inset: -3px; border-radius: 50%; background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000); background-size: 400%; animation: rotateGlow 3s linear infinite; z-index: -1; }
+        .toolbar-menu { position: absolute; bottom: 70px; right: 0; display: flex; flex-direction: column; gap: 10px; opacity: 0; visibility: hidden; transition: 0.4s; transform: translateY(20px); }
+        .glow-wrapper:hover .toolbar-menu { opacity: 1; visibility: visible; transform: translateY(0); }
 
-        .glass-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid rgba(128, 128, 128, 0.1); border-radius: 2.5rem; transition: 0.4s; }
-        .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* UIN SAID STYLE NEWS CARD */
+        .news-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .news-card:hover { background: rgba(59, 130, 246, 0.05); border-color: var(--accent); transform: scale(1.02); }
+
+        /* TYPOGRAPHY */
+        .headline { font-family: 'Playfair Display', serif; }
+        .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200%; animation: flow 5s linear infinite; }
+        @keyframes flow { 0% { background-position: 0%; } 100% { background-position: 200%; } }
+
+        /* SLIDER */
+        .slider-wrap { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 30px; padding: 20px 0; scrollbar-width: none; }
+        .slider-item { flex: 0 0 85%; scroll-snap-align: center; border-radius: 30px; overflow: hidden; position: relative; }
+        .slider-item img { width: 100%; height: 500px; object-fit: cover; }
     </style>
 </head>
-<body id="main-body">
-    <div class="mesh-bg"></div>
+<body id="master-body">
+    <div class="bg-grid"></div>
 
-    <div id="drag-box" class="glow-wrapper">
+    <div id="drag-tool" class="glow-wrapper">
         <div class="glow-border"></div>
-        <div class="toolbar-menu p-4">
-            <div class="flex flex-col gap-3 text-center">
-                <button onclick="setL('id')" class="text-[10px] font-bold hover:text-blue-400">ID</button>
-                <button onclick="setL('en')" class="text-[10px] font-bold hover:text-blue-400">EN</button>
-                <button onclick="setL('cn')" class="text-[10px] font-bold hover:text-blue-400">CN</button>
-                <hr class="border-white/10">
-                <button onclick="tSize('p')" class="text-sm"><i class="fas fa-plus"></i></button>
-                <button onclick="tSize('m')" class="text-sm"><i class="fas fa-minus"></i></button>
-                <button onclick="tTheme()" class="text-sm"><i class="fas fa-adjust"></i></button>
-            </div>
+        <div class="toolbar-menu bg-black/80 p-4 rounded-3xl border border-white/10">
+            <button onclick="setL('id')" class="text-xs font-bold py-2">ID</button>
+            <button onclick="setL('en')" class="text-xs font-bold py-2">EN</button>
+            <button onclick="setL('cn')" class="text-xs font-bold py-2">CN</button>
+            <hr class="opacity-20">
+            <button onclick="tTheme()" class="py-2"><i class="fas fa-adjust"></i></button>
         </div>
-        <i class="fas fa-hand-pointer absolute opacity-50 pointer-events-none text-xs"></i>
+        <i class="fas fa-ellipsis-v opacity-50"></i>
     </div>
 
-    <nav class="fixed w-full z-50 bg-black/10 backdrop-blur-md px-10 py-6 flex justify-between items-center">
-        <span class="font-bold tracking-[0.4em] uppercase text-[10px]">Danuardheya</span>
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-black/40 backdrop-blur-2xl px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-xs">D</div>
+            <span class="font-bold tracking-[0.3em] uppercase text-[10px] opacity-80">Danuardheya <span class="text-blue-500">Eng.</span></span>
+        </div>
+        <div class="hidden md:flex gap-8 text-[9px] font-black uppercase tracking-widest opacity-60">
+            <a href="#home" class="hover:text-blue-500">Home</a>
+            <a href="#news" class="hover:text-blue-500">Articles</a>
+            <a href="#contact" class="hover:text-blue-500">Connect</a>
+        </div>
     </nav>
 
-    <section class="min-h-screen flex flex-col justify-center items-center px-6 pt-32 text-center">
-        <div data-aos="zoom-out" class="mb-8">
-            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="profile-img shadow-2xl">
+    <section id="home" class="min-h-screen pt-40 px-6 flex flex-col items-center">
+        <div data-aos="zoom-in" class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="relative w-40 h-40 rounded-full object-cover border-2 border-white/10">
         </div>
-        <h2 id="t-hero" data-aos="fade-up" class="text-5xl md:text-8xl font-extrabold tracking-tighter uppercase mb-8 leading-[0.85]">
-            DESIGNING <br> <span class="gradient-text italic">THE REALITY.</span>
-        </h2>
-        <p id="d-hero" data-aos="fade-up" data-aos-delay="100" class="text-gray-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Spesialis dalam visualisasi 3D, detail gambar kerja (DED), hingga perhitungan RAB yang akurat.
-        </p>
+
+        <div class="text-center mt-12 max-w-5xl">
+            <h1 id="t-hero" class="headline text-6xl md:text-[120px] leading-none mb-8" data-aos="fade-up">
+                Architecting <br> <span class="gradient-text italic">The Future.</span>
+            </h1>
+            <p id="d-hero" class="text-gray-500 text-lg md:text-2xl font-light tracking-wide max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+                Mengonversi visi abstrak menjadi struktur nyata dengan presisi sipil dan estetika modern.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 w-full max-w-4xl" data-aos="fade-up">
+            <div class="text-center">
+                <div class="text-4xl font-black headline">08+</div>
+                <div class="text-[9px] uppercase tracking-widest opacity-40 mt-2">Projects Completed</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-black headline text-blue-500">99%</div>
+                <div class="text-[9px] uppercase tracking-widest opacity-40 mt-2">Accuracy Rate</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-black headline">03+</div>
+                <div class="text-[9px] uppercase tracking-widest opacity-40 mt-2">Years Exp.</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-black headline text-purple-500">∞</div>
+                <div class="text-[9px] uppercase tracking-widest opacity-40 mt-2">Creative Vision</div>
+            </div>
+        </div>
     </section>
 
-    <section id="work" class="py-32 px-6 max-w-7xl mx-auto">
-        <div class="mb-12" data-aos="fade-right">
-            <p class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[10px] mb-4">Portfolio</p>
-            <h3 id="h-project" class="text-4xl md:text-6xl font-extrabold uppercase tracking-tighter">3D Interior & Exterior.</h3>
-            <p class="text-[10px] opacity-40 uppercase tracking-widest mt-2">Swipe to explore →</p>
+    <section id="news" class="py-40 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div data-aos="fade-right">
+                <h2 id="h-project" class="headline text-5xl md:text-7xl">3D Showcase.</h2>
+                <div class="h-1 w-40 bg-blue-600 mt-4"></div>
+            </div>
+            <p class="text-[10px] font-bold opacity-30 tracking-[0.3em] uppercase">Scroll to explore gallery</p>
         </div>
 
-        <div class="slider-container mb-24" data-aos="fade-up">
+        <div class="slider-wrap" data-aos="fade-up">
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz"></div>
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39"></div>
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk"></div>
@@ -96,45 +118,51 @@
             <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1yZizqsVFZ-oEaAPpdpk-VWzRSYCtDIkO"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div class="glass-card p-10 border-l-4 border-l-purple-500" data-aos="fade-up">
-                <i class="fas fa-drafting-compass text-3xl text-purple-500 mb-6"></i>
-                <h4 id="h-2d" class="text-2xl font-bold mb-4 uppercase">2D CAD & Detailing</h4>
-                <p id="d-2d" class="text-gray-500 text-sm font-light leading-relaxed">Penyusunan gambar teknis presisi tinggi, mulai dari denah hingga detail arsitektural eksekusi lapangan.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20">
+            <div class="news-card p-12 rounded-[40px]" data-aos="fade-up">
+                <div class="text-blue-500 text-[10px] font-black tracking-widest mb-6 uppercase">Technical Article 01</div>
+                <h3 id="h-2d" class="headline text-3xl mb-4">Precision 2D Detailing.</h3>
+                <p id="d-2d" class="text-gray-500 font-light leading-relaxed mb-8">Setiap garis adalah komitmen. Menyediakan Gambar Kerja (DED) yang tidak hanya indah di kertas, tapi sempurna di lapangan.</p>
+                <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition cursor-pointer">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
             </div>
-            <div class="glass-card p-10 border-l-4 border-l-emerald-500" data-aos="fade-up" data-aos-delay="100">
-                <i class="fas fa-calculator text-3xl text-emerald-500 mb-6"></i>
-                <h4 id="h-rab" class="text-2xl font-bold mb-4 uppercase">Perhitungan RAB</h4>
-                <p id="d-rab" class="text-gray-500 text-sm font-light leading-relaxed">Estimasi biaya pembangunan akurat untuk memastikan proyek berjalan sesuai budget klien secara transparan.</p>
+
+            <div class="news-card p-12 rounded-[40px]" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-purple-500 text-[10px] font-black tracking-widest mb-6 uppercase">Economic Article 02</div>
+                <h3 id="h-rab" class="headline text-3xl mb-4">Strategic Cost Plan (RAB).</h3>
+                <p id="d-rab" class="text-gray-500 font-light leading-relaxed mb-8">Efisiensi tanpa kompromi. Menghitung setiap rupiah untuk memastikan material terbaik dengan budget paling optimal.</p>
+                <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition cursor-pointer">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-32 text-center border-t border-white/5">
-        <h4 class="text-4xl font-extrabold mb-16 italic uppercase tracking-tighter">Ready to <span class="gradient-text">Work?</span></h4>
-        <div class="flex justify-center gap-12 mb-20">
-            <a href="https://wa.me/6285700398394" class="text-2xl opacity-40 hover:opacity-100 transition hover:text-green-500"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://youtube.com/@abysheha7946" class="text-2xl opacity-40 hover:opacity-100 transition hover:text-red-500"><i class="fab fa-youtube"></i></a>
-            <a href="https://instagram.com/danuardheya" class="text-2xl opacity-40 hover:opacity-100 transition hover:text-pink-500"><i class="fab fa-instagram"></i></a>
+    <footer id="contact" class="py-40 bg-white/[0.02] border-t border-white/5 text-center">
+        <h2 class="headline text-5xl md:text-[100px] opacity-10 mb-20">CONNECT.</h2>
+        <div class="flex flex-wrap justify-center gap-12 mb-32">
+            <a href="https://wa.me/6285700398394" class="text-3xl hover:text-blue-500 transition-all hover:scale-125"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://youtube.com/@abysheha7946" class="text-3xl hover:text-red-500 transition-all hover:scale-125"><i class="fab fa-youtube"></i></a>
+            <a href="https://instagram.com/danuardheya" class="text-3xl hover:text-pink-500 transition-all hover:scale-125"><i class="fab fa-instagram"></i></a>
         </div>
-        <p class="text-[9px] tracking-[1em] opacity-20 font-black">DANUARDHEYA • 2024</p>
+        <div class="text-[10px] font-black tracking-[1.5em] opacity-20 uppercase">Danuardheya Engineering Portfolio © 2024</div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1200 });
+        AOS.init({ duration: 1500, once: true });
 
-        // TEMA & UKURAN TEKS
+        // TEMA
         function tTheme() { document.body.classList.toggle('light-mode'); }
-        let fs = 100;
-        function tSize(m) { fs = (m === 'p') ? fs+10 : fs-10; document.getElementById('main-body').style.fontSize = fs+"%"; }
 
-        // MULTI BAHASA
+        // MULTI BAHASA (STORYTELLING ENGINE)
         const lang = {
-            id: { hero: "MERANCANG <br> <span class='gradient-text italic'>REALITA.</span>", desc: "Spesialis dalam visualisasi 3D, detail gambar kerja (DED), hingga perhitungan RAB yang akurat.", proj: "3D Interior & Eksterior.", h2d: "2D CAD & Detailing", d2d: "Gambar teknis presisi tinggi untuk eksekusi lapangan.", hrab: "Perhitungan RAB", drab: "Estimasi biaya pembangunan akurat dan transparan." },
-            en: { hero: "DESIGNING <br> <span class='gradient-text italic'>THE REALITY.</span>", desc: "Specialist in 3D visualization, detailed engineering design (DED), and accurate budget estimation (RAB).", proj: "3D Interior & Exterior.", h2d: "2D CAD & Detailing", d2d: "High-precision technical drawings for field execution.", hrab: "Budget Estimation", drab: "Accurate and transparent construction cost estimation." },
-            cn: { hero: "设计 <br> <span class='gradient-text italic'>现实.</span>", desc: "专注于 3D 可视化、详细施工图 (DED) 和精准的成本核算 (RAB)。", proj: "3D 室内外设计.", h2d: "2D CAD 绘图", d2d: "用于现场施工的高精度技术图纸。", hrab: "成本核算", drab: "准确透明的建筑成本估算。" }
+            id: { hero: "Membangun <br> <span class='gradient-text italic'>Masa Depan.</span>", desc: "Mengonversi visi abstrak menjadi struktur nyata dengan presisi sipil dan estetika modern.", proj: "Galeri 3D.", h2d: "Detail Presisi 2D.", d2d: "Setiap garis adalah komitmen. Menyediakan Gambar Kerja (DED) yang sempurna di lapangan.", hrab: "Perencanaan Biaya Strategis (RAB).", drab: "Efisiensi tanpa kompromi. Menghitung budget paling optimal." },
+            en: { hero: "Architecting <br> <span class='gradient-text italic'>The Future.</span>", desc: "Converting abstract visions into physical structures with civil precision and modern aesthetics.", proj: "3D Showcase.", h2d: "Precision 2D Detailing.", d2d: "Every line is a commitment. Providing DED that is perfect for the field.", hrab: "Strategic Cost Planning (RAB).", drab: "Efficiency without compromise. Optimizing budget for best materials." },
+            cn: { hero: "构筑 <br> <span class='gradient-text italic'>未来.</span>", desc: "以土木工程的精准度和现代美学将抽象愿景转化为实体结构。", proj: "3D 作品展示.", h2d: "2D 精准制图.", d2d: "每一行都是承诺。提供适用于现场的完美施工图。", hrab: "战略成本规划 (RAB).", drab: "不妥协的效率。为最佳材料优化预算。" }
         };
+
         function setL(l) {
             document.getElementById('t-hero').innerHTML = lang[l].hero;
             document.getElementById('d-hero').innerText = lang[l].desc;
@@ -145,8 +173,8 @@
             document.getElementById('d-rab').innerText = lang[l].drab;
         }
 
-        // TOOLBAR GESER
-        const dragBox = document.getElementById('drag-box');
+        // DRAGGABLE TOOLBAR LOGIC
+        const dragBox = document.getElementById('drag-tool');
         let xO = 0, yO = 0, act = false;
         dragBox.addEventListener("mousedown", dS);
         document.addEventListener("mouseup", () => act = false);
@@ -158,5 +186,5 @@
         function dM(e) { if (act) { currentX = e.clientX - iX; currentY = e.clientY - iY; xO = currentX; yO = currentY; dragBox.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`; } }
     </script>
 </body>
-                </html>
-    
+    </html>
+                    
