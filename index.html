@@ -10,42 +10,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --bg-color: #020305; --text-color: white; --card-bg: rgba(255, 255, 255, 0.02); }
-        .light-mode { --bg-color: #f8fafc; --text-color: #0f172a; --card-bg: rgba(0, 0, 0, 0.05); }
+        .light-mode { --bg-color: #f8fafc; --text-color: #0f172a; --card-bg: rgba(0, 0, 0, 0.03); }
 
         body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; transition: background 0.5s ease, color 0.5s ease; }
+        
         .mesh-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
-                        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.08) 0px, transparent 50%);
-        }
-        .glass-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid rgba(128, 128, 128, 0.1); border-radius: 2rem; transition: all 0.4s ease; }
-        .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* Toolbar Melayang & Bisa Dipindah */
-        #draggable-toolbar {
-            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
-            width: 50px; height: 50px; background: #60a5fa; border-radius: 50%;
-            display: flex; items-center; justify-content: center; cursor: move;
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4); touch-action: none;
+            background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
+                        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.06) 0px, transparent 50%);
         }
 
+        /* Toolbar Simpel & Transparan */
+        #draggable-toolbar {
+            position: fixed; bottom: 30px; right: 30px; z-index: 9999;
+            width: 40px; height: 40px; display: flex; items-center; justify-content: center;
+            cursor: move; touch-action: none; opacity: 0.6; transition: opacity 0.3s;
+        }
+        #draggable-toolbar:hover { opacity: 1; }
+        #theme-toggle { background: none; border: none; cursor: pointer; padding: 10px; color: var(--text-color); font-size: 1.2rem; }
+
+        .glass-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid rgba(128, 128, 128, 0.1); border-radius: 2rem; }
+        .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Slider Geser */
         .slider-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 20px; -webkit-overflow-scrolling: touch; }
+        .slider-container::-webkit-scrollbar { height: 2px; }
         .slider-item { flex: 0 0 auto; scroll-snap-align: start; width: 85%; max-width: 600px; }
-        .slider-item img { width: 100%; height: auto; border-radius: 1.5rem; border: 1px solid rgba(128,128,128,0.2); }
+        .slider-item img { width: 100%; height: auto; border-radius: 1.5rem; border: 1px solid rgba(128,128,128,0.1); }
     </style>
 </head>
 <body>
     <div class="mesh-bg"></div>
 
     <div id="draggable-toolbar">
-        <button id="theme-toggle" class="text-white text-xl">
-            <i class="fas fa-moon" id="theme-icon"></i>
+        <button id="theme-toggle">
+            <i class="fas fa-adjust" id="theme-icon"></i>
         </button>
     </div>
 
-    <nav class="fixed w-full z-50 bg-black/20 backdrop-blur-md border-b border-white/5 px-10 py-6 flex justify-between items-center">
+    <nav class="fixed w-full z-50 bg-black/10 backdrop-blur-md border-b border-white/5 px-10 py-6 flex justify-between items-center">
         <span class="font-bold tracking-[0.4em] uppercase text-[10px]">Danuardheya</span>
-        <div class="hidden md:flex space-x-12 text-[10px] font-extrabold uppercase tracking-widest opacity-50">
+        <div class="hidden md:flex space-x-12 text-[10px] font-extrabold uppercase tracking-widest opacity-40">
             <a href="#home">Intro</a>
             <a href="#work">Portfolio</a>
             <a href="#contact">Contact</a>
@@ -54,7 +59,7 @@
 
     <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-32 text-center">
         <div data-aos="zoom-out" class="relative mb-12">
-            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" alt="Profile" class="w-64 h-64 rounded-[50px] object-cover shadow-2xl">
+            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" alt="Profile" class="w-64 h-64 rounded-[50px] object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-700">
         </div>
         <h2 data-aos="fade-up" class="text-6xl md:text-9xl font-extrabold tracking-tighter uppercase mb-8 leading-[0.85]">
             DESIGNING <br> <span class="gradient-text italic">THE REALITY.</span>
@@ -64,7 +69,7 @@
     <section id="work" class="py-40 px-6 max-w-7xl mx-auto">
         <div class="mb-12">
             <h3 class="text-4xl md:text-6xl font-extrabold uppercase tracking-tighter">3D Projects.</h3>
-            <p class="text-sm opacity-50 mt-2">Geser ke samping untuk melihat koleksi →</p>
+            <p class="text-[10px] tracking-widest opacity-40 mt-2 uppercase">Swipe to explore →</p>
         </div>
         
         <div class="slider-container" data-aos="fade-up">
@@ -77,77 +82,90 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-20">
             <div class="glass-card p-10">
-                <h4 class="text-2xl font-bold mb-4 uppercase">2D CAD & Detailing</h4>
-                <p class="opacity-60 text-sm">Gambar teknis presisi tinggi untuk eksekusi lapangan.</p>
+                <h4 class="text-xl font-bold mb-4 uppercase tracking-widest">2D CAD & Detailing</h4>
+                <p class="opacity-50 text-xs leading-relaxed">Penyusunan gambar teknis presisi tinggi untuk eksekusi lapangan.</p>
             </div>
             <div class="glass-card p-10">
-                <h4 class="text-2xl font-bold mb-4 uppercase">Perhitungan RAB</h4>
-                <p class="opacity-60 text-sm">Estimasi biaya akurat agar proyek efisien.</p>
+                <h4 class="text-xl font-bold mb-4 uppercase tracking-widest">Perhitungan RAB</h4>
+                <p class="opacity-50 text-xs leading-relaxed">Estimasi biaya akurat untuk efisiensi budget pembangunan.</p>
             </div>
         </div>
     </section>
 
     <footer id="contact" class="py-40 text-center">
         <div class="flex flex-wrap justify-center gap-10 px-6 mb-20">
-            <a href="https://wa.me/6285700398394" target="_blank" class="text-2xl opacity-50 hover:opacity-100 transition"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://youtube.com/@abysheha7946" target="_blank" class="text-2xl opacity-50 hover:opacity-100 transition"><i class="fab fa-youtube"></i></a>
-            <a href="https://instagram.com/danuardheya" target="_blank" class="text-2xl opacity-50 hover:opacity-100 transition"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/6285700398394" target="_blank" class="text-xl opacity-40 hover:opacity-100 transition"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://youtube.com/@abysheha7946" target="_blank" class="text-xl opacity-40 hover:opacity-100 transition"><i class="fab fa-youtube"></i></a>
+            <a href="https://instagram.com/danuardheya" target="_blank" class="text-xl opacity-40 hover:opacity-100 transition"><i class="fab fa-instagram"></i></a>
         </div>
-        <p class="text-[10px] tracking-[1em] opacity-30 font-black">DANUARDHEYA • 2024</p>
+        <p class="text-[9px] tracking-[1em] opacity-20 font-black">DANUARDHEYA • 2024</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1200 });
 
-        // LOGIKA THEME TOGGLE (DARK / LIGHT)
+        // THEME TOGGLE
         const btn = document.getElementById('theme-toggle');
-        const icon = document.getElementById('theme-icon');
         btn.onclick = () => {
             document.body.classList.toggle('light-mode');
-            if(document.body.classList.contains('light-mode')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
-            } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
-            }
         };
 
-        // LOGIKA DRAGGABLE TOOLBAR (Bisa Dipindah)
+        // DRAGGABLE LOGIC
         const toolbar = document.getElementById('draggable-toolbar');
-        let isDragging = false;
+        let active = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
 
-        toolbar.addEventListener('mousedown', startDrag);
-        toolbar.addEventListener('touchstart', startDrag);
+        toolbar.addEventListener("touchstart", dragStart, false);
+        document.addEventListener("touchend", dragEnd, false);
+        document.addEventListener("touchmove", drag, false);
 
-        function startDrag(e) {
-            isDragging = true;
-            let event = e.type === 'touchstart' ? e.touches[0] : e;
-            let shiftX = event.clientX - toolbar.getBoundingClientRect().left;
-            let shiftY = event.clientY - toolbar.getBoundingClientRect().top;
+        toolbar.addEventListener("mousedown", dragStart, false);
+        document.addEventListener("mouseup", dragEnd, false);
+        document.addEventListener("mousemove", drag, false);
 
-            function moveAt(clientX, clientY) {
-                toolbar.style.left = clientX - shiftX + 'px';
-                toolbar.style.top = clientY - shiftY + 'px';
-                toolbar.style.right = 'auto';
-                toolbar.style.bottom = 'auto';
+        function dragStart(e) {
+            if (e.type === "touchstart") {
+                initialX = e.touches[0].clientX - xOffset;
+                initialY = e.touches[0].clientY - yOffset;
+            } else {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
             }
-
-            function onMouseMove(e) {
-                let event = e.type === 'touchmove' ? e.touches[0] : e;
-                moveAt(event.clientX, event.clientY);
-            }
-
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('touchmove', onMouseMove);
-
-            toolbar.onmouseup = toolbar.ontouchend = function() {
-                document.removeEventListener('mousemove', onMouseMove);
-                document.removeEventListener('touchmove', onMouseMove);
-                isDragging = false;
-            };
+            if (e.target === toolbar || toolbar.contains(e.target)) { active = true; }
         }
-        toolbar.ondragstart = () => false;
+
+        function dragEnd() {
+            initialX = currentX;
+            initialY = currentY;
+            active = false;
+        }
+
+        function drag(e) {
+            if (active) {
+                e.preventDefault();
+                if (e.type === "touchmove") {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                } else {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                }
+                xOffset = currentX;
+                yOffset = currentY;
+                setTranslate(currentX, currentY, toolbar);
+            }
+        }
+
+        function setTranslate(xPos, yPos, el) {
+            el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+        }
     </script>
 </body>
-                </html>
-        
+    </html>
+    
