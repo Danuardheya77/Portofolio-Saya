@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
     
     <style>
         :root { --warm: #ffb703; --bg: #020617; --text: #ffffff; --grid: rgba(59, 130, 246, 0.05); }
@@ -32,121 +32,165 @@
         #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; cursor: move; }
         .social-link { width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .social-link:hover { background: var(--warm); color: #000; transform: scale(1.1); }
+
+        /* SPLASH SCREEN STYLES */
+        #splash-screen {
+            position: fixed; inset: 0; background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+            z-index: 100000; opacity: 1; transition: opacity 1s ease-out;
+            background-image: url('https://drive.google.com/thumbnail?id=105BiOc2CqD3KHA9KHF21dvprKYUERh-_&sz=w1600');
+            background-color: #000;
+        }
+        #splash-screen.fade-out { opacity: 0; pointer-events: none; }
+        .splash-text {
+            font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: white;
+            margin-bottom: 20vh; text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            text-align: center; line-height: 1.2;
+        }
+        @media (min-width: 768px) { .splash-text { font-size: 2.5rem; } }
     </style>
 </head>
-<body>
-    <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:9998;"></canvas>
-
-    <div class="fixed top-6 right-6 z-[10001] flex gap-3">
-        <div class="tool-btn warm-glow" onclick="toggleTheme()"><i id="theme-icon" class="fas fa-moon"></i></div>
-        <div class="tool-btn warm-glow" onclick="toggleMenu('dropdown')"><i class="fas fa-bars"></i></div>
+<body class="overflow-hidden"> <div id="splash-screen">
+        <p class="splash-text" data-aos="fade-up" data-aos-delay="500">
+            Honeymoon di Inggris<br>
+            di Paris<br>
+            di Jerman
+        </p>
     </div>
 
-    <div id="dropdown" class="menu-dropdown top-24 right-6">
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-home" onclick="location.href='#home'">Beranda</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-work" onclick="location.href='#work'">Proyek 3D</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-cad" onclick="location.href='#cad'">Gambar Teknik</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-rab" onclick="location.href='#rab'">Analisis Biaya</div>
-    </div>
+    <div id="main-content" class="opacity-0 transition-opacity duration-1000">
+        <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:9998;"></canvas>
 
-    <div id="acc-box">
-        <div class="tool-btn warm-glow w-12 h-12 rounded-full" onclick="toggleMenu('lang-nav')"><i class="fas fa-language"></i></div>
-        <div id="lang-nav" class="menu-dropdown mt-3 left-0">
-            <div class="text-[10px] opacity-50 mb-3 uppercase t-lang-title">Pilih Bahasa</div>
-            <div class="grid grid-cols-1 gap-1 text-[11px]">
-                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('id')">Indonesian</div>
-                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('en')">English</div>
-                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('ja')">Japanese</div>
+        <div class="fixed top-6 right-6 z-[10001] flex gap-3">
+            <div class="tool-btn warm-glow" onclick="toggleTheme()"><i id="theme-icon" class="fas fa-moon"></i></div>
+            <div class="tool-btn warm-glow" onclick="toggleMenu('dropdown')"><i class="fas fa-bars"></i></div>
+        </div>
+
+        <div id="dropdown" class="menu-dropdown top-24 right-6">
+            <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-home" onclick="location.href='#home'">Beranda</div>
+            <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-work" onclick="location.href='#work'">Proyek 3D</div>
+            <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-cad" onclick="location.href='#cad'">Gambar Teknik</div>
+            <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-rab" onclick="location.href='#rab'">Analisis Biaya</div>
+        </div>
+
+        <div id="acc-box">
+            <div class="tool-btn warm-glow w-12 h-12 rounded-full" onclick="toggleMenu('lang-nav')"><i class="fas fa-language"></i></div>
+            <div id="lang-nav" class="menu-dropdown mt-3 left-0">
+                <div class="text-[10px] opacity-50 mb-3 uppercase t-lang-title">Pilih Bahasa</div>
+                <div class="grid grid-cols-1 gap-1 text-[11px]">
+                    <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('id')">Indonesian</div>
+                    <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('en')">English</div>
+                    <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('ja')">Japanese</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="fixed bottom-8 left-8 z-[10002]" onclick="showGreeting()" style="cursor:pointer;">
-        <div id="greet-msg" class="greeting-bubble">Halo!</div>
-        <div class="w-16 h-16 rounded-full border-2 border-orange-400 overflow-hidden bg-white p-1 hover:scale-110 transition shadow-2xl">
-            <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-contain rounded-full">
-        </div>
-    </div>
-
-    <section id="home" class="hero-section text-center px-4">
-        <div class="mb-6" data-aos="zoom-in">
-            <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-orange-400 p-1 bg-white mx-auto shadow-2xl">
-                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
+        <div class="fixed bottom-8 left-8 z-[10002]" onclick="showGreeting()" style="cursor:pointer;">
+            <div id="greet-msg" class="greeting-bubble">Halo!</div>
+            <div class="w-16 h-16 rounded-full border-2 border-orange-400 overflow-hidden bg-white p-1 hover:scale-110 transition shadow-2xl">
+                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-contain rounded-full">
             </div>
         </div>
-        <h1 class="brand-name font-bold mb-2 text-white" data-aos="fade-up">Danuardheya</h1>
-        <p id="t-hero" class="text-orange-400 tracking-[0.5em] text-[10px] md:text-xs uppercase font-light">Architectural Design Studio</p>
-    </section>
 
-    <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 id="t-work-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Pameran Visual 3D</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13HPMYy_WXBT190cxMeROkomIofbmg2M0&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13_QC3PSpTFgsRz9OKGUfWDjybteLfytu&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=146en6-VAKyGWQymoPmIrI3o301EqfrQ2&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1kSpfXzm_pg8SJLs08mEAxLtnnn2GwQI_&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz&sz=w800" class="w-full h-full object-cover"></div>
-        </div>
-    </section>
-
-    <section id="cad" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 id="t-cad-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Cetak Biru Engineering</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800" class="w-full"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800" class="w-full"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800" class="w-full"></div>
-        </div>
-    </section>
-
-    <section id="rab" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 id="t-rab-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Analisis Anggaran</h2>
-        <div class="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-white/10">
-            <div class="p-8 flex flex-col justify-center">
-                <h3 id="t-rab-sub" class="text-2xl font-bold mb-4">Estimasi Strategis</h3>
-                <p id="t-rab-desc" class="text-gray-400 text-sm leading-relaxed">Optimalisasi biaya material dan tenaga kerja menggunakan standar profesional SNI untuk hasil yang presisi dan efisien.</p>
+        <section id="home" class="hero-section text-center px-4">
+            <div class="mb-6" data-aos="zoom-in">
+                <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-orange-400 p-1 bg-white mx-auto shadow-2xl">
+                    <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
+                </div>
             </div>
-            <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-64 object-cover">
-        </div>
-    </section>
+            <h1 class="brand-name font-bold mb-2 text-white" data-aos="fade-up">Danuardheya</h1>
+            <p id="t-hero" class="text-orange-400 tracking-[0.5em] text-[10px] md:text-xs uppercase font-light">Architectural Design Studio</p>
+        </section>
 
-    <section class="py-20 text-center">
-        <h2 id="t-contact-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Hubungi Saya</h2>
-        <div class="flex justify-center gap-6">
-            <a href="https://wa.me/6285700398394" target="_blank" class="social-link"><i class="fab fa-whatsapp text-xl"></i></a>
-            <a href="https://www.instagram.com/danuardheya" target="_blank" class="social-link"><i class="fab fa-instagram text-xl"></i></a>
-            <a href="https://youtube.com/@abysheha7946" target="_blank" class="social-link"><i class="fab fa-youtube text-xl"></i></a>
-            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="social-link"><i class="fab fa-linkedin-in text-xl"></i></a>
-        </div>
-    </section>
-
-    <div class="fixed bottom-8 right-8 z-[10001] flex flex-col items-center gap-2 opacity-30 hover:opacity-100 transition">
-        <span id="t-scroll-label" class="text-[8px] text-orange-400 font-bold uppercase">Auto Scroll</span>
-        <div class="flex items-center gap-3">
-            <div onclick="toggleAutoScroll()" id="sc-btn" class="w-10 h-10 border border-orange-400 rounded-full flex items-center justify-center warm-glow cursor-pointer">
-                <i id="sc-icon" class="fas fa-play text-[10px] text-orange-400"></i>
+        <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
+            <h2 id="t-work-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Pameran Visual 3D</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13HPMYy_WXBT190cxMeROkomIofbmg2M0&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13_QC3PSpTFgsRz9OKGUfWDjybteLfytu&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=146en6-VAKyGWQymoPmIrI3o301EqfrQ2&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1kSpfXzm_pg8SJLs08mEAxLtnnn2GwQI_&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39&sz=w800" class="w-full h-full object-cover"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz&sz=w800" class="w-full h-full object-cover"></div>
             </div>
-            <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-16" oninput="changeSpeed()">
+        </section>
+
+        <section id="cad" class="py-20 px-6 max-w-7xl mx-auto">
+            <h2 id="t-cad-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Cetak Biru Engineering</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800" class="w-full"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800" class="w-full"></div>
+                <div class="image-card"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800" class="w-full"></div>
+            </div>
+        </section>
+
+        <section id="rab" class="py-20 px-6 max-w-7xl mx-auto">
+            <h2 id="t-rab-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Analisis Anggaran</h2>
+            <div class="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-white/10">
+                <div class="p-8 flex flex-col justify-center">
+                    <h3 id="t-rab-sub" class="text-2xl font-bold mb-4">Estimasi Strategis</h3>
+                    <p id="t-rab-desc" class="text-gray-400 text-sm leading-relaxed">Optimalisasi biaya material dan tenaga kerja menggunakan standar profesional SNI untuk hasil yang presisi dan efisien.</p>
+                </div>
+                <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-64 object-cover">
+            </div>
+        </section>
+
+        <section class="py-20 text-center">
+            <h2 id="t-contact-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Hubungi Saya</h2>
+            <div class="flex justify-center gap-6">
+                <a href="https://wa.me/6285700398394" target="_blank" class="social-link"><i class="fab fa-whatsapp text-xl"></i></a>
+                <a href="https://www.instagram.com/danuardheya" target="_blank" class="social-link"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="https://youtube.com/@abysheha7946" target="_blank" class="social-link"><i class="fab fa-youtube text-xl"></i></a>
+                <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="social-link"><i class="fab fa-linkedin-in text-xl"></i></a>
+            </div>
+        </section>
+
+        <div class="fixed bottom-8 right-8 z-[10001] flex flex-col items-center gap-2 opacity-30 hover:opacity-100 transition">
+            <span id="t-scroll-label" class="text-[8px] text-orange-400 font-bold uppercase">Auto Scroll</span>
+            <div class="flex items-center gap-3">
+                <div onclick="toggleAutoScroll()" id="sc-btn" class="w-10 h-10 border border-orange-400 rounded-full flex items-center justify-center warm-glow cursor-pointer">
+                    <i id="sc-icon" class="fas fa-play text-[10px] text-orange-400"></i>
+                </div>
+                <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-16" oninput="changeSpeed()">
+            </div>
         </div>
+
+        <footer class="py-10 text-center opacity-20 text-[10px] tracking-[1em]">DANUARDHEYA • 2025</footer>
     </div>
-
-    <footer class="py-10 text-center opacity-20 text-[10px] tracking-[1em]">DANUARDHEYA • 2025</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        // SPLASH SCREEN LOGIC
+        window.addEventListener('load', () => {
+            const splashScreen = document.getElementById('splash-screen');
+            const mainContent = document.getElementById('main-content');
+            
+            // Fade out splash screen after 3 seconds, or instantly if clicked
+            const hideSplash = () => {
+                splashScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    splashScreen.style.display = 'none';
+                    mainContent.classList.remove('opacity-0'); // Show main content
+                    document.body.classList.remove('overflow-hidden'); // Allow scrolling
+                }, 1000); // Duration of fade-out transition
+            };
+
+            setTimeout(hideSplash, 3000); // Hide after 3 seconds
+            splashScreen.addEventListener('click', hideSplash); // Hide instantly on click
+        });
 
         // Water Ripple Asli
         const canvas = document.getElementById('water-canvas'); const ctx = canvas.getContext('2d');
@@ -163,9 +207,9 @@
 
         // Dictionary Ganti Bahasa (Semua Kalimat)
         const dictionary = {
-            id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D", cad: "Cetak Biru Engineering", rab: "Analisis Anggaran", rabs: "Estimasi Strategis", rabd: "Optimalisasi biaya material dan tenaga kerja standar SNI.", contact: "Hubungi Saya", scroll: "Gulir Otomatis", navh: "Beranda", navw: "Proyek 3D", navc: "Gambar Teknik", navr: "Analisis Biaya", lang: "Pilih Bahasa" },
-            en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE", cad: "Engineering Blueprints", rab: "Budget Analysis", rabs: "Strategic Estimation", rabd: "Material and labor cost optimization using professional SNI standards.", contact: "Connect With Me", scroll: "Auto Scroll", navh: "Home", navw: "3D Projects", navc: "Blueprints", navr: "Budget Analysis", lang: "Select Language" },
-            ja: { hero: "現実を構築する", work: "3Dビジュアル展示", cad: "エンジニアリング設計図", rab: "予算分析", rabs: "戦略的見積もり", rabd: "SNI基準を使用した材料費と労務費の最適化。", contact: "お問い合わせ", scroll: "自動スクロール", navh: "ホーム", navw: "3Dプロジェクト", navc: "設計図面", navr: "予算分析", lang: "言語を選択" }
+            id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D", cad: "Cetak Biru Engineering", rab: "Analisis Anggaran", rabs: "Estimasi Strategis", rabd: "Optimalisasi biaya material dan tenaga kerja standar SNI untuk hasil yang presisi dan efisien.", contact: "Hubungi Saya", scroll: "Gulir Otomatis", navh: "Beranda", navw: "Proyek 3D", navc: "Gambar Teknik", navr: "Analisis Biaya", lang: "Pilih Bahasa" },
+            en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE", cad: "Engineering Blueprints", rab: "Budget Analysis", rabs: "Strategic Estimation", rabd: "Material and labor cost optimization using professional SNI standards for precise and efficient results.", contact: "Connect With Me", scroll: "Auto Scroll", navh: "Home", navw: "3D Projects", navc: "Blueprints", navr: "Budget Analysis", lang: "Select Language" },
+            ja: { hero: "現実を構築する", work: "3Dビジュアル展示", cad: "エンジニアリング設計図", rab: "予算分析", rabs: "戦略的見積もり", rabd: "SNI基準を使用した材料費と労務費の最適化により、正確で効率的な結果を実現します。", contact: "お問い合わせ", scroll: "自動スクロール", navh: "ホーム", navw: "3Dプロジェクト", navc: "設計図面", navr: "予算分析", lang: "言語を選択" }
         };
 
         function setLang(l) {
@@ -217,15 +261,4 @@
         // Drag Accessibility Logic
         let xOff = 0, yOff = 0;
         const box = document.getElementById("acc-box");
-        box.onmousedown = (e) => {
-            let startX = e.clientX - xOff, startY = e.clientY - yOff;
-            document.onmousemove = (ev) => {
-                xOff = ev.clientX - startX; yOff = ev.clientY - startY;
-                box.style.transform = `translate(${xOff}px, ${yOff}px)`;
-            };
-            document.onmouseup = () => document.onmousemove = null;
-        };
-    </script>
-</body>
-                                                                                                                                                                      </html>
-                                        
+        box.onmous
