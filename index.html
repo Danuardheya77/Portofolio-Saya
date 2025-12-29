@@ -18,7 +18,7 @@
             overflow-x: hidden; 
         }
 
-        /* Futuristic Background Grid */
+        /* Futuristic Background Grid Overlay */
         body::before {
             content: "";
             position: fixed;
@@ -29,20 +29,6 @@
             z-index: -1;
             mask-image: radial-gradient(ellipse at center, black, transparent 80%);
         }
-
-        /* Decorative Side Text for Desktop */
-        .side-text {
-            position: fixed;
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            font-size: 10px;
-            letter-spacing: 0.8em;
-            color: rgba(59, 130, 246, 0.2);
-            text-transform: uppercase;
-            z-index: 0;
-            display: none;
-        }
-        @media (min-width: 1024px) { .side-text { display: block; } }
 
         #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
         .top-toolbar { position: fixed; top: 25px; right: 25px; z-index: 10001; display: flex; gap: 10px; }
@@ -62,14 +48,15 @@
             border-radius: 20px; padding: 20px; border: 1px solid rgba(59, 130, 246, 0.3); 
             display: none; width: 240px; box-shadow: 0 25px 50px rgba(0,0,0,0.8); 
         }
+        .menu-dropdown.active { display: block; animation: slideIn 0.4s ease-out; }
 
         #floating-acc { position: fixed; top: 120px; left: 20px; z-index: 10000; width: 45px; height: 45px; cursor: move; touch-action: none; }
         
         .profile-img-container { 
-            width: 160px; height: 160px; border-radius: 50%; 
-            border: 2px solid var(--neon); padding: 5px; 
+            width: 180px; height: 180px; border-radius: 50%; 
+            border: 2px solid var(--neon); padding: 7px; 
             background: rgba(0, 242, 255, 0.05);
-            box-shadow: 0 0 40px rgba(0, 242, 255, 0.1);
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.15);
             overflow: hidden;
         }
         .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
@@ -87,6 +74,7 @@
         .rgb-glow-border::after { content: ''; position: absolute; inset: 2px; background: #020617; border-radius: 50%; }
 
         @keyframes rotateRGB { 100% { transform: rotate(360deg); } }
+        @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 20px; }
         
@@ -94,7 +82,7 @@
         .slider-wrap::-webkit-scrollbar { display: none; }
         
         .slider-item { 
-            flex: 0 0 85%; md:flex: 0 0 40%; border-radius: 24px; 
+            flex: 0 0 85%; md:flex: 0 0 45%; border-radius: 24px; 
             overflow: hidden; border: 1px solid rgba(255,255,255,0.08); 
             background: rgba(255,255,255,0.02); backdrop-filter: blur(10px);
             transition: 0.5s;
@@ -108,25 +96,11 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
         }
-
-        /* Stats Grid for Desktop */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 20px;
-            width: 100%;
-            max-width: 800px;
-            margin-top: 40px;
-        }
-        @media (min-width: 768px) { .info-grid { grid-template-columns: repeat(3, 1fr); } }
     </style>
 </head>
 <body>
     <canvas id="water-canvas"></canvas>
     
-    <div class="side-text top-40 left-10">CIVIL ENGINEERING • ARCHITECTURAL VISUALS</div>
-    <div class="side-text bottom-40 right-10">EST. MMXXV • DIGITAL INNOVATION</div>
-
     <div class="top-toolbar">
         <div class="tool-btn" onclick="window.history.back()"><i class="fas fa-arrow-left text-white/50"></i></div>
         <div class="tool-btn" onclick="toggleMenu('dropdown')"><i class="fas fa-th-large text-white/50"></i></div>
@@ -158,26 +132,9 @@
                 <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" alt="Logo" class="profile-img">
             </div>
         </div>
-        <h1 class="text-6xl md:text-9xl font-extrabold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-blue-500 text-center" data-aos="fade-up">DANUARDHEYA</h1>
-        <p id="t-hero" class="text-blue-400 font-light tracking-widest text-xl text-center uppercase" data-aos="fade-up">ARCHITECTING REALITY</p>
-        
-        <div class="info-grid" data-aos="fade-up" data-aos-delay="300">
-            <div class="glass-card p-6 text-center">
-                <i class="fas fa-drafting-pencil text-blue-400 mb-3 block text-xl"></i>
-                <h3 class="text-[10px] tracking-widest uppercase opacity-50 mb-1">Expertise</h3>
-                <p class="text-xs font-bold">3D VISUALIZATION</p>
-            </div>
-            <div class="glass-card p-6 text-center">
-                <i class="fas fa-microchip text-blue-400 mb-3 block text-xl"></i>
-                <h3 class="text-[10px] tracking-widest uppercase opacity-50 mb-1">Method</h3>
-                <p class="text-xs font-bold">BIM ORIENTED</p>
-            </div>
-            <div class="glass-card p-6 text-center">
-                <i class="fas fa-shield-alt text-blue-400 mb-3 block text-xl"></i>
-                <h3 class="text-[10px] tracking-widest uppercase opacity-50 mb-1">Standard</h3>
-                <p class="text-xs font-bold">SNI COMPLIANT</p>
-            </div>
-        </div>
+        <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-blue-500 text-center" data-aos="fade-up">DANUARDHEYA</h1>
+        <p id="t-hero" class="text-blue-400 font-light tracking-widest text-xl text-center uppercase" data-aos="fade-up" data-aos-delay="100">ARCHITECTING REALITY</p>
+        <p id="t-subhero" class="text-gray-500 text-[11px] tracking-[0.5em] uppercase text-center mt-2" data-aos="fade-up" data-aos-delay="200">Civil Engineer & 3D Visualizer</p>
     </section>
 
     <section id="work">
@@ -226,6 +183,21 @@
         </div>
     </section>
 
+    <section id="rab-section">
+        <div class="w-full max-w-6xl">
+            <div class="flex items-center gap-4 mb-8" data-aos="fade-right">
+                <div class="h-[1px] w-12 bg-blue-500"></div>
+                <h2 id="t-h-rab" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">Cost Strategist</h2>
+            </div>
+            <div class="slider-wrap" data-aos="fade-up">
+                <div class="slider-item"><img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800"></div>
+            </div>
+            <div class="glass-card p-8 mt-10" data-aos="fade-up">
+                <p id="t-rab-desc" class="text-xs md:text-sm text-gray-400 leading-relaxed max-w-2xl">Accurate and efficient construction budget management using the latest SNI standards.</p>
+            </div>
+        </div>
+    </section>
+
     <footer class="py-20 text-center">
         <div class="opacity-20 text-[10px] tracking-[1.5em] mb-4">DANUARDHEYA • 2025</div>
         <div id="t-footer-sub" class="text-[8px] text-blue-500 uppercase tracking-widest">Digital Engineering Portfolio</div>
@@ -238,28 +210,59 @@
         const translations = {
             id: {
                 hero: "MEMBANGUN REALITAS",
+                subhero: "Insinyur Sipil & Visualisator 3D",
                 hWork: "Pameran Interior & Eksterior 3D",
                 hCad: "Cetak Biru Teknik",
                 cadDesc: "Drafting teknis presisi tinggi untuk standar konstruksi profesional dan perizinan bangunan (IMB/PBG).",
+                hRab: "Strategis Anggaran",
+                rabDesc: "Manajemen anggaran biaya pembangunan yang akurat dan efisien menggunakan standar SNI terbaru.",
                 navHome: "Beranda", nav3d: "Proyek 3D", navCad: "CAD / DED", navRab: "Analis RAB", navTitle: "NAVIGASI",
                 footerSub: "Portofolio Teknik Digital"
             },
             en: {
                 hero: "ARCHITECTING REALITY",
+                subhero: "Civil Engineer & 3D Visualizer",
                 hWork: "3D Interior & Exterior Showcase",
                 hCad: "Engineering Blueprints",
                 cadDesc: "High-precision technical drafting for professional construction standards and building permits.",
+                hRab: "Cost Strategist",
+                rabDesc: "Accurate and efficient construction budget management using the latest SNI standards.",
                 navHome: "Home", nav3d: "3D Projects", navCad: "CAD / DED", navRab: "RAB Analyst", navTitle: "NAVIGATION",
                 footerSub: "Digital Engineering Portfolio"
+            },
+            ar: {
+                hero: "هندسة الواقع",
+                subhero: "مهندس مدني ومصور ثلاثي الأبعاد",
+                hWork: "عرض التصميم الداخلي والخارجي ثلاثي الأبعاد",
+                hCad: "المخططات الهندسية",
+                cadDesc: "صياغة فنية عالية الدقة لمعايير البناء المهنية وتصاريح البناء.",
+                hRab: "مخطط التكلفة",
+                rabDesc: "إدارة ميزانية البناء دقيقة وفعالة باستخدام أحدث معايير SNI.",
+                navHome: "بيت", nav3d: "مشاريع ثلاثية الأبعاد", navCad: "CAD / DED", navRab: "محلل ميزانية", navTitle: "التنقل",
+                footerSub: "محفظة الهندسة الرقمية"
+            },
+            cn: {
+                hero: "构建现实",
+                subhero: "土木工程师和 3D 视觉师",
+                hWork: "3D 室内外展示",
+                hCad: "工程蓝图",
+                cadDesc: "符合专业施工标准和建筑许可的高精度技术制图。",
+                hRab: "成本策略师",
+                rabDesc: "使用最新的 SNI 标准进行准确高效的施工预算管理。",
+                navHome: "首页", nav3d: "3D 项目", navCad: "CAD / DED", navRab: "造价分析", navTitle: "导航",
+                footerSub: "数字工程作品集"
             }
         };
 
         function setLang(l) {
-            const t = translations[l] || translations['en'];
+            const t = translations[l];
             document.getElementById('t-hero').innerText = t.hero;
+            document.getElementById('t-subhero').innerText = t.subhero;
             document.getElementById('t-h-work').innerText = t.hWork;
             document.getElementById('t-h-cad').innerText = t.hCad;
             document.getElementById('t-cad-desc').innerText = t.cadDesc;
+            document.getElementById('t-h-rab').innerText = t.hRab;
+            document.getElementById('t-rab-desc').innerText = t.rabDesc;
             document.getElementById('t-nav-home').innerText = t.navHome;
             document.getElementById('t-nav-3d').innerText = t.nav3d;
             document.getElementById('t-nav-cad').innerText = t.navCad;
@@ -276,6 +279,7 @@
             d.style.display = isVisible ? 'none' : 'block';
         }
 
+        // Drag Logic
         let dragItem = document.querySelector("#floating-acc");
         let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
         function dragStart(e) {
@@ -295,6 +299,7 @@
         window.addEventListener("mousemove", drag); window.addEventListener("touchmove", drag, {passive: false});
         window.addEventListener("mouseup", () => active = false); window.addEventListener("touchend", () => active = false);
 
+        // Water Ripple
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -314,5 +319,5 @@
         anim();
     </script>
 </body>
-    </html>
-    
+                                                                                                             </html>
+        
