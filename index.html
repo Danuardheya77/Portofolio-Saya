@@ -7,51 +7,31 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@400;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
     
     <style>
-        :root { 
-            --accent: #3b82f6; --warm: #ffb703; 
-            --bg: #020617; --text: #ffffff; --grid: rgba(59, 130, 246, 0.05);
-        }
+        :root { --warm: #ffb703; --bg: #020617; --text: #ffffff; --grid: rgba(59, 130, 246, 0.05); }
         .light-mode { --bg: #fffcf2; --text: #252422; --grid: rgba(255, 183, 3, 0.1); }
-
         body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: 0.5s; overflow-x: hidden; margin: 0; }
-        
-        /* Grid Engineering Tetap Ada */
-        body::before {
-            content: ""; position: fixed; inset: 0;
-            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-            background-size: 50px 50px; z-index: -1;
-        }
+        body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; }
 
-        /* EFEK LAMPU WARM RUNNING (Satu Warna) */
+        /* WARM RUNNING GLOW */
         @keyframes warmRunning {
-            0% { border-color: #ffb703; box-shadow: 0 0 5px #ffb703; }
+            0%, 100% { border-color: #ffb703; box-shadow: 0 0 5px #ffb703; }
             50% { border-color: #fb8500; box-shadow: 0 0 20px #fb8500; }
-            100% { border-color: #ffb703; box-shadow: 0 0 5px #ffb703; }
         }
         .warm-glow { animation: warmRunning 2s infinite ease-in-out; border-width: 2px !important; }
 
-        /* Hero Background Arsitektural */
-        .hero-section {
-            position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: linear-gradient(to bottom, rgba(2,6,23,0.8), var(--bg)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000');
-            background-size: cover; background-position: center;
-        }
-
+        .hero-section { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(to bottom, rgba(2,6,23,0.8), var(--bg)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000'); background-size: cover; background-position: center; }
         .brand-name { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-style: italic; letter-spacing: 0.1em; }
         .tool-btn { background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); }
         .menu-dropdown { position: fixed; z-index: 10001; background: rgba(2, 6, 23, 0.98); backdrop-filter: blur(25px); border-radius: 20px; padding: 20px; border: 1px solid var(--warm); display: none; width: 220px; }
-        
-        #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; }
-        .work-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; width: 100%; }
-        @media (min-width: 768px) { .work-grid { grid-cols: 3; grid-template-columns: repeat(3, 1fr); } .brand-name { font-size: 4rem; } }
-
-        .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; }
+        .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; background: #000; }
         .image-card:hover { transform: translateY(-10px); border-color: var(--warm); }
-        
-        .greeting-bubble { position: absolute; bottom: 75px; left: 0; background: var(--warm); color: #000; padding: 8px 15px; border-radius: 15px; font-size: 11px; font-weight: 800; display: none; white-space: nowrap; }
+        .greeting-bubble { position: absolute; bottom: 75px; left: 0; background: var(--warm); color: #000; padding: 8px 15px; border-radius: 15px; font-size: 11px; font-weight: 800; display: none; white-space: nowrap; z-index: 10003; }
+        #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; cursor: move; }
+        .social-link { width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .social-link:hover { background: var(--warm); color: #000; transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -63,24 +43,21 @@
     </div>
 
     <div id="dropdown" class="menu-dropdown top-24 right-6">
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#home'">Beranda</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#work'">Proyek 3D</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#cad'">Gambar Teknik</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#rab'">Analisis Biaya</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-home" onclick="location.href='#home'">Beranda</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-work" onclick="location.href='#work'">Proyek 3D</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-cad" onclick="location.href='#cad'">Gambar Teknik</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-rab" onclick="location.href='#rab'">Analisis Biaya</div>
     </div>
 
     <div id="acc-box">
-        <div class="tool-btn warm-glow w-12 h-12 rounded-full" onclick="toggleMenu('lang-nav')">
-            <i class="fas fa-language"></i>
-        </div>
+        <div class="tool-btn warm-glow w-12 h-12 rounded-full" onclick="toggleMenu('lang-nav')"><i class="fas fa-language"></i></div>
         <div id="lang-nav" class="menu-dropdown mt-3 left-0">
-            <div class="text-[10px] opacity-50 mb-3 uppercase tracking-widest">Pilih Bahasa</div>
+            <div class="text-[10px] opacity-50 mb-3 uppercase t-lang-title">Pilih Bahasa</div>
             <div class="grid grid-cols-1 gap-1 text-[11px]">
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="setLang('id')">Indonesian</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="setLang('en')">English</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="setLang('ja')">Japanese</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="setLang('ar')">Arabic</div>
-                </div>
+                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('id')">Indonesian</div>
+                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('en')">English</div>
+                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('ja')">Japanese</div>
+            </div>
         </div>
     </div>
 
@@ -91,9 +68,9 @@
         </div>
     </div>
 
-    <section id="home" class="hero-section">
+    <section id="home" class="hero-section text-center px-4">
         <div class="mb-6" data-aos="zoom-in">
-            <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-orange-400 p-1.5 bg-white shadow-2xl">
+            <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-orange-400 p-1 bg-white mx-auto shadow-2xl">
                 <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
             </div>
         </div>
@@ -103,53 +80,73 @@
 
     <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
         <h2 id="t-work-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Pameran Visual 3D</h2>
-        <div class="work-grid" data-aos="fade-up">
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13HPMYy_WXBT190cxMeROkomIofbmg2M0&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13_QC3PSpTFgsRz9OKGUfWDjybteLfytu&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=146en6-VAKyGWQymoPmIrI3o301EqfrQ2&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1kSpfXzm_pg8SJLs08mEAxLtnnn2GwQI_&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz&sz=w800"></div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13HPMYy_WXBT190cxMeROkomIofbmg2M0&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13_QC3PSpTFgsRz9OKGUfWDjybteLfytu&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=146en6-VAKyGWQymoPmIrI3o301EqfrQ2&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1kSpfXzm_pg8SJLs08mEAxLtnnn2GwQI_&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz&sz=w800" class="w-full h-full object-cover"></div>
         </div>
     </section>
 
     <section id="cad" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 id="t-cad-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Cetak Biru Teknik</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800"></div>
+        <h2 id="t-cad-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Cetak Biru Engineering</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800" class="w-full"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800" class="w-full"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800" class="w-full"></div>
         </div>
     </section>
 
     <section id="rab" class="py-20 px-6 max-w-7xl mx-auto">
         <h2 id="t-rab-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Analisis Anggaran</h2>
-        <div class="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden p-8 border border-white/10">
-            <p id="t-rab-desc" class="text-gray-400 text-sm leading-relaxed">Optimalisasi biaya menggunakan standar profesional SNI untuk setiap proyek pembangunan.</p>
+        <div class="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-white/10">
+            <div class="p-8 flex flex-col justify-center">
+                <h3 id="t-rab-sub" class="text-2xl font-bold mb-4">Estimasi Strategis</h3>
+                <p id="t-rab-desc" class="text-gray-400 text-sm leading-relaxed">Optimalisasi biaya material dan tenaga kerja menggunakan standar profesional SNI untuk hasil yang presisi dan efisien.</p>
+            </div>
+            <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-64 object-cover">
         </div>
     </section>
 
-    <div class="fixed bottom-8 right-8 z-[10001] flex items-center gap-4 opacity-30 hover:opacity-100 transition">
-        <div onclick="toggleAutoScroll()" id="sc-btn" class="w-10 h-10 border border-orange-400 rounded-full flex items-center justify-center warm-glow cursor-pointer">
-            <i id="sc-icon" class="fas fa-play text-[10px] text-orange-400"></i>
+    <section class="py-20 text-center">
+        <h2 id="t-contact-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Hubungi Saya</h2>
+        <div class="flex justify-center gap-6">
+            <a href="https://wa.me/6285700398394" target="_blank" class="social-link"><i class="fab fa-whatsapp text-xl"></i></a>
+            <a href="https://www.instagram.com/danuardheya" target="_blank" class="social-link"><i class="fab fa-instagram text-xl"></i></a>
+            <a href="https://youtube.com/@abysheha7946" target="_blank" class="social-link"><i class="fab fa-youtube text-xl"></i></a>
+            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="social-link"><i class="fab fa-linkedin-in text-xl"></i></a>
         </div>
-        <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-16" oninput="changeSpeed()">
+    </section>
+
+    <div class="fixed bottom-8 right-8 z-[10001] flex flex-col items-center gap-2 opacity-30 hover:opacity-100 transition">
+        <span id="t-scroll-label" class="text-[8px] text-orange-400 font-bold uppercase">Auto Scroll</span>
+        <div class="flex items-center gap-3">
+            <div onclick="toggleAutoScroll()" id="sc-btn" class="w-10 h-10 border border-orange-400 rounded-full flex items-center justify-center warm-glow cursor-pointer">
+                <i id="sc-icon" class="fas fa-play text-[10px] text-orange-400"></i>
+            </div>
+            <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-16" oninput="changeSpeed()">
+        </div>
     </div>
+
+    <footer class="py-10 text-center opacity-20 text-[10px] tracking-[1em]">DANUARDHEYA • 2025</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init();
+        AOS.init({ duration: 1000, once: true });
 
         // Water Ripple Asli
         const canvas = document.getElementById('water-canvas'); const ctx = canvas.getContext('2d');
@@ -164,7 +161,32 @@
             }); requestAnimationFrame(draw);
         } draw();
 
-        // Theme & Language
+        // Dictionary Ganti Bahasa (Semua Kalimat)
+        const dictionary = {
+            id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D", cad: "Cetak Biru Engineering", rab: "Analisis Anggaran", rabs: "Estimasi Strategis", rabd: "Optimalisasi biaya material dan tenaga kerja standar SNI.", contact: "Hubungi Saya", scroll: "Gulir Otomatis", navh: "Beranda", navw: "Proyek 3D", navc: "Gambar Teknik", navr: "Analisis Biaya", lang: "Pilih Bahasa" },
+            en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE", cad: "Engineering Blueprints", rab: "Budget Analysis", rabs: "Strategic Estimation", rabd: "Material and labor cost optimization using professional SNI standards.", contact: "Connect With Me", scroll: "Auto Scroll", navh: "Home", navw: "3D Projects", navc: "Blueprints", navr: "Budget Analysis", lang: "Select Language" },
+            ja: { hero: "現実を構築する", work: "3Dビジュアル展示", cad: "エンジニアリング設計図", rab: "予算分析", rabs: "戦略的見積もり", rabd: "SNI基準を使用した材料費と労務費の最適化。", contact: "お問い合わせ", scroll: "自動スクロール", navh: "ホーム", navw: "3Dプロジェクト", navc: "設計図面", navr: "予算分析", lang: "言語を選択" }
+        };
+
+        function setLang(l) {
+            const t = dictionary[l];
+            document.getElementById('t-hero').innerText = t.hero;
+            document.getElementById('t-work-title').innerText = t.work;
+            document.getElementById('t-cad-title').innerText = t.cad;
+            document.getElementById('t-rab-title').innerText = t.rab;
+            document.getElementById('t-rab-sub').innerText = t.rabs;
+            document.getElementById('t-rab-desc').innerText = t.rabd;
+            document.getElementById('t-contact-title').innerText = t.contact;
+            document.getElementById('t-scroll-label').innerText = t.scroll;
+            document.querySelector('.t-nav-home').innerText = t.navh;
+            document.querySelector('.t-nav-work').innerText = t.navw;
+            document.querySelector('.t-nav-cad').innerText = t.navc;
+            document.querySelector('.t-nav-rab').innerText = t.navr;
+            document.querySelector('.t-lang-title').innerText = t.lang;
+            toggleMenu('lang-nav');
+        }
+
+        // Standard Functions
         function toggleTheme() { document.body.classList.toggle('light-mode'); }
         function toggleMenu(id) { 
             const d = document.getElementById(id);
@@ -173,18 +195,6 @@
             d.style.display = visible ? 'none' : 'block';
         }
 
-        function setLang(l) {
-            const dictionary = {
-                id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D" },
-                en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE" }
-            };
-            const t = dictionary[l] || dictionary['en'];
-            document.getElementById('t-hero').innerText = t.hero;
-            document.getElementById('t-work-title').innerText = t.work;
-            toggleMenu('lang-nav');
-        }
-
-        // Greeting
         function showGreeting() {
             const h = new Date().getHours();
             const m = document.getElementById('greet-msg');
@@ -206,15 +216,16 @@
 
         // Drag Accessibility Logic
         let xOff = 0, yOff = 0;
-        accBox = document.getElementById("acc-box");
-        accBox.onmousedown = (e) => {
+        const box = document.getElementById("acc-box");
+        box.onmousedown = (e) => {
             let startX = e.clientX - xOff, startY = e.clientY - yOff;
             document.onmousemove = (ev) => {
                 xOff = ev.clientX - startX; yOff = ev.clientY - startY;
-                accBox.style.transform = `translate(${xOff}px, ${yOff}px)`;
+                box.style.transform = `translate(${xOff}px, ${yOff}px)`;
             };
             document.onmouseup = () => document.onmousemove = null;
         };
     </script>
 </body>
-</html>
+                                                                                                                                                                      </html>
+                                        
