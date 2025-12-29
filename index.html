@@ -9,117 +9,145 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #020305; color: white; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        :root { --bg-color: #020305; --text-color: white; --card-bg: rgba(255, 255, 255, 0.02); }
+        .light-mode { --bg-color: #f8fafc; --text-color: #0f172a; --card-bg: rgba(0, 0, 0, 0.05); }
+
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; transition: background 0.5s ease, color 0.5s ease; }
         .mesh-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
                         radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.08) 0px, transparent 50%);
         }
-        .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 2rem; transition: all 0.4s ease; }
+        .glass-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid rgba(128, 128, 128, 0.1); border-radius: 2rem; transition: all 0.4s ease; }
         .gradient-text { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .badge-skill { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); padding: 6px 16px; border-radius: 100px; font-size: 11px; font-weight: 700; color: #60a5fa; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* Style Slider Geser */
+        /* Toolbar Melayang & Bisa Dipindah */
+        #draggable-toolbar {
+            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+            width: 50px; height: 50px; background: #60a5fa; border-radius: 50%;
+            display: flex; items-center; justify-content: center; cursor: move;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4); touch-action: none;
+        }
+
         .slider-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 20px; -webkit-overflow-scrolling: touch; }
-        .slider-container::-webkit-scrollbar { height: 4px; }
-        .slider-container::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
-        .slider-container::-webkit-scrollbar-thumb { background: #60a5fa; border-radius: 10px; }
         .slider-item { flex: 0 0 auto; scroll-snap-align: start; width: 85%; max-width: 600px; }
-        .slider-item img { width: 100%; height: auto; object-fit: contain; border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.1); }
+        .slider-item img { width: 100%; height: auto; border-radius: 1.5rem; border: 1px solid rgba(128,128,128,0.2); }
     </style>
 </head>
 <body>
     <div class="mesh-bg"></div>
 
-    <nav class="fixed w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/5 px-10 py-6 flex justify-between items-center">
+    <div id="draggable-toolbar">
+        <button id="theme-toggle" class="text-white text-xl">
+            <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+    </div>
+
+    <nav class="fixed w-full z-50 bg-black/20 backdrop-blur-md border-b border-white/5 px-10 py-6 flex justify-between items-center">
         <span class="font-bold tracking-[0.4em] uppercase text-[10px]">Danuardheya</span>
-        <div class="hidden md:flex space-x-12 text-[10px] font-extrabold uppercase tracking-widest text-gray-500">
-            <a href="#home" class="hover:text-white transition">Intro</a>
-            <a href="#work" class="hover:text-white transition">Portfolio</a>
-            <a href="#process" class="hover:text-white transition">Process</a>
-            <a href="#contact" class="hover:text-white transition bg-white/5 px-6 py-2 rounded-full border border-white/10 text-white">Contact</a>
+        <div class="hidden md:flex space-x-12 text-[10px] font-extrabold uppercase tracking-widest opacity-50">
+            <a href="#home">Intro</a>
+            <a href="#work">Portfolio</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <section id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-32 text-center">
         <div data-aos="zoom-out" class="relative mb-12">
-            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" alt="Danuardheya" class="w-64 h-64 rounded-[50px] object-cover border border-white/10 shadow-2xl">
-            <div class="absolute -bottom-4 -right-4 bg-blue-600 px-6 py-2 rounded-2xl font-black text-[10px] tracking-widest uppercase">Based in Indonesia</div>
+            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" alt="Profile" class="w-64 h-64 rounded-[50px] object-cover shadow-2xl">
         </div>
-        <div class="max-w-4xl">
-            <h2 data-aos="fade-up" class="text-6xl md:text-9xl font-extrabold tracking-tighter uppercase mb-8 leading-[0.85]">
-                DESIGNING <br> <span class="gradient-text italic">THE REALITY.</span>
-            </h2>
-            <p data-aos="fade-up" data-aos-delay="100" class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-                Spesialis dalam visualisasi 3D, detail gambar kerja (DED), hingga perhitungan RAB yang akurat.
-            </p>
-        </div>
+        <h2 data-aos="fade-up" class="text-6xl md:text-9xl font-extrabold tracking-tighter uppercase mb-8 leading-[0.85]">
+            DESIGNING <br> <span class="gradient-text italic">THE REALITY.</span>
+        </h2>
     </section>
 
     <section id="work" class="py-40 px-6 max-w-7xl mx-auto">
-        <div class="mb-12" data-aos="fade-right">
-            <p class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[10px] mb-4">Masterpiece Collection</p>
-            <h3 class="text-4xl md:text-6xl font-extrabold uppercase tracking-tighter">Selected Works.</h3>
+        <div class="mb-12">
+            <h3 class="text-4xl md:text-6xl font-extrabold uppercase tracking-tighter">3D Projects.</h3>
+            <p class="text-sm opacity-50 mt-2">Geser ke samping untuk melihat koleksi →</p>
+        </div>
+        
+        <div class="slider-container" data-aos="fade-up">
+            <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz"></div>
+            <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39"></div>
+            <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk"></div>
+            <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O"></div>
+            <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1yZizqsVFZ-oEaAPpdpk-VWzRSYCtDIkO"></div>
         </div>
 
-        <div class="mb-24">
-            <div class="flex items-center gap-4 mb-8">
-                <span class="w-12 h-[1px] bg-blue-500"></span>
-                <h4 class="text-xl font-bold uppercase tracking-widest">3D Interior & Exterior</h4>
-                <span class="text-[9px] text-gray-500 ml-auto italic">Geser ke samping &rarr;</span>
-            </div>
-            
-            <div class="slider-container" data-aos="fade-up">
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1yZizqsVFZ-oEaAPpdpk-VWzRSYCtDIkO"></div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div data-aos="fade-up" class="glass-card p-10 border-l-4 border-l-purple-500">
-                <i class="fas fa-drafting-compass text-3xl text-purple-500 mb-6"></i>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-20">
+            <div class="glass-card p-10">
                 <h4 class="text-2xl font-bold mb-4 uppercase">2D CAD & Detailing</h4>
-                <p class="text-gray-500 text-sm font-light">Gambar kerja teknis presisi tinggi, mulai dari denah hingga detail arsitektural eksekusi lapangan.</p>
+                <p class="opacity-60 text-sm">Gambar teknis presisi tinggi untuk eksekusi lapangan.</p>
             </div>
-            <div data-aos="fade-up" data-aos-delay="100" class="glass-card p-10 border-l-4 border-l-emerald-500">
-                <i class="fas fa-calculator text-3xl text-emerald-500 mb-6"></i>
+            <div class="glass-card p-10">
                 <h4 class="text-2xl font-bold mb-4 uppercase">Perhitungan RAB</h4>
-                <p class="text-gray-500 text-sm font-light">Estimasi biaya pembangunan akurat untuk memastikan proyek berjalan sesuai budget.</p>
+                <p class="opacity-60 text-sm">Estimasi biaya akurat agar proyek efisien.</p>
             </div>
         </div>
     </section>
 
-    <footer id="contact" class="py-40 text-center relative">
-        <h4 data-aos="fade-up" class="text-5xl md:text-8xl font-extrabold mb-24 uppercase italic tracking-tighter">
-            Ready to <br> <span class="gradient-text">Collaborate?</span>
-        </h4>
-        
+    <footer id="contact" class="py-40 text-center">
         <div class="flex flex-wrap justify-center gap-10 px-6 mb-20">
-            <a href="https://wa.me/6285700398394" target="_blank" class="group flex flex-col items-center gap-4">
-                <span class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-green-600 transition-all text-xl"><i class="fab fa-whatsapp"></i></span>
-                <span class="text-[9px] font-black uppercase text-gray-500">WhatsApp</span>
-            </a>
-            <a href="https://youtube.com/@abysheha7946?si=j1Eqxzx_V01fuSbE" target="_blank" class="group flex flex-col items-center gap-4">
-                <span class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-red-600 transition-all text-xl"><i class="fab fa-youtube"></i></span>
-                <span class="text-[9px] font-black uppercase text-gray-500">YouTube</span>
-            </a>
-            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="group flex flex-col items-center gap-4">
-                <span class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 transition-all text-xl"><i class="fab fa-linkedin-in"></i></span>
-                <span class="text-[9px] font-black uppercase text-gray-500">LinkedIn</span>
-            </a>
-            <a href="https://www.instagram.com/danuardheya" target="_blank" class="group flex flex-col items-center gap-4">
-                <span class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-pink-600 transition-all text-xl"><i class="fab fa-instagram"></i></span>
-                <span class="text-[9px] font-black uppercase text-gray-500">Instagram</span>
-            </a>
+            <a href="https://wa.me/6285700398394" target="_blank" class="text-2xl opacity-50 hover:opacity-100 transition"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://youtube.com/@abysheha7946" target="_blank" class="text-2xl opacity-50 hover:opacity-100 transition"><i class="fab fa-youtube"></i></a>
+            <a href="https://instagram.com/danuardheya" target="_blank" class="text-2xl opacity-50 hover:opacity-100 transition"><i class="fab fa-instagram"></i></a>
         </div>
-        <p class="text-[10px] tracking-[1.2em] text-gray-800 uppercase font-black">Danuardheya • 2024</p>
+        <p class="text-[10px] tracking-[1em] opacity-30 font-black">DANUARDHEYA • 2024</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script> AOS.init({ duration: 1200, once: true }); </script>
+    <script>
+        AOS.init({ duration: 1200 });
+
+        // LOGIKA THEME TOGGLE (DARK / LIGHT)
+        const btn = document.getElementById('theme-toggle');
+        const icon = document.getElementById('theme-icon');
+        btn.onclick = () => {
+            document.body.classList.toggle('light-mode');
+            if(document.body.classList.contains('light-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+            }
+        };
+
+        // LOGIKA DRAGGABLE TOOLBAR (Bisa Dipindah)
+        const toolbar = document.getElementById('draggable-toolbar');
+        let isDragging = false;
+
+        toolbar.addEventListener('mousedown', startDrag);
+        toolbar.addEventListener('touchstart', startDrag);
+
+        function startDrag(e) {
+            isDragging = true;
+            let event = e.type === 'touchstart' ? e.touches[0] : e;
+            let shiftX = event.clientX - toolbar.getBoundingClientRect().left;
+            let shiftY = event.clientY - toolbar.getBoundingClientRect().top;
+
+            function moveAt(clientX, clientY) {
+                toolbar.style.left = clientX - shiftX + 'px';
+                toolbar.style.top = clientY - shiftY + 'px';
+                toolbar.style.right = 'auto';
+                toolbar.style.bottom = 'auto';
+            }
+
+            function onMouseMove(e) {
+                let event = e.type === 'touchmove' ? e.touches[0] : e;
+                moveAt(event.clientX, event.clientY);
+            }
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('touchmove', onMouseMove);
+
+            toolbar.onmouseup = toolbar.ontouchend = function() {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('touchmove', onMouseMove);
+                isDragging = false;
+            };
+        }
+        toolbar.ondragstart = () => false;
+    </script>
 </body>
                 </html>
         
