@@ -23,7 +23,7 @@
         .rgb-glow-border::after { content: ''; position: absolute; inset: 2px; background: #000; border-radius: 50%; }
         @keyframes rotateRGB { 100% { transform: rotate(360deg); } }
         section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 20px; }
-        .profile-img-container { width: 180px; height: 180px; border-radius: 50%; border: 3px solid var(--accent); padding: 5px; background: rgba(59, 130, 246, 0.1); }
+        .profile-img-container { width: 180px; height: 180px; border-radius: 50%; border: 3px solid var(--accent); padding: 5px; background: rgba(59, 130, 246, 0.1); overflow: hidden; }
         .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         .slider-wrap { display: flex; overflow-x: auto; gap: 15px; scrollbar-width: none; padding: 10px 0; width: 100%; -webkit-overflow-scrolling: touch; }
         .slider-wrap::-webkit-scrollbar { display: none; }
@@ -34,10 +34,12 @@
 </head>
 <body>
     <canvas id="water-canvas"></canvas>
+    
     <div class="top-toolbar">
         <div class="tool-btn" onclick="window.history.back()"><i class="fas fa-arrow-left text-white/50"></i></div>
         <div class="tool-btn" onclick="toggleMenu('dropdown')"><i class="fas fa-ellipsis-v text-white/50"></i></div>
     </div>
+    
     <div id="dropdown" class="menu-dropdown">
         <div class="p-2 text-[10px] opacity-50 uppercase tracking-widest mb-2 border-b border-white/10">Navigasi</div>
         <div class="py-2 text-sm cursor-pointer" onclick="location.href='#home'">Beranda</div>
@@ -68,7 +70,7 @@
     <section id="home">
         <div data-aos="zoom-in" class="mb-8">
             <div class="profile-img-container shadow-[0_0_60px_rgba(59,130,246,0.3)]">
-                <img src="https://lh3.googleusercontent.com/d/1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ" alt="Danuardheya" class="profile-img">
+                <img src="https://lh3.googleusercontent.com/d/13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p" alt="Danuardheya" class="profile-img">
             </div>
         </div>
         <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-2" data-aos="fade-up">DANUARDHEYA</h1>
@@ -80,18 +82,18 @@
         <div class="w-full max-w-6xl">
             <h2 id="h-work" class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500" data-aos="fade-right">3D Interior & Exterior Showcase</h2>
             <div class="slider-wrap" data-aos="fade-up">
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ" alt="Project 1"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ" alt="Project 2"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X" alt="Project 3"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD" alt="Project 4"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9" alt="Project 5"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH" alt="Project 6"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC" alt="Project 7"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll" alt="Project 8"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/13HPMYy_WXBT190cxMeROkomIofbmg2M0" alt="Project 9"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/13_QC3PSpTFgsRz9OKGUfWDjybteLfytu" alt="Project 10"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye" alt="Project 11"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/146en6-VAKyGWQymoPmIrI3o301EqfrQ2" alt="Project 12"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ" alt="3D Project"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ" alt="3D Project"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X" alt="3D Project"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD" alt="3D Project"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9" alt="3D Project"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH" alt="3D Project"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC" alt="3D Project"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll" alt="3D Project"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/13HPMYy_WXBT190cxMeROkomIofbmg2M0" alt="3D Project"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/13_QC3PSpTFgsRz9OKGUfWDjybteLfytu" alt="3D Project"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye" alt="3D Project"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/146en6-VAKyGWQymoPmIrI3o301EqfrQ2" alt="3D Project"></div>
             </div>
         </div>
     </section>
@@ -100,9 +102,13 @@
         <div class="w-full max-w-6xl">
             <h2 class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500" data-aos="fade-right">2D CAD & DED Drafting</h2>
             <div class="slider-wrap" data-aos="fade-up">
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/109LVAU185YdsxNojnOz5AHexYqP-Qwhu"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC" alt="CAD"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN" alt="CAD"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/109LVAU185YdsxNojnOz5AHexYqP-Qwhu" alt="CAD"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo" alt="CAD"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1aET4pgViYj4LLPZ1wuyk5gUPrV4zFnBf" alt="CAD"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/17bHCDR1MPhfsKTPZH4FKT8W8qbIE5L7x" alt="CAD"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1JJEvv6l06ff0BpLqB-h4riiha9BuCYwh" alt="CAD"></div>
             </div>
             <div class="bg-white/5 p-8 rounded-3xl border border-white/10 mt-10" data-aos="fade-up">
                 <p class="text-[11px] text-gray-400">Gambar teknis presisi tinggi untuk standar konstruksi profesional dan IMB/PBG.</p>
@@ -114,7 +120,7 @@
         <div class="w-full max-w-6xl">
             <h2 class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500" data-aos="fade-right">RAB Strategis Analyst</h2>
             <div class="slider-wrap" data-aos="fade-up">
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3" alt="RAB"></div>
             </div>
             <div class="bg-white/5 p-8 rounded-3xl border border-white/10 mt-10" data-aos="fade-up">
                 <p class="text-[11px] text-gray-400">Manajemen anggaran biaya pembangunan yang akurat dan efisien menggunakan standar SNI terbaru.</p>
@@ -162,6 +168,7 @@
         }
         window.addEventListener("mousemove", drag); window.addEventListener("touchmove", drag, {passive: false});
         window.addEventListener("mouseup", () => active = false); window.addEventListener("touchend", () => active = false);
+        
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -181,4 +188,5 @@
         anim();
     </script>
 </body>
-</html>
+    </html>
+                                             
