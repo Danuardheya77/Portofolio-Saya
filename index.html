@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | Engineering & 3D Visualizer</title>
+    <title>Danuardheya | The Future of Engineering</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -12,46 +12,55 @@
     <style>
         :root { --accent: #3b82f6; }
         body { background: #000; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        
+        /* Effect Air Xperia */
         #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
+
+        /* Toolbar Pojok Kanan Atas (Back & Menu) */
         .top-toolbar { position: fixed; top: 25px; right: 25px; z-index: 10001; display: flex; gap: 10px; }
         .tool-btn { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
-        .menu-dropdown { position: fixed; top: 80px; right: 25px; z-index: 10001; background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 20px; border: 1px solid var(--accent); display: none; width: 220px; }
+        .tool-btn:hover { background: rgba(255,255,255,0.2); border-color: var(--accent); }
+
+        /* Dropdown Menu */
+        .menu-dropdown { position: fixed; top: 80px; right: 25px; z-index: 10001; background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 20px; border: 1px solid var(--accent); display: none; width: 220px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .menu-dropdown.active { display: block; animation: slideIn 0.3s ease; }
+
+        /* Draggable Accessibility RGB */
         #floating-acc { position: fixed; top: 120px; left: 20px; z-index: 10000; width: 42px; height: 42px; cursor: move; touch-action: none; }
         .rgb-glow-border { position: relative; width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .rgb-glow-border::before { content: ''; position: absolute; inset: -2px; border-radius: 50%; background: conic-gradient(red, yellow, green, cyan, blue, magenta, red); animation: rotateRGB 3s linear infinite; }
-        .rgb-glow-border::after { content: ''; position: absolute; inset: 2px; background: #000; border-radius: 50%; }
         @keyframes rotateRGB { 100% { transform: rotate(360deg); } }
-        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 20px; }
+        .rgb-glow-border::after { content: ''; position: absolute; inset: 2px; background: rgba(2, 3, 5, 0.9); border-radius: 50%; }
+
+        /* Profile & Gallery */
         .profile-img-container { width: 180px; height: 180px; border-radius: 50%; border: 3px solid var(--accent); padding: 5px; background: rgba(59, 130, 246, 0.1); }
         .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        .slider-wrap { display: flex; overflow-x: auto; gap: 15px; scrollbar-width: none; padding: 10px 0; width: 100%; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
+        .slider-wrap { display: flex; overflow-x: auto; gap: 15px; scrollbar-width: none; padding: 10px 0; width: 100%; -webkit-overflow-scrolling: touch; }
         .slider-wrap::-webkit-scrollbar { display: none; }
-        .slider-item { flex: 0 0 85%; scroll-snap-align: center; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #111; height: 320px; }
-        .slider-item img { width: 100%; height: 100%; object-fit: cover; }
-        .rab-item { background: #fff; height: 500px; flex: 0 0 92%; }
-        .rab-crop { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-        .rab-crop.bottom { object-position: bottom; }
+        .slider-item { flex: 0 0 85%; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        .slider-item img { width: 100%; height: 300px; object-fit: cover; }
+
+        @keyframes slideIn { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
+
     <canvas id="water-canvas"></canvas>
 
     <div class="top-toolbar">
-        <div class="tool-btn" onclick="window.history.back()"><i class="fas fa-arrow-left text-white/70"></i></div>
-        <div class="tool-btn" onclick="toggleMenu('dropdown')"><i class="fas fa-ellipsis-v text-white/70"></i></div>
+        <div class="tool-btn" onclick="window.history.back()" title="Kembali">
+            <i class="fas fa-arrow-left text-sm"></i>
+        </div>
+        <div class="tool-btn" onclick="toggleMenu('dropdown')" title="Menu">
+            <i class="fas fa-ellipsis-v text-sm"></i>
+        </div>
     </div>
 
     <div id="dropdown" class="menu-dropdown">
+        <div class="p-2 text-[10px] opacity-50 uppercase tracking-widest mb-2 border-b border-white/10">Navigasi</div>
         <div class="py-2 text-sm cursor-pointer hover:text-blue-500" onclick="location.href='#home'">Beranda</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-500" onclick="location.href='#work'">3D Interior & Eksterior</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-500" onclick="location.href='#cad-section'">2D CAD / DED</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-500" onclick="location.href='#rab-section'">RAB Strategis</div>
-    </div>
-
-    <div class="fixed left-5 bottom-8 z-[9999] flex flex-col gap-5">
-        <a href="https://wa.me/6285700398394" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://youtube.com/@abysheha7946" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-linkedin-in"></i></a>
+        <div class="py-2 text-sm cursor-pointer hover:text-blue-500" onclick="location.href='#work'">Proyek Visual</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-blue-500" onclick="window.open('https://wa.me/6285700398394')">Hubungi WA</div>
     </div>
 
     <div id="floating-acc" onmousedown="dragStart(event)" ontouchstart="dragStart(event)">
@@ -59,84 +68,70 @@
             <i class="fas fa-universal-access relative z-10 text-[14px]"></i>
         </div>
         <div id="acc-nav" class="menu-dropdown" style="top: 55px; left: 0; right: auto;">
-            <div class="py-2 text-xs cursor-pointer" onclick="setLang('id')">Indonesia</div>
-            <div class="py-2 text-xs cursor-pointer" onclick="setLang('en')">English</div>
+            <div class="text-[9px] font-black tracking-[0.3em] text-blue-400 mb-4 border-b border-white/10 pb-2 uppercase">Language Select</div>
+            <div class="py-2 text-xs cursor-pointer flex justify-between" onclick="setLang('id')"><span>Indonesia</span> <span class="opacity-40">ID</span></div>
+            <div class="py-2 text-xs cursor-pointer flex justify-between" onclick="setLang('en')"><span>English</span> <span class="opacity-40">EN</span></div>
+            <div class="py-2 text-xs cursor-pointer flex justify-between" onclick="setLang('ar')"><span>العربية</span> <span class="opacity-40">AR</span></div>
+            <div class="py-2 text-xs cursor-pointer flex justify-between" onclick="setLang('cn')"><span>中文</span> <span class="opacity-40">CN</span></div>
         </div>
     </div>
 
-    <section id="home">
+    <div class="fixed left-5 bottom-8 z-[9999] flex flex-col gap-5">
+        <a href="https://wa.me/6285700398394" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com/danuardheya" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/@abysheha7946" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="text-white opacity-40 hover:opacity-100 transition-all text-xl"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-5">
         <div data-aos="zoom-in" class="mb-8">
-            <div class="profile-img-container shadow-[0_0_60px_rgba(59,130,246,0.3)]">
-                <img src="https://lh3.googleusercontent.com/d/1O67Y6p-Y_nL4E-p6gB9N7m4qK6XfU-Yy" alt="Danuardheya" class="profile-img">
+            <div class="profile-img-container shadow-[0_0_60px_rgba(59,130,246,0.4)]">
+                <img src="https://lh3.googleusercontent.com/d/13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p" alt="Danuardheya" class="profile-img">
             </div>
         </div>
-        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-2" data-aos="fade-up">DANUARDHEYA</h1>
-        <p id="d-hero" class="italic text-blue-500 font-serif text-2xl mb-4" data-aos="fade-up">Architecting Reality.</p>
-        <p class="text-gray-500 text-[10px] tracking-[0.4em] uppercase">Civil Engineer & 3D Visualizer</p>
+        <h1 id="t-hero" class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-2" data-aos="fade-up">DANUARDHEYA</h1>
+        <p id="d-hero" class="italic text-blue-500 font-serif text-2xl mb-4" data-aos="fade-up" data-aos-delay="100">Architecting Reality.</p>
+        <p class="text-gray-500 text-[10px] tracking-[0.4em] uppercase" data-aos="fade-up" data-aos-delay="200">Civil Engineer & 3D Visualizer</p>
     </section>
 
-    <section id="work">
+    <section id="work" class="py-20 px-5 flex flex-col items-center">
         <div class="w-full max-w-6xl">
-            <h2 class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500" data-aos="fade-right">3D Interior & Exterior Showcase</h2>
+            <h2 id="h-work" class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500" data-aos="fade-right">3D Interior & Exterior</h2>
             <div class="slider-wrap" data-aos="fade-up">
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/109LVAU185YdsxNojnOz5AHexYqP-Qwhu"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1aET4pgViYj4LLPZ1wuyk5gUPrV4zFnBf"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/17bHCDR1MPhfsKTPZH4FKT8W8qbIE5L7x"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1JJEvv6l06ff0BpLqB-h4riiha9BuCYwh"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/109LVAU185YdsxNojnOz5AHexYqP-Qwhu"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1aET4pgViYj4LLPZ1wuyk5gUPrV4zFnBf"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/17bHCDR1MPhfsKTPZH4FKT8W8qbIE5L7x"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1JJEvv6l06ff0BpLqB-h4riiha9BuCYwh"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7"></div>
             </div>
         </div>
     </section>
-
-    <section id="cad-section">
-        <div class="w-full max-w-6xl">
-            <h2 class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500" data-aos="fade-right">2D CAD & DED Drafting</h2>
-            <div class="slider-wrap" data-aos="fade-up">
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/109LVAU185YdsxNojnOz5AHexYqP-Qwhu"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1aET4pgViYj4LLPZ1wuyk5gUPrV4zFnBf"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/17bHCDR1MPhfsKTPZH4FKT8W8qbIE5L7x"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1JJEvv6l06ff0BpLqB-h4riiha9BuCYwh"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="rab-section">
-        <div class="w-full max-w-6xl">
-            <h2 class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500 text-center" data-aos="fade-right">RAB Strategis Analyst</h2>
-            <div class="slider-wrap" data-aos="fade-up">
-                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/12K7yC_U_W6v0X8K7Bv-V_9Xo8A7Bv_W5" class="rab-crop"></div>
-                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/12K7yC_U_W6v0X8K7Bv-V_9Xo8A7Bv_W5" class="rab-crop bottom"></div>
-                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/13L8zD_V_X7w1Y9L8C-w_W0Y9B8CwX_X6" class="rab-crop"></div>
-                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/13L8zD_V_X7w1Y9L8C-w_W0Y9B8CwX_X6" class="rab-crop bottom"></div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-10 text-center opacity-20 text-[8px] tracking-[1em]">DANUARDHEYA • 2024</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+        
         function toggleMenu(id) { 
             const dropdown = document.getElementById(id);
             const isVisible = dropdown.style.display === 'block';
             document.querySelectorAll('.menu-dropdown').forEach(d => d.style.display = 'none');
             dropdown.style.display = isVisible ? 'none' : 'block';
         }
+
+        // Language Logic
+        const langData = {
+            id: { hero: "Architecting Reality.", work: "3D Interior & Exterior" },
+            en: { hero: "Architecting Reality.", work: "3D Projects" },
+            ar: { hero: "هندسة الواقع.", work: "التصاميم ثلاثية الأبعاد" },
+            cn: { hero: "构建现实.", work: "3D 室内外展示" }
+        };
+        function setLang(l) {
+            document.getElementById('d-hero').innerText = langData[l].hero;
+            document.getElementById('h-work').innerText = langData[l].work;
+            toggleMenu('acc-nav');
+        }
+
+        // Draggable logic
         let dragItem = document.querySelector("#floating-acc");
         let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
         function dragStart(e) {
@@ -155,6 +150,8 @@
         }
         window.addEventListener("mousemove", drag); window.addEventListener("touchmove", drag, {passive: false});
         window.addEventListener("mouseup", () => active = false); window.addEventListener("touchend", () => active = false);
+
+        // Water Ripple
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -174,5 +171,5 @@
         anim();
     </script>
 </body>
-                                             </html>
-                    
+    </html>
+    
