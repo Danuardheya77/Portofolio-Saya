@@ -1,174 +1,176 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | Number Angel Experience</title>
+    <title>Danuardheya | The Future of Engineering</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;800&family=Playfair+Display:ital,wght@1,900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=Playfair+Display:ital,wght@1,700&family=Montserrat:wght@500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     
     <style>
-        :root { --accent: #3b82f6; }
-        body { background: #000; color: white; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; margin: 0; }
-
-        /* Welcome Screen - Wajib Klik agar Musik Bunyi */
-        #welcome-overlay {
-            position: fixed; inset: 0; z-index: 100000; background: #000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center;
-        }
-        .start-btn {
-            padding: 18px 50px; border: 1px solid var(--accent); border-radius: 50px;
-            color: white; font-family: 'JetBrains Mono'; cursor: pointer;
-            background: rgba(59, 130, 246, 0.1); font-size: 12px; letter-spacing: 3px;
-            transition: 0.5s;
-        }
-        .start-btn:hover { background: var(--accent); box-shadow: 0 0 50px var(--accent); }
-
-        /* Water Ripple */
-        #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
-
-        /* Toolbar Titik 3 (Pojok Kanan Atas) */
-        .tools-nav { position: fixed; top: 30px; right: 30px; z-index: 10000; display: flex; gap: 15px; }
-        .tool-icon { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+        :root { --accent: #3b82f6; --text: #ffffff; --bg-overlay: rgba(0,0,0,0.7); }
+        body { background: #000; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; transition: 0.5s; }
         
-        .menu-list { 
-            position: fixed; top: 95px; right: 30px; z-index: 10000; background: rgba(10,10,10,0.98); 
-            border-radius: 24px; padding: 25px; border: 1px solid var(--accent); 
-            display: none; width: 250px; 
-        }
-        .menu-list.active { display: block; animation: fadeInUp 0.5s ease; }
+        /* Water Drop Effect Canvas */
+        #water-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998; }
 
-        /* Social Icons - Always Stay */
-        .social-fixed { position: fixed; left: 30px; bottom: 40px; z-index: 9999; display: flex; flex-direction: column; gap: 25px; }
-        .social-fixed a { font-size: 22px; color: white; opacity: 0.3; transition: 0.5s; }
-        .social-fixed a:hover { opacity: 1; color: var(--accent); transform: scale(1.2); }
+        /* Floating Menu Titik 3 (Pojok Kanan Atas) */
+        .top-menu-btn { position: fixed; top: 25px; right: 25px; z-index: 10000; background: rgba(255,255,255,0.1); backdrop-blur: 10px; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); }
+        .menu-dropdown { position: fixed; top: 80px; right: 25px; z-index: 10000; background: rgba(10,10,10,0.95); backdrop-blur: 20px; border-radius: 20px; padding: 20px; border: 1px solid var(--accent); display: none; width: 220px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .menu-dropdown.active { display: block; animation: slideIn 0.3s ease; }
+        .menu-item { display: flex; items-center; gap: 12px; padding: 10px; font-size: 12px; cursor: pointer; transition: 0.3s; opacity: 0.7; font-family: 'Montserrat'; }
+        .menu-item:hover { opacity: 1; color: var(--accent); }
 
-        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px 30px; }
-        #home { background: radial-gradient(circle at center, #0a1321, #000); }
-        #portfolio { background: #000; }
-        
-        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--accent); padding: 5px; filter: grayscale(100%); transition: 0.5s; }
-        .profile-img:hover { filter: grayscale(0%); transform: rotate(5deg); }
+        /* Background Layers (Futuristik & Berbeda) */
+        section { position: relative; min-h-screen; padding: 100px 20px; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        #home { background: radial-gradient(circle at center, #0a192f 0%, #000 100%); }
+        #work { background: linear-gradient(135deg, #000 0%, #050c1a 100%); }
+        #contact-section { background: radial-gradient(at bottom right, #1e3a8a 0%, #000 70%); }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Social Media Stay Permanen */
+        .social-sticky { position: fixed; left: 20px; bottom: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 20px; }
+        .social-icon { color: white; opacity: 0.4; font-size: 20px; transition: 0.4s; }
+        .social-icon:hover { opacity: 1; transform: translateY(-5px); color: var(--accent); }
+
+        /* Typography & Elements */
+        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--accent); }
+        .slider-wrap { display: flex; overflow-x: auto; gap: 20px; scrollbar-width: none; }
+        .slider-item { flex: 0 0 80%; border-radius: 20px; overflow: hidden; }
+
+        @keyframes slideIn { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
-<body>
-
-    <div id="welcome-overlay">
-        <p class="font-mono text-[9px] tracking-[0.5em] opacity-40 mb-4">ENGINEERING PORTFOLIO</p>
-        <h1 class="font-serif italic text-4xl mb-12">Number Angel Experience</h1>
-        <button class="start-btn" onclick="startEngine()">INITIATE STORY</button>
-    </div>
-
-    <div id="player-container" style="position: absolute; top: -1000px;">
-        <div id="yt-player"></div>
-    </div>
+<body id="master-body">
 
     <canvas id="water-canvas"></canvas>
 
-    <div class="tools-nav">
-        <div class="tool-icon" onclick="toggleMute()"><i id="audio-icon" class="fas fa-volume-up text-blue-500"></i></div>
-        <div class="tool-icon" onclick="toggleMenu()"><i class="fas fa-ellipsis-v"></i></div>
+    <div style="display:none">
+        <iframe id="youtube-audio" src="https://www.youtube.com/embed/VBpOA8eBRBY?autoplay=1&mute=0&loop=1&playlist=VBpOA8eBRBY" allow="autoplay"></iframe>
     </div>
 
-    <div id="menu-box" class="menu-list">
-        <div class="text-[9px] font-bold tracking-[0.4em] text-blue-500 mb-4 px-2 uppercase">Core System</div>
-        <div class="p-3 text-xs hover:bg-white/5 rounded-xl cursor-pointer" onclick="alert('Bahasa Indonesia Aktif')">ID - Indonesia</div>
-        <div class="p-3 text-xs hover:bg-white/5 rounded-xl cursor-pointer" onclick="alert('English Active')">EN - English</div>
-        <div class="p-3 text-xs hover:bg-white/5 rounded-xl cursor-pointer" onclick="document.body.classList.toggle('invert')">Accessibility</div>
-        <div class="p-3 text-xs hover:bg-white/5 rounded-xl cursor-pointer" onclick="window.scrollBy({top: 800, behavior: 'smooth'})">Auto Scroll</div>
+    <div class="top-menu-btn" onclick="toggleMenu()">
+        <i class="fas fa-ellipsis-v"></i>
     </div>
 
-    <div class="social-fixed">
-        <a href="https://wa.me/6285700398394"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://youtube.com/@abysheha7946"><i class="fab fa-youtube"></i></a>
-        <a href="https://instagram.com/danuardheya"><i class="fab fa-instagram"></i></a>
+    <div id="dropdown" class="menu-dropdown">
+        <div class="menu-item" onclick="setLang('id')"><i class="fas fa-language"></i> Indonesia</div>
+        <div class="menu-item" onclick="setLang('en')"><i class="fas fa-globe"></i> English</div>
+        <div class="menu-item" onclick="toggleTheme()"><i class="fas fa-moon"></i> Dark / Light</div>
+        <div class="menu-item" onclick="zoom(1.1)"><i class="fas fa-search-plus"></i> Zoom In</div>
+        <div class="menu-item" onclick="zoom(0.9)"><i class="fas fa-search-minus"></i> Zoom Out</div>
+        <div class="menu-item" onclick="autoScroll()"><i class="fas fa-mouse"></i> Auto Scroll</div>
+        <div class="menu-item" onclick="alert('Layanan: 3D Design, DED, RAB Strategist')"><i class="fas fa-info-circle"></i> Info Layanan</div>
+        <div class="menu-item" onclick="window.open('https://wa.me/6285700398394')"><i class="fas fa-handshake"></i> Kolaborasi</div>
     </div>
 
-    <section id="home" class="text-center">
-        <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="profile-img mx-auto mb-8 shadow-2xl">
-        <h2 class="font-serif italic text-5xl md:text-7xl mb-6 tracking-tighter" data-aos="fade-up">
-            Danu <span class="text-blue-500">Ardheya</span>
-        </h2>
-        <p class="text-gray-400 max-w-lg mx-auto text-xs font-light tracking-[0.2em]" data-aos="fade-up" data-aos-delay="200">
-            BRIDGING IMAGINATION AND CIVIL PRECISION
+    <div class="social-sticky">
+        <a href="https://wa.me/6285700398394" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://youtube.com/@abysheha7946" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+        <a href="https://instagram.com/danuardheya" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+    </div>
+
+    <section id="home" class="flex flex-col items-center justify-center text-center">
+        <div data-aos="zoom-in" class="mb-6">
+            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="profile-img shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+        </div>
+        <h1 id="t-hero" class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-4" data-aos="fade-up">
+            Architecting <span class="italic text-blue-500 font-serif">Reality.</span>
+        </h1>
+        <p id="d-hero" class="text-gray-400 max-w-xl mx-auto text-sm md:text-base opacity-80" data-aos="fade-up" data-aos-delay="200">
+            Spesialis visualisasi 3D dan strategi teknik sipil dengan presisi mutakhir.
         </p>
     </section>
 
-    <section id="portfolio">
-        <div class="max-w-6xl mx-auto w-full">
-            <h3 class="text-[10px] font-bold tracking-[0.8em] opacity-30 mb-12 uppercase" data-aos="fade-right">Visual Chapters</h3>
-            <div class="flex overflow-x-auto gap-8 pb-10 no-scrollbar" data-aos="fade-up">
-                <img src="https://lh3.googleusercontent.com/d/1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz" class="w-72 h-[450px] object-cover rounded-sm border border-white/10 grayscale hover:grayscale-0 transition duration-1000">
-                <img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39" class="w-72 h-[450px] object-cover rounded-sm border border-white/10 grayscale hover:grayscale-0 transition duration-1000">
-                <img src="https://lh3.googleusercontent.com/d/1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk" class="w-72 h-[450px] object-cover rounded-sm border border-white/10 grayscale hover:grayscale-0 transition duration-1000">
+    <section id="work">
+        <div class="max-w-6xl mx-auto">
+            <h2 id="h-project" class="text-3xl font-bold mb-10 tracking-widest uppercase text-blue-500" data-aos="fade-right">3D Projects</h2>
+            <div class="slider-wrap mb-20" data-aos="fade-up">
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz" class="w-full h-auto"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39" class="w-full h-auto"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk" class="w-full h-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10" data-aos="flip-left">
+                    <h3 id="h-2d" class="text-xl font-bold mb-3">2D CAD & DED</h3>
+                    <p id="d-2d" class="text-xs text-gray-400">Gambar teknis presisi tinggi untuk standar konstruksi profesional.</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10" data-aos="flip-right">
+                    <h3 id="h-rab" class="text-xl font-bold mb-3">RAB Analyst</h3>
+                    <p id="d-rab" class="text-xs text-gray-400">Efisiensi biaya pembangunan dengan akurasi perhitungan material.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-20 text-center opacity-10">
-        <p class="font-mono text-[8px] tracking-[2em]">DANUARDHEYA PORTFOLIO 2024</p>
-    </footer>
+    <section id="contact-section" class="text-center">
+        <h2 class="text-5xl font-extrabold opacity-10 mb-10">THE END.</h2>
+        <p class="font-mono text-[8px] tracking-[1.5em] opacity-30 mt-20">DANUARDHEYA • 2024 • ENGINEER</p>
+    </section>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1500 });
-        
-        let player;
-        let isMuted = false;
+        AOS.init({ duration: 1000 });
 
-        // Load YouTube API
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('yt-player', {
-                height: '0',
-                width: '0',
-                videoId: 'U-fXJ6pBf7A', // ID Video Rei Brown - Number Angel
-                playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': 'U-fXJ6pBf7A' },
-                events: { 'onReady': onPlayerReady }
-            });
-        }
+        // Toggle Menu Titik 3
+        function toggleMenu() { document.getElementById('dropdown').classList.toggle('active'); }
 
-        function onPlayerReady(event) {
-            // Player standby
-        }
-
-        function startEngine() {
-            document.getElementById('welcome-overlay').style.opacity = '0';
-            setTimeout(() => { document.getElementById('welcome-overlay').style.display = 'none'; }, 1000);
-            
-            if (player) {
-                player.playVideo();
-                player.unMute();
-            }
-        }
-
-        function toggleMute() {
-            if (isMuted) {
-                player.unMute();
-                document.getElementById('audio-icon').className = "fas fa-volume-up text-blue-500";
-                isMuted = false;
-            } else {
-                player.mute();
-                document.getElementById('audio-icon').className = "fas fa-volume-mute opacity-40";
-                isMuted = true;
-            }
-        }
-
-        function toggleMenu() { document.getElementById('menu-box').classList.toggle('active'); }
-
-        // Water Ripple
+        // Water Drop Effect (Xperia Style)
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let ripples = [];
-        window.addEventListener('mousedown', e => ripples.push({x: e.clientX, y: e.clientY, r: 0, o: 0.6}));
-        window.addEventListener('touchstart', e => ripples.push({x: e.touches[0].clientX, y: e.touches[0].clientY, r: 0, o: 0.6}));
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-        function draw() {
-            ctx.clearRect(0
+        let ripples = [];
+        class Ripple {
+            constructor(x, y) { this.x = x; this.y = y; this.r = 2; this.opacity = 0.5; }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.stroke();
+                this.r += 2;
+                this.opacity -= 0.01;
+            }
+        }
+
+        window.addEventListener('mousedown', (e) => ripples.push(new Ripple(e.clientX, e.clientY)));
+        window.addEventListener('touchstart', (e) => ripples.push(new Ripple(e.touches[0].clientX, e.touches[0].clientY)));
+
+        function animateWater() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ripples = ripples.filter(r => r.opacity > 0);
+            ripples.forEach(r => r.draw());
+            requestAnimationFrame(animateWater);
+        }
+        animateWater();
+
+        // Fitur Akses
+        let currentZoom = 1;
+        function zoom(val) { currentZoom *= val; document.body.style.transform = `scale(${currentZoom})`; document.body.style.transformOrigin = 'top center'; }
         
+        function autoScroll() { window.scrollBy({ top: 500, behavior: 'smooth' }); }
+        
+        function toggleTheme() { document.body.classList.toggle('bg-white'); document.body.classList.toggle('text-black'); }
+
+        const lang = {
+            id: { hero: "Architecting Reality.", desc: "Spesialis visualisasi 3D dan strategi teknik sipil dengan presisi mutakhir.", proj: "Proyek 3D", h2d: "2D CAD & DED", d2d: "Gambar teknis presisi tinggi untuk standar profesional.", hrab: "Analisis RAB", drab: "Efisiensi biaya pembangunan dengan akurasi perhitungan." },
+            en: { hero: "Defining The Future.", desc: "Specializing in 3D visualization and civil engineering with cutting-edge precision.", proj: "3D Showcase", h2d: "2D Engineering", d2d: "High-precision technical drawings for professional standards.", hrab: "Cost Estimator", drab: "Construction cost efficiency with material calculation accuracy." }
+        };
+
+        function setLang(l) {
+            document.getElementById('t-hero').innerText = lang[l].hero;
+            document.getElementById('d-hero').innerText = lang[l].desc;
+            document.getElementById('h-project').innerText = lang[l].proj;
+            document.getElementById('h-2d').innerText = lang[l].h2d;
+            document.getElementById('d-2d').innerText = lang[l].d2d;
+            document.getElementById('h-rab').innerText = lang[l].hrab;
+            document.getElementById('d-rab').innerText = lang[l].drab;
+            toggleMenu();
+        }
+    </script>
+</body>
+    </html>
+    
