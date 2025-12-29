@@ -7,37 +7,34 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=Playfair+Display:ital,wght@1,700&family=Montserrat:wght@500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=Playfair+Display:ital,wght@1,700&family=Montserrat:wght@500&display=swap" rel="stylesheet">
     
     <style>
-        :root { --accent: #3b82f6; --text: #ffffff; }
-        body { background: #000; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; transition: 0.5s; }
+        :root { --accent: #3b82f6; }
+        body { background: #000; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
         
-        #water-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998; }
+        /* Water Ripple Effect */
+        #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
 
+        /* Menu Titik 3 Pojok Kanan Atas */
         .top-menu-btn { position: fixed; top: 25px; right: 25px; z-index: 10000; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); }
         .menu-dropdown { position: fixed; top: 80px; right: 25px; z-index: 10000; background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 20px; border: 1px solid var(--accent); display: none; width: 220px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .menu-dropdown.active { display: block; animation: slideIn 0.3s ease; }
-        .menu-item { display: flex; align-items: center; gap: 12px; padding: 10px; font-size: 12px; cursor: pointer; transition: 0.3s; opacity: 0.7; font-family: 'Montserrat'; }
-        .menu-item:hover { opacity: 1; color: var(--accent); }
 
-        section { position: relative; min-height: 100vh; padding: 100px 20px; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        #home { background: radial-gradient(circle at center, #0a192f 0%, #000 100%); }
-        #work { background: linear-gradient(135deg, #000 0%, #050c1a 100%); }
-
+        /* Social Sticky Sidebar */
         .social-sticky { position: fixed; left: 20px; bottom: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 20px; }
         .social-icon { color: white; opacity: 0.4; font-size: 20px; transition: 0.4s; }
         .social-icon:hover { opacity: 1; transform: translateY(-5px); color: var(--accent); }
 
-        /* Foto Profil Original */
-        .profile-img { width: 150px; height: 150px; border-radius: 50px; object-cover: cover; border: 2px solid var(--accent); }
-        
-        /* Slider Styling untuk Produk 3D */
-        .slider-wrap { display: flex; overflow-x: auto; gap: 20px; scrollbar-width: none; padding: 20px 0; -webkit-overflow-scrolling: touch; }
+        /* Profile & Layout */
+        section { min-height: 100vh; padding: 80px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .profile-img { width: 160px; height: 160px; border-radius: 40px; object-fit: cover; border: 2px solid var(--accent); }
+
+        /* Slider 3D Products */
+        .slider-wrap { display: flex; overflow-x: auto; gap: 15px; scrollbar-width: none; padding: 10px 0; width: 100%; }
         .slider-wrap::-webkit-scrollbar { display: none; }
-        .slider-item { flex: 0 0 85%; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #111; position: relative; }
-        .slider-item img { width: 100%; height: 300px; object-fit: cover; transition: 0.5s; }
-        .slider-item:hover img { transform: scale(1.05); }
+        .slider-item { flex: 0 0 85%; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        .slider-item img { width: 100%; height: 280px; object-fit: cover; }
 
         @keyframes slideIn { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
@@ -49,40 +46,39 @@
     <div class="top-menu-btn" onclick="toggleMenu()">
         <i class="fas fa-ellipsis-v"></i>
     </div>
-
     <div id="dropdown" class="menu-dropdown">
-        <div class="menu-item" onclick="setLang('id')"><i class="fas fa-language"></i> Indonesia</div>
-        <div class="menu-item" onclick="setLang('en')"><i class="fas fa-globe"></i> English</div>
-        <div class="menu-item" onclick="autoScroll()"><i class="fas fa-mouse"></i> Auto Scroll</div>
-        <div class="menu-item" onclick="window.open('https://wa.me/6285700398394')"><i class="fas fa-handshake"></i> Kolaborasi</div>
+        <div class="p-2 text-xs opacity-50 uppercase tracking-widest mb-2 border-b border-white/10">Menu Navigasi</div>
+        <div class="py-2 text-sm cursor-pointer" onclick="location.href='#home'">Beranda</div>
+        <div class="py-2 text-sm cursor-pointer" onclick="location.href='#work'">Proyek 3D</div>
+        <div class="py-2 text-sm cursor-pointer" onclick="window.open('https://wa.me/6285700398394')">Hubungi Saya</div>
     </div>
 
     <div class="social-sticky">
-        <a href="https://wa.me/6285700398394" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://youtube.com/@abysheha7946" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
-        <a href="https://instagram.com/danuardheya" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://wa.me/6285700398394" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com/danuardheya" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/@abysheha7946" class="social-icon"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
     </div>
 
-    <section id="home" class="flex flex-col items-center justify-center text-center">
-        <div data-aos="zoom-in" class="mb-8">
-            <img src="1000064247.jpg" alt="Danuardheya" class="profile-img shadow-[0_0_50px_rgba(59,130,246,0.3)]">
+    <section id="home" class="text-center">
+        <div data-aos="zoom-in" class="mb-6">
+            <img src="1000064247.jpg" 
+                 onerror="this.src='https://lh3.googleusercontent.com/d/1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ'" 
+                 alt="Danuardheya" 
+                 class="profile-img shadow-[0_0_40px_rgba(59,130,246,0.3)]">
         </div>
-        <h1 id="t-hero" class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4" data-aos="fade-up">
-            Architecting <span class="italic text-blue-500 font-serif text-6xl md:text-8xl">Reality.</span>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-2" data-aos="fade-up">
+            DANUARDHEYA
         </h1>
-        <p id="d-hero" class="text-gray-400 max-w-xl mx-auto text-sm md:text-base opacity-80 uppercase tracking-widest" data-aos="fade-up" data-aos-delay="200">
-            3D Visualizer & Civil Engineering Strategist
-        </p>
+        <p class="italic text-blue-500 font-serif text-2xl mb-4" data-aos="fade-up" data-aos-delay="100">Architecting Reality.</p>
+        <p class="text-gray-500 text-[10px] tracking-[0.4em] uppercase" data-aos="fade-up" data-aos-delay="200">Civil Engineer & 3D Visualizer</p>
     </section>
 
     <section id="work">
-        <div class="max-w-6xl mx-auto">
-            <h2 id="h-project" class="text-2xl font-bold mb-2 tracking-[0.3em] uppercase text-blue-500" data-aos="fade-right">3D Interior & Exterior</h2>
-            <p class="text-xs text-gray-500 mb-10 tracking-widest">SHOWCASE PRODUK & VISUALISASI</p>
+        <div class="w-full max-w-5xl">
+            <h2 class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500" data-aos="fade-right">3D Interior & Exterior</h2>
             
-            <div class="slider-wrap mb-20" data-aos="fade-up">
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ"></div>
+            <div class="slider-wrap" data-aos="fade-up">
                 <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ"></div>
                 <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X"></div>
                 <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD"></div>
@@ -97,71 +93,50 @@
                 <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/146en6-VAKyGWQymoPmIrI3o301EqfrQ2"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white/5 backdrop-blur-md p-10 rounded-[40px] border border-white/10" data-aos="fade-up">
-                    <i class="fas fa-drafting-compass text-blue-500 text-3xl mb-6"></i>
-                    <h3 id="h-2d" class="text-xl font-bold mb-3">2D CAD & DED</h3>
-                    <p id="d-2d" class="text-xs text-gray-400">Penyusunan gambar kerja teknis dengan detail presisi tinggi.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
+                <div class="bg-white/5 p-8 rounded-3xl border border-white/10" data-aos="fade-up">
+                    <h3 class="font-bold text-blue-500 mb-2 uppercase text-sm">2D CAD & DED</h3>
+                    <p class="text-[11px] text-gray-400">Gambar teknis presisi tinggi untuk kebutuhan konstruksi profesional.</p>
                 </div>
-                <div class="bg-white/5 backdrop-blur-md p-10 rounded-[40px] border border-white/10" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-calculator text-blue-500 text-3xl mb-6"></i>
-                    <h3 id="h-rab" class="text-xl font-bold mb-3">RAB Analyst</h3>
-                    <p id="d-rab" class="text-xs text-gray-400">Strategi anggaran biaya pembangunan yang efisien dan akurat.</p>
+                <div class="bg-white/5 p-8 rounded-3xl border border-white/10" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="font-bold text-blue-500 mb-2 uppercase text-sm">RAB ANALYST</h3>
+                    <p class="text-[11px] text-gray-400">Strategi anggaran biaya pembangunan yang efisien, akurat, dan transparan.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-20 text-center opacity-30">
-        <p class="font-mono text-[9px] tracking-[1.5em]">DANUARDHEYA • DESIGN ENGINEERING • 2024</p>
+    <footer class="py-10 text-center opacity-20 text-[8px] tracking-[1em]">
+        DANUARDHEYA • 2024
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
-
         function toggleMenu() { document.getElementById('dropdown').classList.toggle('active'); }
 
+        // Water Effect
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
         let ripples = [];
         window.addEventListener('mousedown', (e) => ripples.push({x: e.clientX, y: e.clientY, r: 2, o: 0.5}));
         window.addEventListener('touchstart', (e) => ripples.push({x: e.touches[0].clientX, y: e.touches[0].clientY, r: 2, o: 0.5}));
 
-        function animateWater() {
+        function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ripples.forEach((r, i) => {
                 ctx.beginPath();
                 ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
                 ctx.strokeStyle = `rgba(255, 255, 255, ${r.o})`;
                 ctx.stroke();
-                r.r += 2.5; r.o -= 0.015;
+                r.r += 2; r.o -= 0.01;
                 if(r.o <= 0) ripples.splice(i, 1);
             });
-            requestAnimationFrame(animateWater);
+            requestAnimationFrame(animate);
         }
-        animateWater();
-
-        function autoScroll() { window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }); toggleMenu(); }
-
-        const lang = {
-            id: { hero: "Architecting Reality.", desc: "3D Visualizer & Civil Engineering Strategist", proj: "3D Interior & Exterior", h2d: "2D CAD & DED", d2d: "Penyusunan gambar kerja teknis dengan detail presisi tinggi.", hrab: "RAB Analyst", drab: "Strategi anggaran biaya pembangunan yang efisien dan akurat." },
-            en: { hero: "Defining Space.", desc: "3D Visualizer & Civil Engineering Strategist", proj: "Products Showcase", h2d: "Technical Drawings", d2d: "High-precision drawings for professional construction.", hrab: "Cost Analysis", drab: "Systematic project cost calculation for budget efficiency." }
-        };
-
-        function setLang(l) {
-            document.getElementById('t-hero').innerHTML = l === 'id' ? `Architecting <span class="italic text-blue-500 font-serif text-6xl md:text-8xl">Reality.</span>` : `Defining <span class="italic text-blue-500 font-serif text-6xl md:text-8xl">Space.</span>`;
-            document.getElementById('d-hero').innerText = lang[l].desc;
-            document.getElementById('h-project').innerText = lang[l].proj;
-            document.getElementById('h-2d').innerText = lang[l].h2d;
-            document.getElementById('d-2d').innerText = lang[l].d2d;
-            document.getElementById('h-rab').innerText = lang[l].hrab;
-            document.getElementById('d-rab').innerText = lang[l].drab;
-            toggleMenu();
-        }
+        animate();
     </script>
 </body>
 </html>
