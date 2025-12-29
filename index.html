@@ -74,15 +74,22 @@
         .image-card:hover { transform: translateY(-10px); border-color: var(--neon); box-shadow: 0 20px 40px rgba(0, 242, 255, 0.1); }
         .image-card img { width: 100%; height: auto; display: block; }
 
-        .image-overlay {
-            position: absolute; inset: 0; background: linear-gradient(transparent, rgba(2, 6, 23, 0.8));
-            opacity: 0; transition: 0.3s; display: flex; align-items: flex-end; padding: 20px;
-        }
-        .image-card:hover .image-overlay { opacity: 1; }
-
         .glass-card {
             background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px;
+        }
+
+        /* Contact Icons Style */
+        .social-btn {
+            width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(59, 130, 246, 0.2); transition: 0.4s;
+            color: white; font-size: 20px;
+        }
+        .social-btn:hover {
+            background: var(--accent); color: white;
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 0 20px var(--accent);
         }
 
         #floating-acc { position: fixed; top: 120px; left: 20px; z-index: 10000; width: 45px; height: 45px; cursor: move; touch-action: none; }
@@ -91,7 +98,7 @@
         .rgb-glow-border::after { content: ''; position: absolute; inset: 2px; background: #020617; border-radius: 50%; }
         @keyframes rotateRGB { 100% { transform: rotate(360deg); } }
 
-        section { padding: 100px 20px; width: 100%; max-width: 1200px; margin: 0 auto; }
+        section { padding: 80px 20px; width: 100%; max-width: 1200px; margin: 0 auto; }
         .profile-img-container { width: 160px; height: 160px; border-radius: 50%; border: 2px solid var(--neon); padding: 5px; background: rgba(0, 242, 255, 0.05); overflow: hidden; margin: 0 auto; }
         .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
     </style>
@@ -137,9 +144,9 @@
         </div>
         
         <div class="work-grid" data-aos="fade-up">
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800"><div class="image-overlay"><span class="text-[10px] tracking-widest uppercase">Exterior Render</span></div></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800"><div class="image-overlay"><span class="text-[10px] tracking-widest uppercase">Detailing</span></div></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800"><div class="image-overlay"><span class="text-[10px] tracking-widest uppercase">Interior Concept</span></div></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800"></div>
@@ -163,18 +170,10 @@
             <div class="h-[1px] w-12 bg-blue-500"></div>
             <h2 id="t-h-cad" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">DED & Blueprints</h2>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="work-grid">
             <div class="image-card" data-aos="fade-up"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800"></div>
             <div class="image-card" data-aos="fade-up" data-aos-delay="100"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800"></div>
-            <div class="image-card" data-aos="fade-up"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800"></div>
-            <div class="glass-card p-10 flex flex-col justify-center border-l-4 border-blue-500" data-aos="fade-left">
-                <p id="t-cad-desc" class="text-sm md:text-base text-gray-400 leading-relaxed mb-6 italic">"Precision in every line. Delivering technical drawings that bridge the gap between imagination and construction."</p>
-                <div class="flex gap-2">
-                    <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-[10px] rounded-full border border-blue-500/20">AutoCAD</span>
-                    <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-[10px] rounded-full border border-blue-500/20">Structural</span>
-                </div>
-            </div>
+            <div class="image-card" data-aos="fade-up" data-aos-delay="200"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800"></div>
         </div>
     </section>
 
@@ -184,13 +183,27 @@
             <h2 id="t-h-rab" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">Budget Analyst</h2>
         </div>
         <div class="glass-card overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-0" data-aos="zoom-in">
-            <div class="p-10 flex flex-col justify-center order-2 md:order-1">
+            <div class="p-10 flex flex-col justify-center">
                 <h3 class="text-2xl font-bold mb-4">Cost Strategic Management</h3>
                 <p id="t-rab-desc" class="text-gray-400 text-sm leading-relaxed">Optimization of material costs and labor with professional accuracy based on SNI standards.</p>
             </div>
-            <div class="order-1 md:order-2">
-                <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-full object-cover">
+            <div>
+                <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-64 object-cover">
             </div>
+        </div>
+    </section>
+
+    <section id="contact" class="text-center">
+        <div class="flex items-center justify-center gap-4 mb-8" data-aos="fade-up">
+            <div class="h-[1px] w-8 bg-blue-500"></div>
+            <h2 id="t-contact" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">Connect With Me</h2>
+            <div class="h-[1px] w-8 bg-blue-500"></div>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6" data-aos="zoom-in">
+            <a href="https://wa.me/nomor-wa-anda" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://instagram.com/username-anda" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/channel-anda" class="social-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://linkedin.com/in/username-anda" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
     </section>
 
@@ -216,7 +229,7 @@
                 hWork: "Pameran Visual 3D",
                 hCad: "DED & Cetak Biru",
                 hRab: "Analisis Anggaran",
-                cadDesc: '"Presisi di setiap garis. Memberikan gambar teknis yang menghubungkan imajinasi dengan konstruksi nyata."',
+                contact: "Terhubung Dengan Saya",
                 rabDesc: "Optimalisasi biaya material dan tenaga kerja dengan akurasi profesional berdasarkan standar SNI.",
                 footerSub: "Portofolio Teknik Digital"
             },
@@ -225,7 +238,7 @@
                 hWork: "3D Visual Showcase",
                 hCad: "DED & Blueprints",
                 hRab: "Budget Analysis",
-                cadDesc: '"Precision in every line. Delivering technical drawings that bridge the gap between imagination and construction."',
+                contact: "Connect With Me",
                 rabDesc: "Optimization of material costs and labor with professional accuracy based on SNI standards.",
                 footerSub: "Digital Engineering Portfolio"
             }
@@ -237,13 +250,12 @@
             document.getElementById('t-h-work').innerText = t.hWork;
             document.getElementById('t-h-cad').innerText = t.hCad;
             document.getElementById('t-h-rab').innerText = t.hRab;
-            document.getElementById('t-cad-desc').innerText = t.cadDesc;
+            document.getElementById('t-contact').innerText = t.contact;
             document.getElementById('t-rab-desc').innerText = t.rabDesc;
             document.getElementById('t-footer-sub').innerText = t.footerSub;
             toggleMenu('acc-nav');
         }
 
-        // Drag & Ripple Logic remains the same
         let dragItem = document.querySelector("#floating-acc");
         let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
         function dragStart(e) {
@@ -282,5 +294,4 @@
         anim();
     </script>
 </body>
-    </html>
-                                                                                                                                                              
+</html>
