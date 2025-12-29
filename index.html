@@ -22,7 +22,6 @@
 
         body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.5s ease; overflow-x: hidden; }
         
-        /* Grid Concept */
         body::before {
             content: ""; position: fixed; inset: 0;
             background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
@@ -36,7 +35,6 @@
         }
         @media (min-width: 1024px) { .side-branding { display: block; } }
 
-        /* RGB Border Animation */
         @keyframes rgbBorder {
             0% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; }
             33% { border-color: #00ff00; box-shadow: 0 0 8px #00ff00; }
@@ -57,7 +55,6 @@
             border: 1px solid rgba(59, 130, 246, 0.3); display: none; width: 260px;
         }
 
-        /* Vertical Grid Layout */
         .work-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 25px; width: 100%; }
         @media (min-width: 768px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 1024px) { .work-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -176,10 +173,10 @@
     <section class="text-center">
         <h2 id="t-contact" class="text-sm font-bold tracking-[0.4em] text-blue-400 uppercase mb-12">Connect With Me</h2>
         <div class="flex flex-wrap justify-center gap-6" data-aos="fade-up">
-            <a href="#" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-youtube"></i></a>
-            <a href="#" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://wa.me/628XXXXXXXXXX" target="_blank" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-whatsapp"></i></a>
+            <a href="instagram://user?username=USERNAME_ANDA" target="_blank" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@USERNAME_ANDA" target="_blank" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.linkedin.com/in/USERNAME_ANDA" target="_blank" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
         </div>
     </section>
 
@@ -189,14 +186,12 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Theme Toggle
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
             const icon = document.getElementById('theme-icon');
             icon.classList.toggle('fa-moon'); icon.classList.toggle('fa-sun');
         }
 
-        // Language Logic
         const trans = {
             id: { hero: "MEMBANGUN REALITAS", hWork: "PAMERAN VISUAL 3D", hCad: "CETAK BIRU TEKNIK", hRab: "ANALISIS ANGGARAN", contact: "TERHUBUNG DENGAN SAYA", rabDesc: "Optimalisasi biaya material dan tenaga kerja menggunakan standar profesional SNI." },
             en: { hero: "ARCHITECTING REALITY", hWork: "3D VISUAL SHOWCASE", hCad: "ENGINEERING BLUEPRINTS", hRab: "BUDGET ANALYST", contact: "CONNECT WITH ME", rabDesc: "Optimization of material and labor costs using professional SNI standards." }
@@ -220,7 +215,6 @@
             d.style.display = isVisible ? 'none' : 'block';
         }
 
-        // Drag Logic
         let dragItem = document.querySelector("#floating-acc");
         let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
         function dragStart(e) {
@@ -240,7 +234,6 @@
         window.addEventListener("mousemove", drag); window.addEventListener("touchmove", drag, {passive: false});
         window.addEventListener("mouseup", () => active = false); window.addEventListener("touchend", () => active = false);
 
-        // Water Ripple
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -259,5 +252,4 @@
         anim();
     </script>
 </body>
-    </html>
-                                        
+</html>
