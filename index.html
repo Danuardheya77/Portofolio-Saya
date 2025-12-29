@@ -1,176 +1,207 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | The Future of Engineering</title>
+    <title>Danuardheya | Ultimate Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=Playfair+Display:ital,wght@1,700&family=Montserrat:wght@500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;800&family=Playfair+Display:ital,wght@1,900&family=JetBrains+Mono&display=swap" rel="stylesheet">
     
     <style>
-        :root { --accent: #3b82f6; --text: #ffffff; --bg-overlay: rgba(0,0,0,0.7); }
-        body { background: #000; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; transition: 0.5s; }
+        :root { --accent: #3b82f6; --gold: #ffd700; }
+        body { background: #000; color: white; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; margin: 0; }
+
+        /* Welcome Screen */
+        #welcome-overlay {
+            position: fixed; inset: 0; z-index: 100000; background: #000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .start-btn {
+            padding: 15px 40px; border: 1px solid var(--gold); border-radius: 50px;
+            color: var(--gold); font-family: 'JetBrains Mono'; cursor: pointer;
+            background: rgba(255, 215, 0, 0.1); font-weight: bold; transition: 0.5s;
+        }
+        .start-btn:hover { background: var(--gold); color: black; box-shadow: 0 0 30px var(--gold); }
+
+        /* Water Ripple */
+        #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
+
+        /* Draggable Accessibility Menu dengan Glow Gold Running */
+        #draggable-menu {
+            position: fixed; top: 20px; right: 20px; z-index: 10000;
+            cursor: move; touch-action: none;
+        }
         
-        /* Water Drop Effect Canvas */
-        #water-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998; }
+        .glow-box {
+            position: relative; background: #000; padding: 10px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            width: 55px; height: 55px; overflow: hidden;
+        }
 
-        /* Floating Menu Titik 3 (Pojok Kanan Atas) */
-        .top-menu-btn { position: fixed; top: 25px; right: 25px; z-index: 10000; background: rgba(255,255,255,0.1); backdrop-blur: 10px; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); }
-        .menu-dropdown { position: fixed; top: 80px; right: 25px; z-index: 10000; background: rgba(10,10,10,0.95); backdrop-blur: 20px; border-radius: 20px; padding: 20px; border: 1px solid var(--accent); display: none; width: 220px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .menu-dropdown.active { display: block; animation: slideIn 0.3s ease; }
-        .menu-item { display: flex; items-center; gap: 12px; padding: 10px; font-size: 12px; cursor: pointer; transition: 0.3s; opacity: 0.7; font-family: 'Montserrat'; }
-        .menu-item:hover { opacity: 1; color: var(--accent); }
+        /* Gold Running Effect */
+        .glow-box::before {
+            content: ''; position: absolute; width: 150%; height: 150%;
+            background: conic-gradient(transparent, transparent, transparent, var(--gold));
+            animation: rotateGold 3s linear infinite;
+        }
+        @keyframes rotateGold { 100% { transform: rotate(360deg); } }
 
-        /* Background Layers (Futuristik & Berbeda) */
-        section { position: relative; min-h-screen; padding: 100px 20px; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        #home { background: radial-gradient(circle at center, #0a192f 0%, #000 100%); }
-        #work { background: linear-gradient(135deg, #000 0%, #050c1a 100%); }
-        #contact-section { background: radial-gradient(at bottom right, #1e3a8a 0%, #000 70%); }
+        .glow-box::after {
+            content: ''; position: absolute; inset: 2px; background: #000; border-radius: 50%;
+        }
 
-        /* Social Media Stay Permanen */
-        .social-sticky { position: fixed; left: 20px; bottom: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 20px; }
-        .social-icon { color: white; opacity: 0.4; font-size: 20px; transition: 0.4s; }
-        .social-icon:hover { opacity: 1; transform: translateY(-5px); color: var(--accent); }
+        .icon-content { position: relative; z-index: 1; font-size: 20px; color: var(--gold); }
 
-        /* Typography & Elements */
-        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--accent); }
-        .slider-wrap { display: flex; overflow-x: auto; gap: 20px; scrollbar-width: none; }
-        .slider-item { flex: 0 0 80%; border-radius: 20px; overflow: hidden; }
+        /* Dropdown Menu */
+        .menu-dropdown { 
+            position: absolute; top: 60px; right: 0; background: rgba(10,10,10,0.98); 
+            border: 1px solid var(--gold); border-radius: 20px; padding: 15px; width: 220px;
+            display: none; box-shadow: 0 10px 40px rgba(255, 215, 0, 0.2);
+        }
+        .menu-dropdown.active { display: block; }
+        .menu-item { padding: 10px; font-size: 11px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s; }
+        .menu-item:hover { background: rgba(255, 215, 0, 0.1); color: var(--gold); border-radius: 10px; }
 
-        @keyframes slideIn { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        /* Social Fixed */
+        .social-fixed { position: fixed; left: 20px; bottom: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 20px; }
+        .social-fixed a { color: white; opacity: 0.4; font-size: 20px; transition: 0.3s; }
+        .social-fixed a:hover { opacity: 1; color: var(--gold); transform: scale(1.2); }
+
+        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 40px; }
+        #home { background: radial-gradient(circle, #0a1321, #000); }
     </style>
 </head>
-<body id="master-body">
+<body>
+
+    <div id="welcome-overlay">
+        <h1 class="font-serif italic text-2xl mb-8 text-white">Danuardheya Portfolio</h1>
+        <button class="start-btn" onclick="startApp()">INITIATE STORY</button>
+    </div>
+
+    <div style="display:none">
+        <div id="yt-player"></div>
+    </div>
 
     <canvas id="water-canvas"></canvas>
 
-    <div style="display:none">
-        <iframe id="youtube-audio" src="https://www.youtube.com/embed/VBpOA8eBRBY?autoplay=1&mute=0&loop=1&playlist=VBpOA8eBRBY" allow="autoplay"></iframe>
-    </div>
-
-    <div class="top-menu-btn" onclick="toggleMenu()">
-        <i class="fas fa-ellipsis-v"></i>
-    </div>
-
-    <div id="dropdown" class="menu-dropdown">
-        <div class="menu-item" onclick="setLang('id')"><i class="fas fa-language"></i> Indonesia</div>
-        <div class="menu-item" onclick="setLang('en')"><i class="fas fa-globe"></i> English</div>
-        <div class="menu-item" onclick="toggleTheme()"><i class="fas fa-moon"></i> Dark / Light</div>
-        <div class="menu-item" onclick="zoom(1.1)"><i class="fas fa-search-plus"></i> Zoom In</div>
-        <div class="menu-item" onclick="zoom(0.9)"><i class="fas fa-search-minus"></i> Zoom Out</div>
-        <div class="menu-item" onclick="autoScroll()"><i class="fas fa-mouse"></i> Auto Scroll</div>
-        <div class="menu-item" onclick="alert('Layanan: 3D Design, DED, RAB Strategist')"><i class="fas fa-info-circle"></i> Info Layanan</div>
-        <div class="menu-item" onclick="window.open('https://wa.me/6285700398394')"><i class="fas fa-handshake"></i> Kolaborasi</div>
-    </div>
-
-    <div class="social-sticky">
-        <a href="https://wa.me/6285700398394" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://youtube.com/@abysheha7946" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
-        <a href="https://instagram.com/danuardheya" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-    </div>
-
-    <section id="home" class="flex flex-col items-center justify-center text-center">
-        <div data-aos="zoom-in" class="mb-6">
-            <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="profile-img shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+    <div id="draggable-menu" onmousedown="dragStart(event)" ontouchstart="dragStart(event)">
+        <div class="glow-box" onclick="toggleMenu()">
+            <div class="icon-content"><i class="fas fa-bars"></i></div>
         </div>
-        <h1 id="t-hero" class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-4" data-aos="fade-up">
-            Architecting <span class="italic text-blue-500 font-serif">Reality.</span>
-        </h1>
-        <p id="d-hero" class="text-gray-400 max-w-xl mx-auto text-sm md:text-base opacity-80" data-aos="fade-up" data-aos-delay="200">
-            Spesialis visualisasi 3D dan strategi teknik sipil dengan presisi mutakhir.
-        </p>
-    </section>
-
-    <section id="work">
-        <div class="max-w-6xl mx-auto">
-            <h2 id="h-project" class="text-3xl font-bold mb-10 tracking-widest uppercase text-blue-500" data-aos="fade-right">3D Projects</h2>
-            <div class="slider-wrap mb-20" data-aos="fade-up">
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz" class="w-full h-auto"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39" class="w-full h-auto"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk" class="w-full h-auto"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10" data-aos="flip-left">
-                    <h3 id="h-2d" class="text-xl font-bold mb-3">2D CAD & DED</h3>
-                    <p id="d-2d" class="text-xs text-gray-400">Gambar teknis presisi tinggi untuk standar konstruksi profesional.</p>
-                </div>
-                <div class="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10" data-aos="flip-right">
-                    <h3 id="h-rab" class="text-xl font-bold mb-3">RAB Analyst</h3>
-                    <p id="d-rab" class="text-xs text-gray-400">Efisiensi biaya pembangunan dengan akurasi perhitungan material.</p>
-                </div>
-            </div>
+        <div id="dropdown" class="menu-dropdown">
+            <div class="text-[9px] font-bold text-yellow-500 mb-2 tracking-widest uppercase border-b border-white/10 pb-2">Accessibility Menu</div>
+            <div class="menu-item" onclick="toggleMute()"><i id="vol-icon" class="fas fa-volume-up"></i> Music On/Off</div>
+            <div class="menu-item" onclick="setLang('id')">🇮🇩 Bahasa Indonesia</div>
+            <div class="menu-item" onclick="setLang('en')">🇺🇸 English</div>
+            <div class="menu-item" onclick="document.body.classList.toggle('bg-white'); document.body.classList.toggle('text-black')">🌓 Light Mode</div>
+            <div class="menu-item" onclick="window.scrollBy({top: 800, behavior:'smooth'})">🖱️ Auto Scroll</div>
         </div>
+    </div>
+
+    <div class="social-fixed">
+        <a href="https://wa.me/6285700398394"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://youtube.com/@abysheha7946"><i class="fab fa-youtube"></i></a>
+        <a href="https://instagram.com/danuardheya"><i class="fab fa-instagram"></i></a>
+    </div>
+
+    <section id="home" class="text-center">
+        <img src="https://lh3.googleusercontent.com/d/1kF3X6J_-Vz6AzLBdirTHKpcvVYZxQoSi" class="w-32 h-32 rounded-full border-2 border-yellow-500 mx-auto mb-10 shadow-[0_0_30px_rgba(255,215,0,0.3)]">
+        <h2 class="text-5xl md:text-7xl font-extrabold italic" data-aos="fade-up">Danuardheya</h2>
+        <p class="text-gray-400 mt-6 tracking-widest uppercase text-xs" data-aos="fade-up" data-aos-delay="200">The Architect of Digital Engineering</p>
     </section>
 
-    <section id="contact-section" class="text-center">
-        <h2 class="text-5xl font-extrabold opacity-10 mb-10">THE END.</h2>
-        <p class="font-mono text-[8px] tracking-[1.5em] opacity-30 mt-20">DANUARDHEYA • 2024 • ENGINEER</p>
-    </section>
-
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000 });
+        AOS.init();
 
-        // Toggle Menu Titik 3
-        function toggleMenu() { document.getElementById('dropdown').classList.toggle('active'); }
+        // 1. YouTube Player Engine (Rei Brown - Number Angel)
+        let player;
+        let isMuted = false;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                height: '0', width: '0',
+                videoId: 'U-fXJ6pBf7A', 
+                playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': 'U-fXJ6pBf7A' },
+                events: { 'onReady': (e) => { e.target.mute(); } }
+            });
+        }
 
-        // Water Drop Effect (Xperia Style)
-        const canvas = document.getElementById('water-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        function startApp() {
+            document.getElementById('welcome-overlay').style.display = 'none';
+            player.unMute();
+            player.playVideo();
+        }
 
-        let ripples = [];
-        class Ripple {
-            constructor(x, y) { this.x = x; this.y = y; this.r = 2; this.opacity = 0.5; }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                ctx.stroke();
-                this.r += 2;
-                this.opacity -= 0.01;
+        function toggleMute() {
+            if (isMuted) {
+                player.unMute();
+                document.getElementById('vol-icon').className = "fas fa-volume-up";
+                isMuted = false;
+            } else {
+                player.mute();
+                document.getElementById('vol-icon').className = "fas fa-volume-mute";
+                isMuted = true;
             }
         }
 
-        window.addEventListener('mousedown', (e) => ripples.push(new Ripple(e.clientX, e.clientY)));
-        window.addEventListener('touchstart', (e) => ripples.push(new Ripple(e.touches[0].clientX, e.touches[0].clientY)));
+        // 2. Draggable Menu Logic (Bisa digeser kemana-mana)
+        let dragItem = document.querySelector("#draggable-menu");
+        let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
 
-        function animateWater() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ripples = ripples.filter(r => r.opacity > 0);
-            ripples.forEach(r => r.draw());
-            requestAnimationFrame(animateWater);
+        function dragStart(e) {
+            if (e.type === "touchstart") {
+                initialX = e.touches[0].clientX - xOffset;
+                initialY = e.touches[0].clientY - yOffset;
+            } else {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+            }
+            if (e.target.closest('.glow-box')) active = true;
         }
-        animateWater();
 
-        // Fitur Akses
-        let currentZoom = 1;
-        function zoom(val) { currentZoom *= val; document.body.style.transform = `scale(${currentZoom})`; document.body.style.transformOrigin = 'top center'; }
-        
-        function autoScroll() { window.scrollBy({ top: 500, behavior: 'smooth' }); }
-        
-        function toggleTheme() { document.body.classList.toggle('bg-white'); document.body.classList.toggle('text-black'); }
+        window.addEventListener("mousemove", drag);
+        window.addEventListener("touchmove", drag);
+        window.addEventListener("mouseup", () => active = false);
+        window.addEventListener("touchend", () => active = false);
 
-        const lang = {
-            id: { hero: "Architecting Reality.", desc: "Spesialis visualisasi 3D dan strategi teknik sipil dengan presisi mutakhir.", proj: "Proyek 3D", h2d: "2D CAD & DED", d2d: "Gambar teknis presisi tinggi untuk standar profesional.", hrab: "Analisis RAB", drab: "Efisiensi biaya pembangunan dengan akurasi perhitungan." },
-            en: { hero: "Defining The Future.", desc: "Specializing in 3D visualization and civil engineering with cutting-edge precision.", proj: "3D Showcase", h2d: "2D Engineering", d2d: "High-precision technical drawings for professional standards.", hrab: "Cost Estimator", drab: "Construction cost efficiency with material calculation accuracy." }
-        };
-
-        function setLang(l) {
-            document.getElementById('t-hero').innerText = lang[l].hero;
-            document.getElementById('d-hero').innerText = lang[l].desc;
-            document.getElementById('h-project').innerText = lang[l].proj;
-            document.getElementById('h-2d').innerText = lang[l].h2d;
-            document.getElementById('d-2d').innerText = lang[l].d2d;
-            document.getElementById('h-rab').innerText = lang[l].hrab;
-            document.getElementById('d-rab').innerText = lang[l].drab;
-            toggleMenu();
+        function drag(e) {
+            if (active) {
+                e.preventDefault();
+                if (e.type === "touchmove") {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                } else {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                }
+                xOffset = currentX; yOffset = currentY;
+                dragItem.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+            }
         }
+
+        function toggleMenu() { if(!active) document.getElementById('dropdown').classList.toggle('active'); }
+
+        // 3. Water Ripple
+        const canvas = document.getElementById('water-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let ripples = [];
+        window.addEventListener('mousedown', e => ripples.push({x: e.clientX, y: e.clientY, r: 0, o: 0.6}));
+        window.addEventListener('touchstart', e => ripples.push({x: e.touches[0].clientX, y: e.touches[0].clientY, r: 0, o: 0.6}));
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ripples.forEach((r, i) => {
+                r.r += 2.5; r.o -= 0.015;
+                ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI*2);
+                ctx.strokeStyle = `rgba(255,255,255,${r.o})`; ctx.stroke();
+                if(r.o <= 0) ripples.splice(i,1);
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
     </script>
 </body>
-    </html>
-    
+</html>
