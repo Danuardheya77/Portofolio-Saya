@@ -13,38 +13,27 @@
         :root { --accent: #3b82f6; }
         body { background: #000; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
         #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
-        
-        /* Nav & Toolbar */
         .top-toolbar { position: fixed; top: 25px; right: 25px; z-index: 10001; display: flex; gap: 10px; }
         .tool-btn { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
         .menu-dropdown { position: fixed; top: 80px; right: 25px; z-index: 10001; background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 20px; border: 1px solid var(--accent); display: none; width: 220px; }
-
-        /* Draggable ACC */
         #floating-acc { position: fixed; top: 120px; left: 20px; z-index: 10000; width: 42px; height: 42px; cursor: move; touch-action: none; }
         .rgb-glow-border { position: relative; width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .rgb-glow-border::before { content: ''; position: absolute; inset: -2px; border-radius: 50%; background: conic-gradient(red, yellow, green, cyan, blue, magenta, red); animation: rotateRGB 3s linear infinite; }
         .rgb-glow-border::after { content: ''; position: absolute; inset: 2px; background: #000; border-radius: 50%; }
         @keyframes rotateRGB { 100% { transform: rotate(360deg); } }
-
-        /* General Layout */
         section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 20px; }
         .profile-img-container { width: 180px; height: 180px; border-radius: 50%; border: 3px solid var(--accent); padding: 5px; background: rgba(59, 130, 246, 0.1); }
         .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-
-        /* Sliders */
         .slider-wrap { display: flex; overflow-x: auto; gap: 15px; scrollbar-width: none; padding: 10px 0; width: 100%; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
         .slider-wrap::-webkit-scrollbar { display: none; }
         .slider-item { flex: 0 0 85%; scroll-snap-align: center; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #111; height: 320px; }
         .slider-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* RAB Specific (4 Slide from 2 Images) */
-        .rab-item { background: #fff; height: 500px; flex: 0 0 90%; }
+        .rab-item { background: #fff; height: 500px; flex: 0 0 92%; }
         .rab-crop { width: 100%; height: 100%; object-fit: cover; object-position: top; }
         .rab-crop.bottom { object-position: bottom; }
     </style>
 </head>
 <body>
-
     <canvas id="water-canvas"></canvas>
 
     <div class="top-toolbar">
@@ -72,42 +61,40 @@
         <div id="acc-nav" class="menu-dropdown" style="top: 55px; left: 0; right: auto;">
             <div class="py-2 text-xs cursor-pointer" onclick="setLang('id')">Indonesia</div>
             <div class="py-2 text-xs cursor-pointer" onclick="setLang('en')">English</div>
-            <div class="py-2 text-xs cursor-pointer" onclick="setLang('ar')">العربية</div>
-            <div class="py-2 text-xs cursor-pointer" onclick="setLang('cn')">中文</div>
         </div>
     </div>
 
     <section id="home">
         <div data-aos="zoom-in" class="mb-8">
             <div class="profile-img-container shadow-[0_0_60px_rgba(59,130,246,0.3)]">
-                <img src="https://lh3.googleusercontent.com/d/1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN" alt="Danuardheya" class="profile-img">
+                <img src="https://lh3.googleusercontent.com/d/1O67Y6p-Y_nL4E-p6gB9N7m4qK6XfU-Yy" alt="Danuardheya" class="profile-img">
             </div>
         </div>
         <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-2" data-aos="fade-up">DANUARDHEYA</h1>
-        <p id="d-hero" class="italic text-blue-500 font-serif text-2xl mb-4" data-aos="fade-up" data-aos-delay="100">Architecting Reality.</p>
-        <p class="text-gray-500 text-[10px] tracking-[0.4em] uppercase" data-aos="fade-up" data-aos-delay="200">Civil Engineer & 3D Visualizer</p>
+        <p id="d-hero" class="italic text-blue-500 font-serif text-2xl mb-4" data-aos="fade-up">Architecting Reality.</p>
+        <p class="text-gray-500 text-[10px] tracking-[0.4em] uppercase">Civil Engineer & 3D Visualizer</p>
     </section>
 
     <section id="work">
         <div class="w-full max-w-6xl">
             <h2 class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500" data-aos="fade-right">3D Interior & Exterior Showcase</h2>
             <div class="slider-wrap" data-aos="fade-up">
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/109LVAU185YdsxNojnOz5AHexYqP-Qwhu"></div>
                 <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1aET4pgViYj4LLPZ1wuyk5gUPrV4zFnBf"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/17bHCDR1MPhfsKTPZH4FKT8W8qbIE5L7x"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1JJEvv6l06ff0BpLqB-h4riiha9BuCYwh"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/109LVAU185YdsxNojnOz5AHexYqP-Qwhu"></div>
                 <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
-                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/10AhNDEDdFn3VnJGRdLQLpjuC2fiooLXo"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1aET4pgViYj4LLPZ1wuyk5gUPrV4zFnBf"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/17bHCDR1MPhfsKTPZH4FKT8W8qbIE5L7x"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1JJEvv6l06ff0BpLqB-h4riiha9BuCYwh"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN"></div>
+                <div class="slider-item"><img src="https://lh3.googleusercontent.com/d/1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC"></div>
             </div>
         </div>
     </section>
@@ -131,10 +118,10 @@
         <div class="w-full max-w-6xl">
             <h2 class="text-xl font-bold mb-6 tracking-widest uppercase text-blue-500 text-center" data-aos="fade-right">RAB Strategis Analyst</h2>
             <div class="slider-wrap" data-aos="fade-up">
-                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/1aET4pgViYj4LLPZ1wuyk5gUPrV4zFnBf" class="rab-crop" title="Hal 1 Atas"></div>
-                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/1aET4pgViYj4LLPZ1wuyk5gUPrV4zFnBf" class="rab-crop bottom" title="Hal 1 Bawah"></div>
-                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/17bHCDR1MPhfsKTPZH4FKT8W8qbIE5L7x" class="rab-crop" title="Hal 2 Atas"></div>
-                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/17bHCDR1MPhfsKTPZH4FKT8W8qbIE5L7x" class="rab-crop bottom" title="Hal 2 Bawah"></div>
+                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/12K7yC_U_W6v0X8K7Bv-V_9Xo8A7Bv_W5" class="rab-crop"></div>
+                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/12K7yC_U_W6v0X8K7Bv-V_9Xo8A7Bv_W5" class="rab-crop bottom"></div>
+                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/13L8zD_V_X7w1Y9L8C-w_W0Y9B8CwX_X6" class="rab-crop"></div>
+                <div class="slider-item rab-item"><img src="https://lh3.googleusercontent.com/d/13L8zD_V_X7w1Y9L8C-w_W0Y9B8CwX_X6" class="rab-crop bottom"></div>
             </div>
         </div>
     </section>
@@ -150,8 +137,6 @@
             document.querySelectorAll('.menu-dropdown').forEach(d => d.style.display = 'none');
             dropdown.style.display = isVisible ? 'none' : 'block';
         }
-        function setLang(l) { toggleMenu('acc-nav'); }
-
         let dragItem = document.querySelector("#floating-acc");
         let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
         function dragStart(e) {
@@ -170,7 +155,6 @@
         }
         window.addEventListener("mousemove", drag); window.addEventListener("touchmove", drag, {passive: false});
         window.addEventListener("mouseup", () => active = false); window.addEventListener("touchend", () => active = false);
-
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -190,5 +174,5 @@
         anim();
     </script>
 </body>
-                                                      </html>
-            
+                                             </html>
+                    
