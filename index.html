@@ -7,33 +7,69 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@400;800&display=swap" rel="stylesheet">
     
     <style>
         :root { 
             --accent: #3b82f6; --neon: #00f2ff; 
-            --bg: radial-gradient(circle at 50% 50%, #0a192f 0%, #020617 100%);
-            --text: #ffffff; --grid: rgba(59, 130, 246, 0.05);
+            --bg: #020617; --text: #ffffff; --grid: rgba(59, 130, 246, 0.05);
         }
-        .light-mode { 
-            --bg: radial-gradient(circle at 50% 50%, #f8fafc 0%, #e2e8f0 100%);
-            --text: #0f172a; --grid: rgba(59, 130, 246, 0.15);
+        .light-mode { --bg: #f8fafc; --text: #0f172a; --grid: rgba(59, 130, 246, 0.15); }
+
+        body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: all 0.5s ease; overflow-x: hidden; margin: 0; }
+        
+        /* Engineering Grid Overlay */
+        body::before {
+            content: ""; position: fixed; inset: 0;
+            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+            background-size: 50px 50px; z-index: -1;
         }
-        body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.5s ease; overflow-x: hidden; margin: 0; }
-        body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; }
-        @keyframes rgbBorder { 0% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; } 33% { border-color: #00ff00; box-shadow: 0 0 8px #00ff00; } 66% { border-color: #0000ff; box-shadow: 0 0 8px #0000ff; } 100% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; } }
+
+        /* Hero Background Architectural */
+        .hero-section {
+            position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-center;
+            background-image: linear-gradient(to bottom, rgba(2,6,23,0.8), var(--bg)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070');
+            background-size: cover; background-position: center;
+        }
+
+        .brand-name { font-family: 'Playfair Display', serif; font-size: 2.5rem; letter-spacing: 0.1em; font-style: italic; }
+        
+        @keyframes rgbBorder {
+            0% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; }
+            33% { border-color: #00ff00; box-shadow: 0 0 8px #00ff00; }
+            66% { border-color: #0000ff; box-shadow: 0 0 8px #0000ff; }
+            100% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; }
+        }
         .rgb-active { animation: rgbBorder 3s linear infinite !important; border-width: 2px !important; }
-        .tool-btn { background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); width: 45px; height: 45px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .menu-dropdown { position: fixed; z-index: 10001; background: rgba(2, 6, 23, 0.98); backdrop-filter: blur(25px); border-radius: 20px; padding: 20px; border: 1px solid rgba(59, 130, 246, 0.3); display: none; width: 240px; }
+
+        .tool-btn { 
+            background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); 
+            width: 45px; height: 45px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+        }
+
+        .menu-dropdown { 
+            position: fixed; z-index: 10001; background: rgba(2, 6, 23, 0.98); 
+            backdrop-filter: blur(25px); border-radius: 20px; padding: 20px; 
+            border: 1px solid rgba(59, 130, 246, 0.3); display: none; width: 240px;
+        }
+
         .work-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 25px; width: 100%; }
-        @media (min-width: 768px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1024px) { .work-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 768px) { .work-grid { grid-template-columns: repeat(3, 1fr); } .brand-name { font-size: 3.5rem; } }
+
         .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s ease; }
         .image-card:hover { transform: translateY(-10px); border-color: var(--neon); }
-        .image-card img { width: 100%; height: auto; display: block; }
+
         #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
-        section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
         #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; }
+        
+        /* Greeting Bubble */
+        .greeting-bubble {
+            position: absolute; bottom: 75px; left: 0; background: white; color: black;
+            padding: 8px 15px; border-radius: 15px; font-size: 11px; font-weight: bold;
+            white-space: nowrap; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        
         input[type=range] { -webkit-appearance: none; background: transparent; }
         input[type=range]::-webkit-slider-runnable-track { background: rgba(59, 130, 246, 0.3); height: 2px; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; background: #00f2ff; border-radius: 50%; margin-top: -6px; }
@@ -48,150 +84,107 @@
     </div>
 
     <div id="dropdown" class="menu-dropdown top-[85px] right-[25px]">
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-400 nav-home" onclick="window.location.hash='home'; toggleMenu('dropdown')">Beranda</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-400 nav-work" onclick="window.location.hash='work'; toggleMenu('dropdown')">Proyek 3D</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-400 nav-cad" onclick="window.location.hash='cad'; toggleMenu('dropdown')">Gambar Teknik</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-400 nav-rab" onclick="window.location.hash='rab'; toggleMenu('dropdown')">Analisis Biaya</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-blue-400 t-nav-home" onclick="location.href='#home'">Beranda</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-blue-400 t-nav-work" onclick="location.href='#work'">Proyek 3D</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-blue-400 t-nav-cad" onclick="location.href='#cad'">Gambar Teknik</div>
     </div>
 
     <div id="acc-box">
-        <div class="tool-btn rgb-active w-12 h-12 rounded-full shadow-lg" onclick="toggleMenu('lang-nav')">
+        <div class="tool-btn rgb-active w-12 h-12 rounded-full" onclick="toggleMenu('lang-nav')">
             <i class="fas fa-language text-cyan-400"></i>
         </div>
         <div id="lang-nav" class="menu-dropdown mt-3 left-0 top-full">
-            <div class="text-[10px] opacity-40 mb-3 tracking-widest uppercase lang-title">Pilih Bahasa</div>
+            <div class="text-[10px] opacity-40 mb-3 tracking-widest uppercase">Select Language</div>
             <div class="grid grid-cols-1 gap-1 text-[11px]">
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('id')">Indonesian (ID)</div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('en')">English (EN)</div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('ja')">Japanese (JA)</div>
+                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('id')">Indonesian</div>
+                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('en')">English</div>
+                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer" onclick="setLang('ja')">Japanese</div>
             </div>
         </div>
     </div>
 
-    <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center">
-        <div class="mb-8" style="width:150px; height:150px; border-radius:50%; border:2px solid var(--neon); padding:5px; background:rgba(0,242,255,0.05);">
-            <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
+    <div class="fixed bottom-6 left-6 z-[10002]" onclick="showGreeting()" style="cursor: pointer;">
+        <div id="greet-msg" class="greeting-bubble">Halo!</div>
+        <div class="w-14 h-14 rounded-full border-2 border-cyan-400 overflow-hidden bg-white p-1 hover:scale-110 transition-transform shadow-lg">
+            <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-contain rounded-full">
         </div>
-        <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter">DANUARDHEYA</h1>
-        <p id="t-hero" class="text-blue-400 tracking-[0.6em] text-sm md:text-xl uppercase mt-4">Membangun Realitas</p>
+    </div>
+
+    <section id="home" class="hero-section">
+        <div class="mb-6" data-aos="zoom-in">
+            <div class="w-32 h-32 md:w-36 md:h-36 rounded-full border-2 border-cyan-400 p-1.5 bg-white shadow-2xl">
+                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
+            </div>
+        </div>
+        <h1 class="brand-name font-bold mb-1" data-aos="fade-up">Danuardheya</h1>
+        <p id="t-hero" class="text-cyan-400 tracking-[0.5em] text-[10px] md:text-xs uppercase font-light">Architectural Design Studio</p>
     </section>
 
-    <section id="work">
-        <h2 id="t-work-title" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400 mb-12">Galeri Visual 3D</h2>
+    <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 id="t-work-title" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400 mb-12">3D Visual Showcase</h2>
         <div class="work-grid" data-aos="fade-up">
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13HPMYy_WXBT190cxMeROkomIofbmg2M0&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13_QC3PSpTFgsRz9OKGUfWDjybteLfytu&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=146en6-VAKyGWQymoPmIrI3o301EqfrQ2&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1kSpfXzm_pg8SJLs08mEAxLtnnn2GwQI_&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz&sz=w800"></div>
-        </div>
-    </section>
-
-    <section id="cad">
-        <h2 id="t-cad-title" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400 mb-12">Cetak Biru Engineering</h2>
-        <div class="work-grid">
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800"></div>
-        </div>
-    </section>
-
-    <section id="rab">
-        <h2 id="t-rab-title" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400 mb-12">Analisis Anggaran</h2>
-        <div class="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
-            <div class="p-8">
-                <h3 id="t-rab-sub" class="text-2xl font-bold mb-4">Estimasi Strategis</h3>
-                <p id="t-rab-desc" class="text-gray-400 text-sm">Optimalisasi biaya material dan tenaga kerja menggunakan standar profesional SNI.</p>
             </div>
-            <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-64 object-cover">
-        </div>
-    </section>
-
-    <section class="text-center pb-20">
-        <h2 id="t-contact-title" class="text-sm font-bold tracking-[0.4em] text-blue-400 uppercase mb-12">Hubungi Saya</h2>
-        <div class="flex justify-center gap-6">
-            <a href="https://wa.me/6285700398394" target="_blank" class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-green-500 transition-all"><i class="fab fa-whatsapp text-xl"></i></a>
-            <a href="https://www.instagram.com/danuardheya" target="_blank" class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-pink-500 transition-all"><i class="fab fa-instagram text-xl"></i></a>
-            <a href="https://youtube.com/@abysheha7946" target="_blank" class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-red-600 transition-all"><i class="fab fa-youtube text-xl"></i></a>
-            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-blue-600 transition-all"><i class="fab fa-linkedin-in text-xl"></i></a>
-        </div>
     </section>
 
     <div class="fixed bottom-6 right-6 z-[10001] flex flex-col items-center gap-2 opacity-30 hover:opacity-100 transition-all">
-        <span id="t-scroll-label" class="text-[8px] text-cyan-400 font-bold uppercase">Gulir Otomatis</span>
+        <span id="t-scroll-label" class="text-[8px] text-cyan-400 font-bold uppercase">Auto Scroll</span>
         <div class="flex items-center gap-3">
             <div onclick="toggleAutoScroll()" id="sc-btn" class="w-10 h-10 border border-cyan-500/30 rounded-full flex items-center justify-center cursor-pointer">
                 <i id="sc-icon" class="fas fa-play text-[10px] text-cyan-400"></i>
             </div>
-            <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-20" oninput="changeSpeed()">
+            <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-16" oninput="changeSpeed()">
         </div>
     </div>
-
-    <footer class="py-10 text-center opacity-20 text-[10px] tracking-[1em]">DANUARDHEYA • 2025</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Dictionary Lengkap (Indo, Inggris, Jepang)
-        const dictionary = {
-            id: {
-                navHome: "Beranda", navWork: "Proyek 3D", navCad: "Gambar Teknik", navRab: "Analisis Biaya",
-                hero: "MEMBANGUN REALITAS", workTitle: "GALERI VISUAL 3D", cadTitle: "CETAK BIRU ENGINEERING",
-                rabTitle: "ANALISIS ANGGARAN", rabSub: "ESTIMASI STRATEGIS", rabDesc: "Optimalisasi biaya material dan tenaga kerja menggunakan standar profesional SNI.",
-                contact: "HUBUNGI SAYA", scroll: "GULIR OTOMATIS", langTitle: "PILIH BAHASA"
-            },
-            en: {
-                navHome: "Home", navWork: "3D Projects", navCad: "Blueprints", navRab: "Cost Analysis",
-                hero: "ARCHITECTING REALITY", workTitle: "3D VISUAL SHOWCASE", cadTitle: "ENGINEERING BLUEPRINTS",
-                rabTitle: "BUDGET ANALYST", rabSub: "STRATEGIC ESTIMATION", rabDesc: "Optimization of material and labor costs using professional SNI standards.",
-                contact: "CONNECT WITH ME", scroll: "AUTO SCROLL", langTitle: "SELECT LANGUAGE"
-            },
-            ja: {
-                navHome: "ホーム", navWork: "3Dプロジェクト", navCad: "設計図面", navRab: "コスト分析",
-                hero: "現実を構築する", workTitle: "3Dビジュアル展示", cadTitle: "エンジニアリング設計図",
-                rabTitle: "予算アナリスト", rabSub: "戦略的見積もり", rabDesc: "プロフェッショナルなSNI基準を使用した材料費と労務費の最適化。",
-                contact: "お問い合わせ", scroll: "自動スクロール", langTitle: "言語を選択"
-            }
+        // Dictionary
+        const trans = {
+            id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D", navHome: "Beranda", scroll: "Gulir Otomatis" },
+            en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE", navHome: "Home", scroll: "Auto Scroll" },
+            ja: { hero: "現実を構築する", work: "3D展示", navHome: "ホーム", scroll: "スクロール" }
         };
 
         function setLang(l) {
-            const t = dictionary[l];
-            // Update Nav
-            document.querySelector('.nav-home').innerText = t.navHome;
-            document.querySelector('.nav-work').innerText = t.navWork;
-            document.querySelector('.nav-cad').innerText = t.navCad;
-            document.querySelector('.nav-rab').innerText = t.navRab;
-            // Update Body
+            const t = trans[l];
             document.getElementById('t-hero').innerText = t.hero;
-            document.getElementById('t-work-title').innerText = t.workTitle;
-            document.getElementById('t-cad-title').innerText = t.cadTitle;
-            document.getElementById('t-rab-title').innerText = t.rabTitle;
-            document.getElementById('t-rab-sub').innerText = t.rabSub;
-            document.getElementById('t-rab-desc').innerText = t.rabDesc;
-            document.getElementById('t-contact-title').innerText = t.contact;
+            document.getElementById('t-work-title').innerText = t.work;
+            document.querySelector('.t-nav-home').innerText = t.navHome;
             document.getElementById('t-scroll-label').innerText = t.scroll;
-            document.querySelector('.lang-title').innerText = t.langTitle;
-            
             toggleMenu('lang-nav');
         }
 
-        // Global UI Functions
-        function toggleTheme() { document.body.classList.toggle('light-mode'); const icon = document.getElementById('theme-icon'); icon.classList.toggle('fa-moon'); icon.classList.toggle('fa-sun'); }
-        function toggleMenu(id) { const d = document.getElementById(id); const isVisible = d.style.display === 'block'; document.querySelectorAll('.menu-dropdown').forEach(m => m.style.display = 'none'); d.style.display = isVisible ? 'none' : 'block'; }
+        // Smart Greeting
+        function showGreeting() {
+            const h = new Date().getHours();
+            const m = document.getElementById('greet-msg');
+            let g = "";
+            if (h >= 5 && h < 11) g = "Selamat Pagi! ☀️";
+            else if (h >= 11 && h < 15) g = "Selamat Siang! 🌤️";
+            else if (h >= 15 && h < 18) g = "Selamat Sore! 🌥️";
+            else g = "Selamat Malam! 🌙";
+            m.innerText = g; m.style.display = 'block';
+            setTimeout(() => m.style.display = 'none', 3000);
+        }
+
+        // Auto Scroll & Theme Logic
+        let isSc = false, scInt, spd = 2;
+        function toggleAutoScroll() {
+            isSc = !isSc;
+            const i = document.getElementById('sc-icon'), b = document.getElementById('sc-btn');
+            if(isSc) { i.classList.replace('fa-play', 'fa-pause'); b.classList.add('rgb-active'); runSc(); }
+            else { i.classList.replace('fa-pause', 'fa-play'); b.classList.remove('rgb-active'); clearInterval(scInt); }
+        }
+        function runSc() { clearInterval(scInt); scInt = setInterval(() => { window.scrollBy(0, 1); if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) toggleAutoScroll(); }, 50 / spd); }
+        function changeSpeed() { spd = document.getElementById('sc-speed').value; if(isSc) runSc(); }
+        
+        function toggleTheme() { document.body.classList.toggle('light-mode'); }
+        function toggleMenu(id) { const d = document.getElementById(id); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
 
         // Water Ripple
         const canvas = document.getElementById('water-canvas'); const ctx = canvas.getContext('2d');
@@ -203,17 +196,9 @@
         // Drag Accessibility
         const accBox = document.getElementById("acc-box");
         let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
-        accBox.addEventListener("touchstart", dragStart, {passive: false}); accBox.addEventListener("mousedown", dragStart);
-        window.addEventListener("touchmove", drag, {passive: false}); window.addEventListener("mousemove", drag);
-        window.addEventListener("touchend", () => active = false); window.addEventListener("mouseup", () => active = false);
-        function dragStart(e) { initialX = (e.type === "touchstart" ? e.touches[0].clientX : e.clientX) - xOffset; initialY = (e.type === "touchstart" ? e.touches[0].clientY : e.clientY) - yOffset; if (e.target.closest('.tool-btn')) active = true; }
-        function drag(e) { if (active) { e.preventDefault(); currentX = (e.type === "touchmove" ? e.touches[0].clientX : e.clientX) - initialX; currentY = (e.type === "touchmove" ? e.touches[0].clientY : e.clientY) - initialY; xOffset = currentX; yOffset = currentY; accBox.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`; } }
-
-        // Auto Scroll
-        let isSc = false, scInt, spd = 2;
-        function toggleAutoScroll() { isSc = !isSc; const icon = document.getElementById('sc-icon'), btn = document.getElementById('sc-btn'); if(isSc) { icon.classList.replace('fa-play', 'fa-pause'); btn.classList.add('rgb-active'); runSc(); } else { icon.classList.replace('fa-pause', 'fa-play'); btn.classList.remove('rgb-active'); clearInterval(scInt); } }
-        function runSc() { clearInterval(scInt); scInt = setInterval(() => { window.scrollBy(0, 1); if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) toggleAutoScroll(); }, 50 / spd); }
-        function changeSpeed() { spd = document.getElementById('sc-speed').value; if(isSc) runSc(); }
+        accBox.addEventListener("mousedown", dragStart); window.addEventListener("mousemove", drag); window.addEventListener("mouseup", () => active = false);
+        function dragStart(e) { initialX = e.clientX - xOffset; initialY = e.clientY - yOffset; if (e.target.closest('.tool-btn')) active = true; }
+        function drag(e) { if (active) { currentX = e.clientX - initialX; currentY = e.clientY - initialY; xOffset = currentX; yOffset = currentY; accBox.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`; } }
     </script>
 </body>
 </html>
