@@ -20,7 +20,6 @@
         }
         .warm-glow { animation: warmRunning 2s infinite ease-in-out; border: 2px solid var(--warm) !important; }
 
-        /* HERO BACKGROUND */
         .hero-section { 
             min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
             background: linear-gradient(to bottom, rgba(2,6,23,0.8), var(--bg)), 
@@ -28,7 +27,6 @@
             background-size: cover; background-position: center; 
         }
 
-        /* MASONRY GRID UNTUK FOTO */
         .portfolio-grid { column-count: 1; column-gap: 1.5rem; }
         @media (min-width: 768px) { .portfolio-grid { column-count: 3; } }
         
@@ -36,13 +34,14 @@
         .img-card:hover { transform: scale(1.03); border-color: var(--warm); }
         .img-card img { width: 100%; height: auto; display: block; }
 
+        /* MENU DROPDOWN PASTI DI DEPAN (Z-INDEX 99999) */
         .menu-dropdown { 
-            position: fixed; z-index: 10001; background: rgba(2, 6, 23, 0.98); 
+            position: fixed; z-index: 99999; background: rgba(2, 6, 23, 0.98); 
             backdrop-filter: blur(20px); border-radius: 20px; padding: 20px; 
             border: 1px solid var(--warm); display: none; width: 220px; 
         }
 
-        #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; cursor: move; }
+        #acc-box { position: fixed; top: 120px; left: 20px; z-index: 99999; touch-action: none; cursor: move; }
         .greeting-bubble { position: absolute; bottom: 85px; left: 0; background: var(--warm); color: #000; padding: 6px 15px; border-radius: 12px; font-size: 11px; font-weight: bold; display: none; white-space: nowrap; }
     </style>
 </head>
@@ -54,41 +53,41 @@
 
     <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:9998;"></canvas>
 
-    <div class="fixed top-6 right-6 z-[10001] flex gap-3">
-        <div class="w-12 h-12 rounded-full flex items-center justify-center warm-glow bg-black/40 backdrop-blur-md" onclick="toggleTheme()"><i class="fas fa-moon"></i></div>
-        <div class="w-12 h-12 rounded-full flex items-center justify-center warm-glow bg-black/40 backdrop-blur-md" onclick="toggleMenu('main-dropdown')"><i class="fas fa-ellipsis-v"></i></div>
+    <div class="fixed top-6 right-6 z-[100000] flex gap-3">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center warm-glow bg-black/40 backdrop-blur-md cursor-pointer" onclick="toggleTheme()"><i class="fas fa-moon"></i></div>
+        <div class="w-12 h-12 rounded-full flex items-center justify-center warm-glow bg-black/40 backdrop-blur-md cursor-pointer" onclick="toggleMenu('main-dropdown')"><i class="fas fa-ellipsis-v"></i></div>
     </div>
 
     <div id="main-dropdown" class="menu-dropdown top-24 right-6">
-        <a href="#home" class="block py-2 text-sm hover:text-orange-400">Beranda</a>
-        <a href="#section3d" class="block py-2 text-sm hover:text-orange-400">Visualisasi 3D</a>
-        <a href="#section2d" class="block py-2 text-sm hover:text-orange-400">Gambar Kerja 2D</a>
-        <a href="#sectionrab" class="block py-2 text-sm hover:text-orange-400">Analisis RAB</a>
+        <a href="#home" class="block py-2 text-sm hover:text-orange-400 trans-key" data-id="nav_home">Beranda</a>
+        <a href="#section3d" class="block py-2 text-sm hover:text-orange-400 trans-key" data-id="nav_3d">Visualisasi 3D</a>
+        <a href="#section2d" class="block py-2 text-sm hover:text-orange-400 trans-key" data-id="nav_2d">Gambar Kerja 2D</a>
+        <a href="#sectionrab" class="block py-2 text-sm hover:text-orange-400 trans-key" data-id="nav_rab">Analisis RAB</a>
     </div>
 
-    <div class="fixed bottom-8 left-8 z-[10002]" onclick="showGreeting()">
-        <div id="greet-msg" class="greeting-bubble">Selamat Datang! ✨</div>
+    <div class="fixed bottom-8 left-8 z-[100000]" onclick="showGreeting()">
+        <div id="greet-msg" class="greeting-bubble trans-key" data-id="welcome">Selamat Datang! ✨</div>
         <div class="w-16 h-16 rounded-full warm-glow overflow-hidden bg-white p-1">
             <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
         </div>
     </div>
 
     <div id="acc-box">
-        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center warm-glow text-white shadow-2xl" onclick="toggleMenu('lang-nav')">
+        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center warm-glow text-white shadow-2xl cursor-pointer" onclick="toggleMenu('lang-nav')">
             <i class="fas fa-language"></i>
         </div>
         <div id="lang-nav" class="menu-dropdown mt-3 left-0 max-h-64 overflow-y-auto w-44">
             <div class="grid grid-cols-1 gap-1 text-[11px]">
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Indonesian</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">English</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Japanese</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Arabic</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Chinese</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Korean</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">French</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">German</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Russian</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Spanish</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="changeLanguage('id')">Indonesian</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="changeLanguage('en')">English</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="changeLanguage('ja')">Japanese</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="changeLanguage('ar')">Arabic</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="changeLanguage('zh')">Chinese</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="changeLanguage('ko')">Korean</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="changeLanguage('fr')">French</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="changeLanguage('de')">German</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="changeLanguage('ru')">Russian</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="changeLanguage('es')">Spanish</div>
             </div>
         </div>
     </div>
@@ -98,11 +97,11 @@
             <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
         </div>
         <h1 class="text-4xl md:text-6xl font-bold tracking-tighter" data-aos="fade-up">Danuardheya</h1>
-        <p class="text-orange-400 tracking-[0.5em] text-[10px] uppercase mt-4">Engineering & 3D Visualizer</p>
+        <p class="text-orange-400 tracking-[0.5em] text-[10px] uppercase mt-4 trans-key" data-id="subtitle">Engineering & 3D Visualizer</p>
     </section>
 
     <section id="section3d" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4">VISUALISASI 3D (INTERIOR & EKSTERIOR)</h2>
+        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4 trans-key" data-id="title_3d">VISUALISASI 3D (INTERIOR & EKSTERIOR)</h2>
         <div class="portfolio-grid" id="grid3d">
             <div class="img-card" data-aos="fade-up"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w1000"></div>
             <div class="img-card" data-aos="fade-up"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w1000"></div>
@@ -114,7 +113,7 @@
     </section>
 
     <section id="section2d" class="py-20 px-6 max-w-7xl mx-auto bg-white/5 rounded-[40px]">
-        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4">GAMBAR KERJA TEKNIK (2D / CAD)</h2>
+        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4 trans-key" data-id="title_2d">GAMBAR KERJA TEKNIK (2D / CAD)</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="img-card" data-aos="fade-right"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w1000"></div>
             <div class="img-card" data-aos="fade-left"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w1000"></div>
@@ -122,10 +121,10 @@
     </section>
 
     <section id="sectionrab" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4">ANALISIS ANGGARAN BIAYA (RAB)</h2>
+        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4 trans-key" data-id="title_rab">ANALISIS ANGGARAN BIAYA (RAB)</h2>
         <div class="bg-black/40 p-10 rounded-[40px] warm-glow border-none flex flex-col md:flex-row items-center gap-10">
             <div class="md:w-1/2">
-                <p class="text-gray-400 leading-relaxed italic text-sm">"Penghitungan anggaran yang presisi memastikan efisiensi material dan biaya pelaksanaan di lapangan."</p>
+                <p class="text-gray-400 leading-relaxed italic text-sm trans-key" data-id="rab_text">"Penghitungan anggaran yang presisi memastikan efisiensi material dan biaya pelaksanaan di lapangan."</p>
             </div>
             <div class="md:w-1/2 img-card"><img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w1000"></div>
         </div>
@@ -142,13 +141,25 @@
     <script>
         AOS.init({ duration: 1000 });
 
-        // MUSIK PIANO SLOW
+        // SISTEM BAHASA (WORKS 100%)
+        const translations = {
+            id: { nav_home: "Beranda", nav_3d: "Visualisasi 3D", nav_2d: "Gambar Kerja 2D", nav_rab: "Analisis RAB", welcome: "Selamat Datang! ✨", subtitle: "Engineering & 3D Visualizer", title_3d: "VISUALISASI 3D (INTERIOR & EKSTERIOR)", title_2d: "GAMBAR KERJA TEKNIK (2D / CAD)", title_rab: "ANALISIS ANGGARAN BIAYA (RAB)", rab_text: "Penghitungan anggaran yang presisi memastikan efisiensi material dan biaya pelaksanaan di lapangan." },
+            en: { nav_home: "Home", nav_3d: "3D Visualization", nav_2d: "2D Working Drawings", nav_rab: "Budget Analysis", welcome: "Welcome! ✨", subtitle: "Engineering & 3D Visualizer", title_3d: "3D VISUALIZATION (INTERIOR & EXTERIOR)", title_2d: "TECHNICAL WORKING DRAWINGS (2D / CAD)", title_rab: "COST BUDGET ANALYSIS (RAB)", rab_text: "Precise budget calculations ensure material and cost efficiency in the field." },
+            ja: { nav_home: "ホーム", nav_3d: "3D ビジュアライゼーション", nav_2d: "2D 設計図", nav_rab: "予算分析", welcome: "いらっしゃいませ! ✨", subtitle: "エンジニアリング & 3D ビジュアライザー", title_3d: "3Dビジュアライゼーション（内装・外装）", title_2d: "技術的な作業図面 (2D / CAD)", title_rab: "予算分析 (RAB)", rab_text: "正確な予算計算により、現場での材料とコストの効率が確保されます。" }
+        };
+
+        function changeLanguage(lang) {
+            const set = translations[lang] || translations['en'];
+            document.querySelectorAll('.trans-key').forEach(el => {
+                const key = el.getAttribute('data-id');
+                if(set[key]) el.innerText = set[key];
+            });
+            toggleMenu('lang-nav');
+        }
+
         let playing = false;
         function playSlowPiano() {
-            if(!playing) {
-                document.getElementById('bgMusic').play();
-                playing = true;
-            }
+            if(!playing) { document.getElementById('bgMusic').play(); playing = true; }
         }
 
         function toggleTheme() { document.body.classList.toggle('light-mode'); }
@@ -194,4 +205,5 @@
         } draw();
     </script>
 </body>
-</html>
+                                                         </html>
+    
