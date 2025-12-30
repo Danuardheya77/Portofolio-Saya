@@ -13,8 +13,11 @@
         :root { --warm: #ffb703; --bg: #020617; --text: #ffffff; --grid: rgba(59, 130, 246, 0.05); }
         .light-mode { --bg: #fffcf2; --text: #252422; --grid: rgba(255, 183, 3, 0.1); }
         body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: 0.5s; overflow-x: hidden; margin: 0; cursor: pointer; }
+        
+        /* Grid Background */
         body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; }
 
+        /* Warm Glow Animation */
         @keyframes warmRunning {
             0%, 100% { border-color: #ffb703; box-shadow: 0 0 5px #ffb703; }
             50% { border-color: #fb8500; box-shadow: 0 0 20px #fb8500; }
@@ -23,17 +26,24 @@
 
         .hero-section { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(to bottom, rgba(2,6,23,0.8), var(--bg)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000'); background-size: cover; background-position: center; }
         .brand-name { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-style: italic; letter-spacing: 0.1em; }
+        
         .tool-btn { background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); }
+        
         .menu-dropdown { position: fixed; z-index: 10001; background: rgba(2, 6, 23, 0.98); backdrop-filter: blur(25px); border-radius: 20px; padding: 20px; border: 1px solid var(--warm); display: none; width: 220px; }
-        .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; background: #000; }
+        
+        .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; background: #000; position: relative; }
         .image-card:hover { transform: translateY(-10px); border-color: var(--warm); }
+        
         .greeting-bubble { position: absolute; bottom: 75px; left: 0; background: var(--warm); color: #000; padding: 8px 15px; border-radius: 15px; font-size: 11px; font-weight: 800; display: none; white-space: nowrap; z-index: 10003; }
+        
         #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; cursor: move; }
-        .social-link { width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        
+        .social-link { width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; transition: 0.3s; color: inherit; }
         .social-link:hover { background: var(--warm); color: #000; transform: scale(1.1); }
     </style>
 </head>
 <body>
+
     <audio id="bgMusic" loop>
         <source src="https://docs.google.com/uc?export=download&id=1-jnGKKk8eJ0le58saIjCVGtToyweg7cO" type="audio/mpeg">
     </audio>
@@ -46,16 +56,16 @@
     </div>
 
     <div id="dropdown" class="menu-dropdown top-24 right-6">
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#home'">Beranda</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#work'">Proyek 3D</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#cad'">Gambar Teknik</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#rab'">Analisis Biaya</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-home" onclick="location.href='#home'">Beranda</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-work" onclick="location.href='#work'">Proyek 3D</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-cad" onclick="location.href='#cad'">Gambar Teknik</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-rab" onclick="location.href='#rab'">Analisis Biaya</div>
     </div>
 
     <div id="acc-box">
         <div class="tool-btn warm-glow w-12 h-12 rounded-full" onclick="toggleMenu('lang-nav')"><i class="fas fa-language"></i></div>
         <div id="lang-nav" class="menu-dropdown mt-3 left-0">
-            <div class="text-[10px] opacity-50 mb-3 uppercase">Pilih Bahasa</div>
+            <div class="text-[10px] opacity-50 mb-3 uppercase t-lang-title">Pilih Bahasa</div>
             <div class="grid grid-cols-1 gap-1 text-[11px]">
                 <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('id')">Indonesian</div>
                 <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('en')">English</div>
@@ -93,47 +103,110 @@
         </div>
     </section>
 
+    <section id="cad" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 id="t-cad-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Cetak Biru Engineering</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800" class="w-full"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800" class="w-full"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800" class="w-full"></div>
+        </div>
+    </section>
+
+    <section id="rab" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 id="t-rab-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Analisis Anggaran</h2>
+        <div class="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-white/10">
+            <div class="p-8 flex flex-col justify-center">
+                <h3 id="t-rab-sub" class="text-2xl font-bold mb-4">Estimasi Strategis</h3>
+                <p id="t-rab-desc" class="text-gray-400 text-sm leading-relaxed">Optimalisasi biaya material dan tenaga kerja menggunakan standar profesional SNI untuk hasil yang presisi dan efisien.</p>
+            </div>
+            <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-64 object-cover">
+        </div>
+    </section>
+
+    <section class="py-20 text-center">
+        <h2 id="t-contact-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Hubungi Saya</h2>
+        <div class="flex justify-center gap-6">
+            <a href="https://wa.me/6285700398394" target="_blank" class="social-link"><i class="fab fa-whatsapp text-xl"></i></a>
+            <a href="https://www.instagram.com/danuardheya" target="_blank" class="social-link"><i class="fab fa-instagram text-xl"></i></a>
+            <a href="https://youtube.com/@abysheha7946" target="_blank" class="social-link"><i class="fab fa-youtube text-xl"></i></a>
+            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="social-link"><i class="fab fa-linkedin-in text-xl"></i></a>
+        </div>
+    </section>
+
+    <div class="fixed bottom-8 right-8 z-[10001] flex flex-col items-center gap-2 opacity-30 hover:opacity-100 transition">
+        <span id="t-scroll-label" class="text-[8px] text-orange-400 font-bold uppercase">Auto Scroll</span>
+        <div class="flex items-center gap-3">
+            <div onclick="toggleAutoScroll()" id="sc-btn" class="w-10 h-10 border border-orange-400 rounded-full flex items-center justify-center warm-glow cursor-pointer">
+                <i id="sc-icon" class="fas fa-play text-[10px] text-orange-400"></i>
+            </div>
+            <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-16" oninput="changeSpeed()">
+        </div>
+    </div>
+
     <footer class="py-10 text-center opacity-20 text-[10px] tracking-[1em]">DANUARDHEYA • 2025</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // --- KONSEP MUSIK UNDANGAN DIGITAL (Maksimal) ---
+        // --- MUSIC ENGINE (Digital Invitation Logic) ---
         const audio = document.getElementById('bgMusic');
-        let isPlaying = false;
+        let musicActive = false;
 
-        const playOnInteraction = () => {
-            if (!isPlaying) {
+        const startMusic = () => {
+            if (!musicActive) {
                 audio.play().then(() => {
-                    isPlaying = true;
-                    // Hapus listener setelah musik jalan agar hemat performa
-                    document.removeEventListener('click', playOnInteraction);
-                    document.removeEventListener('touchstart', playOnInteraction);
-                    document.removeEventListener('scroll', playOnInteraction);
-                }).catch(e => console.log("Menunggu interaksi pertama..."));
+                    musicActive = true;
+                }).catch(() => {});
             }
         };
+        // Trigger musik pada klik, scroll, atau sentuhan pertama
+        document.body.addEventListener('click', startMusic);
+        document.body.addEventListener('scroll', startMusic);
+        window.addEventListener('touchstart', startMusic);
 
-        // Pasang trigger di seluruh aktivitas user
-        document.addEventListener('click', playOnInteraction);
-        document.addEventListener('touchstart', playOnInteraction);
-        document.addEventListener('scroll', playOnInteraction);
-
-        // Water Ripple Effect
-        const canvas = document.getElementById('water-canvas'); const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let rips = []; window.addEventListener('mousedown', (e) => rips.push({x:e.clientX, y:e.clientY, r:0, o:0.5}));
-        function draw() {
+        // --- WATER RIPPLE ---
+        const canvas = document.getElementById('water-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let rips = [];
+        window.addEventListener('mousedown', (e) => rips.push({x:e.clientX, y:e.clientY, r:0, o:0.5}));
+        function drawRipple() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
             rips.forEach((r,i) => {
                 r.r+=2; r.o-=0.01; ctx.beginPath(); ctx.arc(r.x,r.y,r.r,0,Math.PI*2);
                 ctx.strokeStyle=`rgba(255,183,3,${r.o})`; ctx.stroke();
                 if(r.o<=0) rips.splice(i,1);
-            }); requestAnimationFrame(draw);
-        } draw();
+            }); requestAnimationFrame(drawRipple);
+        } drawRipple();
 
-        // UI Controls
+        // --- LANGUAGE DICTIONARY ---
+        const dictionary = {
+            id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D", cad: "Cetak Biru Engineering", rab: "Analisis Anggaran", rabs: "Estimasi Strategis", rabd: "Optimalisasi biaya material dan tenaga kerja standar SNI.", contact: "Hubungi Saya", scroll: "Gulir Otomatis", navh: "Beranda", navw: "Proyek 3D", navc: "Gambar Teknik", navr: "Analisis Biaya", lang: "Pilih Bahasa" },
+            en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE", cad: "Engineering Blueprints", rab: "Budget Analysis", rabs: "Strategic Estimation", rabd: "Material and labor cost optimization using professional SNI standards.", contact: "Connect With Me", scroll: "Auto Scroll", navh: "Home", navw: "3D Projects", navc: "Blueprints", navr: "Budget Analysis", lang: "Select Language" },
+            ja: { hero: "現実を構築する", work: "3Dビジュアル展示", cad: "エンジニアリング設計図", rab: "予算分析", rabs: "戦略的見積もり", rabd: "SNI基準を使用した材料費と労務費の最適化。", contact: "お問い合わせ", scroll: "自動スクロール", navh: "ホーム", navw: "3Dプロジェクト", navc: "設計図面", navr: "予算分析", lang: "言語を選択" }
+        };
+
+        function setLang(l) {
+            const t = dictionary[l];
+            document.getElementById('t-hero').innerText = t.hero;
+            document.getElementById('t-work-title').innerText = t.work;
+            document.getElementById('t-cad-title').innerText = t.cad;
+            document.getElementById('t-rab-title').innerText = t.rab;
+            document.getElementById('t-rab-sub').innerText = t.rabs;
+            document.getElementById('t-rab-desc').innerText = t.rabd;
+            document.getElementById('t-contact-title').innerText = t.contact;
+            document.getElementById('t-scroll-label').innerText = t.scroll;
+            document.querySelector('.t-nav-home').innerText = t.navh;
+            document.querySelector('.t-nav-work').innerText = t.navw;
+            document.querySelector('.t-nav-cad').innerText = t.navc;
+            document.querySelector('.t-nav-rab').innerText = t.navr;
+            document.querySelector('.t-lang-title').innerText = t.lang;
+            toggleMenu('lang-nav');
+        }
+
+        // --- THEME & MENU ---
         function toggleTheme() { document.body.classList.toggle('light-mode'); }
         function toggleMenu(id) { 
             const d = document.getElementById(id);
@@ -151,7 +224,17 @@
             setTimeout(() => m.style.display='none', 3000);
         }
 
-        // Draggable Accessibility Box
+        // --- AUTO SCROLL ---
+        let isSc = false, scInt, spd = 2;
+        function toggleAutoScroll() {
+            isSc = !isSc;
+            if(isSc) { runSc(); document.getElementById('sc-icon').className='fas fa-pause text-[10px] text-orange-400'; }
+            else { clearInterval(scInt); document.getElementById('sc-icon').className='fas fa-play text-[10px] text-orange-400'; }
+        }
+        function runSc() { clearInterval(scInt); scInt = setInterval(() => { window.scrollBy(0, 1); }, 50 / spd); }
+        function changeSpeed() { spd = document.getElementById('sc-speed').value; if(isSc) runSc(); }
+
+        // --- DRAG BOX ---
         let xOff = 0, yOff = 0;
         const box = document.getElementById("acc-box");
         box.onmousedown = (e) => {
@@ -164,5 +247,5 @@
         };
     </script>
 </body>
-            </html>
-        
+                                        </html>
+                                        
