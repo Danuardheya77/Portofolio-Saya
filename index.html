@@ -7,21 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     
     <style>
         :root { --warm: #ffb703; --bg: #020617; --text: #ffffff; }
         .light-mode { --bg: #fffcf2; --text: #252422; }
-        body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: 0.5s; overflow-x: hidden; margin: 0; cursor: pointer; }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; transition: 0.5s; overflow-x: hidden; margin: 0; cursor: pointer; }
 
-        /* WARM GLOW RUNNING EFFECT */
+        /* WARM GLOW RUNNING */
         @keyframes warmRunning {
             0%, 100% { border-color: #ffb703; box-shadow: 0 0 10px #ffb703; }
             50% { border-color: #fb8500; box-shadow: 0 0 25px #fb8500; }
         }
         .warm-glow { animation: warmRunning 2s infinite ease-in-out; border: 2px solid var(--warm) !important; }
 
-        /* BACKGROUND HERO GEDUNG */
         .hero-section { 
             min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
             background: linear-gradient(to bottom, rgba(2,6,23,0.7), var(--bg)), 
@@ -29,16 +27,14 @@
             background-size: cover; background-position: center; 
         }
 
-        /* PHOTO TOOLBAR (RASIO ASLI) */
+        /* PHOTO GRID (RASIO ASLI) */
         .portfolio-grid { column-count: 1; column-gap: 1.5rem; }
-        @media (min-width: 768px) { .portfolio-grid { column-count: 2; } }
-        @media (min-width: 1024px) { .portfolio-grid { column-count: 3; } }
+        @media (min-width: 768px) { .portfolio-grid { column-count: 3; } }
         
-        .img-card { break-inside: avoid; margin-bottom: 1.5rem; border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; background: rgba(255,255,255,0.02); }
+        .img-card { break-inside: avoid; margin-bottom: 1.5rem; border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; }
         .img-card:hover { transform: scale(1.03); border-color: var(--warm); }
         .img-card img { width: 100%; height: auto; display: block; }
 
-        /* DROPDOWN MENU */
         .menu-dropdown { 
             position: fixed; z-index: 10001; background: rgba(2, 6, 23, 0.95); 
             backdrop-filter: blur(20px); border-radius: 20px; padding: 20px; 
@@ -58,86 +54,90 @@
     <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:9998;"></canvas>
 
     <div class="fixed top-6 right-6 z-[10001] flex gap-3">
-        <div class="w-12 h-12 rounded-full flex items-center justify-center warm-glow bg-black/20 backdrop-blur-md" onclick="toggleTheme()"><i class="fas fa-moon"></i></div>
-        <div class="w-12 h-12 rounded-full flex items-center justify-center warm-glow bg-black/20 backdrop-blur-md" onclick="toggleMenu('main-dropdown')"><i class="fas fa-ellipsis-v"></i></div>
+        <div class="w-12 h-12 rounded-full flex items-center justify-center warm-glow bg-black/20" onclick="toggleTheme()"><i class="fas fa-moon"></i></div>
+        <div class="w-12 h-12 rounded-full flex items-center justify-center warm-glow bg-black/20" onclick="toggleMenu('main-dropdown')"><i class="fas fa-ellipsis-v"></i></div>
     </div>
 
     <div id="main-dropdown" class="menu-dropdown top-24 right-6">
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 nav-item" data-key="nav1" onclick="location.href='#home'">Beranda</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 nav-item" data-key="nav2" onclick="location.href='#work'">Proyek 3D</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 nav-item" data-key="nav3" onclick="location.href='#cad'">Gambar Teknik</div>
+        <a href="#home" class="block py-2 hover:text-orange-400">Home</a>
+        <a href="#work3d" class="block py-2 hover:text-orange-400">Portofolio 3D</a>
+        <a href="#work2d" class="block py-2 hover:text-orange-400">Gambar Kerja 2D</a>
+        <a href="#workrab" class="block py-2 hover:text-orange-400">Analisis RAB</a>
     </div>
 
     <div class="fixed bottom-8 left-8 z-[10002]" onclick="showGreeting()">
-        <div id="greet-msg" class="greeting-bubble">Halo, Selamat Datang! ✨</div>
-        <div class="w-16 h-16 rounded-full warm-glow overflow-hidden bg-white p-1 hover:scale-110 transition cursor-pointer">
+        <div id="greet-msg" class="greeting-bubble">Selamat Datang! ✨</div>
+        <div class="w-16 h-16 rounded-full warm-glow overflow-hidden bg-white p-1">
             <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
         </div>
     </div>
 
     <div id="acc-box">
-        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center warm-glow text-white shadow-xl" onclick="toggleMenu('lang-nav')">
+        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center warm-glow text-white" onclick="toggleMenu('lang-nav')">
             <i class="fas fa-language"></i>
         </div>
         <div id="lang-nav" class="menu-dropdown mt-3 left-0 max-h-64 overflow-y-auto w-44">
             <div class="grid grid-cols-1 gap-1 text-xs">
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('id')">Indonesian</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('en')">English</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('ja')">Japanese</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('ar')">Arabic</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('zh')">Chinese</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('ko')">Korean</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('fr')">French</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('de')">German</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('ru')">Russian</div>
-                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('es')">Spanish</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="alert('Bahasa Indonesia Aktif')">Indonesian</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">English</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Japanese</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Arabic</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Chinese</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Korean</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">French</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">German</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Russian</div>
+                <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer">Spanish</div>
             </div>
         </div>
     </div>
 
     <section id="home" class="hero-section text-center px-4">
-        <div data-aos="zoom-in" class="mb-6">
-            <div class="w-32 h-32 rounded-full warm-glow p-1 bg-white mx-auto overflow-hidden">
-                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover">
-            </div>
+        <div class="w-32 h-32 rounded-full warm-glow p-1 bg-white mx-auto mb-6">
+            <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
         </div>
         <h1 class="text-4xl md:text-6xl font-bold tracking-tighter">Danuardheya</h1>
-        <p id="t-sub" class="text-orange-400 tracking-[0.5em] text-[10px] uppercase mt-3 trans" data-key="sub">Engineering & 3D Visualizer</p>
+        <p class="text-orange-400 tracking-[0.5em] text-[10px] uppercase mt-3">Engineering & 3D Visualizer</p>
     </section>
 
-    <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 id="t-3d" class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4 trans" data-key="title3d">PROYEK INTERIOR & EKSTERIOR</h2>
-        <div class="portfolio-grid" id="photo-toolbar">
+    <section id="work3d" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4">PORTOFOLIO 3D (INTERIOR & EKSTERIOR)</h2>
+        <div class="portfolio-grid">
+            <div class="img-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w1000"></div>
+            <div class="img-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w1000"></div>
+            <div class="img-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w1000"></div>
+            <div class="img-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w1000"></div>
+            <div class="img-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w1000"></div>
+            <div class="img-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w1000"></div>
             </div>
     </section>
 
-    <section class="py-20 text-center flex justify-center flex-wrap gap-6 px-4">
-        <a href="https://wa.me/6285700398394" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://youtube.com/@abysheha7946" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://instagram.com/danuardheya" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20"><i class="fab fa-instagram"></i></a>
+    <section id="work2d" class="py-20 px-6 max-w-7xl mx-auto bg-white/5 rounded-3xl">
+        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4">GAMBAR KERJA (CAD / 2D)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="img-card"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w1000"></div>
+            <div class="img-card"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w1000"></div>
+        </div>
+    </section>
+
+    <section id="workrab" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4">ANALISIS ANGGARAN (RAB)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <div class="text-sm text-gray-400">Penghitungan presisi untuk efisiensi budget proyek Anda.</div>
+            <div class="img-card"><img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w1000"></div>
+        </div>
+    </section>
+
+    <section class="py-20 text-center flex justify-center flex-wrap gap-8 px-4">
+        <a href="https://wa.me/6285700398394" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow text-xl"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com/danuardheya" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow text-xl"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/@abysheha7946" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow text-xl"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow text-xl"><i class="fab fa-linkedin-in"></i></a>
     </section>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
-
-        // 17 ID FOTO ANDA
-        const photos = [
-            '1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ', '1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ', '1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X',
-            '1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD', '1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9', '1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH',
-            '1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC', '1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN', '15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3',
-            '1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ', '1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ', '1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X',
-            '1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD', '1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9', '1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH',
-            '1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC', '1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN'
-        ];
-
-        const grid = document.getElementById('photo-toolbar');
-        photos.forEach(id => {
-            grid.innerHTML += `<div class="img-card" data-aos="fade-up"><img src="https://drive.google.com/thumbnail?id=${id}&sz=w1000"></div>`;
-        });
-
-        // MUSIK & UI LOGIC
         let playing = false;
         function playMusic() { if(!playing) { document.getElementById('bgMusic').play(); playing = true; } }
         function toggleTheme() { document.body.classList.toggle('light-mode'); }
@@ -178,21 +178,7 @@
             });
             requestAnimationFrame(draw);
         } draw();
-
-        // TRANSLATE SYSTEM (10 Bahasa)
-        function translateTo(lang) {
-            const dict = {
-                en: { sub: "Engineering & 3D Visualizer", title3d: "3D PROJECTS", nav1: "Home", nav2: "Portfolio" },
-                ja: { sub: "エンジニアリング＆3Dビジュアライザー", title3d: "3Dプロジェクト", nav1: "ホーム", nav2: "作品集" },
-                // ... Tambahkan sesuai kebutuhan ...
-            };
-            if(dict[lang]) {
-                document.getElementById('t-sub').innerText = dict[lang].sub;
-                document.getElementById('t-3d').innerText = dict[lang].title3d;
-            }
-            toggleMenu('lang-nav');
-        }
     </script>
 </body>
-        </html>
-            
+            </html>
+    
