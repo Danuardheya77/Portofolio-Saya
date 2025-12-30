@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | Engineering & 3D Visualizer</title>
+    <title>Danuardheya | Professional Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -13,147 +13,115 @@
         .light-mode { --bg: #fffcf2; --text: #252422; }
         body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: 0.5s; overflow-x: hidden; margin: 0; cursor: pointer; }
         
-        .bg-grid { position: fixed; inset: 0; background-image: linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px); background-size: 60px 60px; z-index: -1; }
+        /* WARM GLOW ANIMATION */
+        @keyframes warmRunning {
+            0%, 100% { border-color: #ffb703; box-shadow: 0 0 10px #ffb703; }
+            50% { border-color: #fb8500; box-shadow: 0 0 25px #fb8500; }
+        }
+        .warm-glow { animation: warmRunning 2s infinite ease-in-out; border-width: 2px !important; }
 
-        .hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(to bottom, rgba(2,6,23,0.85), var(--bg)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000'); background-size: cover; background-position: center; }
-        
-        .image-card { border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); background: #000; }
-        .image-card:hover { transform: translateY(-12px); border-color: var(--warm); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        
-        #acc-box { position: fixed; top: 100px; left: 20px; z-index: 9999; cursor: move; touch-action: none; }
-        .menu-dropdown { background: rgba(2,6,23,0.98); backdrop-filter: blur(20px); border: 1px solid var(--warm); border-radius: 20px; padding: 20px; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        
-        .greeting-bubble { position: absolute; bottom: 85px; left: 0; background: var(--warm); color: #000; padding: 6px 14px; border-radius: 12px; font-size: 11px; font-weight: bold; display: none; }
+        .image-container img { width: 100%; height: auto; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; }
+        .image-container img:hover { transform: scale(1.02); border-color: var(--warm); }
+
+        #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10000; touch-action: none; cursor: move; }
+        .menu-dropdown { background: rgba(2,6,23,0.98); backdrop-filter: blur(20px); border: 1px solid var(--warm); border-radius: 20px; padding: 15px; display: none; max-height: 400px; overflow-y: auto; }
     </style>
 </head>
-<body onclick="startMusic()">
-
-    <div class="bg-grid"></div>
-    <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:10;"></canvas>
+<body onclick="document.getElementById('bgMusic').play()">
 
     <audio id="bgMusic" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="fixed top-8 right-8 z-[100] flex gap-4">
-        <button onclick="toggleTheme()" class="w-12 h-12 rounded-full bg-white/5 backdrop-blur-xl flex items-center justify-center border border-white/10 hover:border-orange-400 transition"><i class="fas fa-moon"></i></button>
-        <button onclick="toggleMenu('main-nav')" class="w-12 h-12 rounded-full bg-white/5 backdrop-blur-xl flex items-center justify-center border border-white/10 hover:border-orange-400 transition"><i class="fas fa-bars"></i></button>
+    <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:10;"></canvas>
+
+    <div class="fixed top-6 right-6 z-[100] flex gap-3">
+        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center warm-glow" onclick="toggleTheme()"><i class="fas fa-moon"></i></div>
+        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center warm-glow" onclick="toggleMenu('main-nav')"><i class="fas fa-bars"></i></div>
     </div>
 
-    <div id="main-nav" class="fixed top-24 right-8 z-[100] menu-dropdown w-56">
-        <a href="#home" class="block py-3 text-sm tracking-widest hover:text-orange-400 border-b border-white/5">BERANDA</a>
-        <a href="#work" class="block py-3 text-sm tracking-widest hover:text-orange-400 border-b border-white/5">VISUAL 3D</a>
-        <a href="#cad" class="block py-3 text-sm tracking-widest hover:text-orange-400 border-b border-white/5">GAMBAR TEKNIK</a>
-        <a href="#rab" class="block py-3 text-sm tracking-widest hover:text-orange-400">ANALISIS BIAYA</a>
+    <div id="main-nav" class="fixed top-20 right-6 z-[100] menu-dropdown w-56">
+        <a href="#home" class="block py-2 hover:text-orange-400">Home</a>
+        <a href="#work" class="block py-2 hover:text-orange-400">3D Visual</a>
+        <a href="#cad" class="block py-2 hover:text-orange-400">CAD / 2D</a>
+        <a href="#rab" class="block py-2 hover:text-orange-400">Analisis RAB</a>
     </div>
 
     <div id="acc-box">
-        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center shadow-2xl border-2 border-white/20" onclick="toggleMenu('lang-nav')">
-            <i class="fas fa-language text-white text-lg"></i>
+        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center warm-glow" onclick="toggleMenu('lang-nav')">
+            <i class="fas fa-language"></i>
         </div>
-        <div id="lang-nav" class="menu-dropdown mt-3">
-            <div class="cursor-pointer py-2 text-xs tracking-widest hover:text-orange-400" onclick="alert('Bahasa Indonesia Aktif')">INDONESIA</div>
-            <div class="cursor-pointer py-2 text-xs tracking-widest hover:text-orange-400" onclick="alert('English Active')">ENGLISH</div>
+        <div id="lang-nav" class="menu-dropdown mt-2 w-40">
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('id')">Indonesian</div>
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('en')">English</div>
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('ja')">Japanese</div>
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('ar')">Arabic</div>
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('zh')">Chinese</div>
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('ko')">Korean</div>
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('fr')">French</div>
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('de')">German</div>
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('ru')">Russian</div>
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('es')">Spanish</div>
         </div>
     </div>
 
-    <section id="home" class="hero-section px-6">
-        <div data-aos="fade-down" data-aos-duration="1500">
-            <h1 class="text-5xl md:text-7xl font-light mb-4 tracking-tighter" style="font-family: 'Playfair Display', serif;">Danuardheya</h1>
-            <div class="h-[1px] w-20 bg-orange-400 mx-auto mb-6"></div>
-            <p class="text-orange-400 tracking-[0.6em] uppercase text-[10px] md:text-xs font-semibold">Engineering & 3D Visualizer</p>
-            <p class="mt-16 text-[10px] opacity-30 tracking-[0.2em] uppercase italic">Sentuh layar untuk suasana</p>
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center p-6">
+        <div data-aos="zoom-in" class="mb-6">
+            <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-32 h-32 rounded-full warm-glow object-cover bg-white p-1">
+        </div>
+        <h1 class="text-4xl font-bold tracking-tighter" id="t-name">Danuardheya</h1>
+        <p class="text-orange-400 uppercase tracking-[0.5em] text-[10px] mt-2" id="t-sub">Engineering & 3D Visualizer</p>
+    </section>
+
+    <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10" id="t-3d">PORTOFOLIO 3D</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 image-container">
+            <img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w1000" data-aos="fade-up">
+            <img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w1000" data-aos="fade-up" data-aos-delay="100">
+            <img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w1000" data-aos="fade-up" data-aos-delay="200">
         </div>
     </section>
 
-    <section id="work" class="py-32 px-8 max-w-7xl mx-auto">
-        <h2 class="text-[11px] font-bold tracking-[0.5em] uppercase text-orange-400 mb-16 border-l-2 border-orange-400 pl-6">Visualisasi 3D Interior & Eksterior</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
-            <div class="image-card aspect-square"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card aspect-square"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card aspect-square"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card aspect-square"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card aspect-square"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card aspect-square"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800" class="w-full h-full object-cover"></div>
+    <section id="cad" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10" id="t-cad">GAMBAR TEKNIK (2D)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 image-container">
+            <img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w1000" data-aos="fade-right">
+            <img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w1000" data-aos="fade-left">
         </div>
     </section>
 
-    <section id="cad" class="py-32 px-8 max-w-7xl mx-auto">
-        <h2 class="text-[11px] font-bold tracking-[0.5em] uppercase text-orange-400 mb-16 border-l-2 border-orange-400 pl-6">Engineering Blueprints (2D)</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10" data-aos="fade-right">
-            <div class="image-card h-96 group">
-                <img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800" class="w-full h-full object-contain bg-gray-900/50 p-4 transition duration-700 group-hover:scale-105">
+    <section id="rab" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10" id="t-rab-title">ANALISIS BIAYA (RAB)</h2>
+        <div class="bg-white/5 p-8 rounded-3xl grid grid-cols-1 md:grid-cols-2 items-center gap-10">
+            <div>
+                <h3 class="text-2xl font-bold mb-4" id="t-rab-sub">Estimasi Akurat</h3>
+                <p class="text-gray-400 text-sm" id="t-rab-desc">Penghitungan volume dan material sesuai standar SNI untuk efisiensi budget.</p>
             </div>
-            <div class="image-card h-96 group">
-                <img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800" class="w-full h-full object-contain bg-gray-900/50 p-4 transition duration-700 group-hover:scale-105">
+            <div class="image-container">
+                <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w1000">
             </div>
         </div>
     </section>
 
-    <section id="rab" class="py-32 px-8 max-w-7xl mx-auto">
-        <h2 class="text-[11px] font-bold tracking-[0.5em] uppercase text-orange-400 mb-16 border-l-2 border-orange-400 pl-6">Rencana Anggaran Biaya</h2>
-        <div class="bg-white/[0.02] backdrop-blur-md rounded-[40px] overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-white/10" data-aos="zoom-in-up">
-            <div class="p-16 flex flex-col justify-center">
-                <h3 class="text-3xl font-light mb-6">Analisis Strategis</h3>
-                <p class="text-gray-400 text-sm leading-loose font-light">Optimalisasi anggaran melalui penghitungan volume yang presisi. Kami memastikan setiap rupiah dalam investasi bangunan Anda teralokasi dengan efisien sesuai standar teknis.</p>
-            </div>
-            <div class="h-80 md:h-full"><img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-1000"></div>
-        </div>
+    <section class="py-20 text-center flex justify-center gap-8">
+        <a href="https://wa.me/6285700398394" class="w-12 h-12 flex items-center justify-center rounded-full warm-glow"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://youtube.com/@abysheha7946" class="w-12 h-12 flex items-center justify-center rounded-full warm-glow"><i class="fab fa-youtube"></i></a>
+        <a href="https://instagram.com/danuardheya" class="w-12 h-12 flex items-center justify-center rounded-full warm-glow"><i class="fab fa-instagram"></i></a>
     </section>
-
-    <section class="py-32 text-center">
-        <div class="flex justify-center gap-12 opacity-50 hover:opacity-100 transition duration-500">
-            <a href="https://wa.me/6285700398394" class="text-xl hover:text-orange-400 transition"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://instagram.com/danuardheya" class="text-xl hover:text-orange-400 transition"><i class="fab fa-instagram"></i></a>
-            <a href="https://linkedin.com" class="text-xl hover:text-orange-400 transition"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-    </section>
-
-    <footer class="py-20 text-center text-[9px] opacity-20 tracking-[1.5em] font-light uppercase">Danuardheya Portfolio &bull; MMXXV</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1200, once: true });
+        AOS.init({ duration: 1000 });
 
-        // --- MUSIK ENGINE (ELEGANT VERSION) ---
-        let musicActive = false;
-        function startMusic() {
-            const audio = document.getElementById('bgMusic');
-            if(!musicActive) { 
-                audio.volume = 0.4; // Volume lembut
-                audio.play(); 
-                musicActive = true; 
-            }
-        }
-
-        // --- RIPPLE ENGINE ---
-        const canvas = document.getElementById('water-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let rips = [];
-        window.addEventListener('mousedown', (e) => rips.push({x: e.clientX, y: e.clientY, r: 0, o: 0.4}));
-        function draw() {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            rips.forEach((r, i) => {
-                r.r += 1.5; r.o -= 0.008;
-                ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI*2);
-                ctx.strokeStyle = `rgba(255,183,3,${r.o})`; ctx.lineWidth = 1; ctx.stroke();
-                if(r.o <= 0) rips.splice(i, 1);
-            });
-            requestAnimationFrame(draw);
-        }
-        draw();
-
-        // --- UI LOGIC ---
         function toggleTheme() { document.body.classList.toggle('light-mode'); }
         function toggleMenu(id) {
             const m = document.getElementById(id);
             m.style.display = (m.style.display === 'block') ? 'none' : 'block';
         }
 
-        // --- DRAG LOGIC ---
+        // DRAG BOX
         const box = document.getElementById('acc-box');
-        let dx = 0, dy = 0;
+        let dx=0, dy=0;
         box.onmousedown = (e) => {
             let sx = e.clientX - dx, sy = e.clientY - dy;
             document.onmousemove = (ev) => {
@@ -162,7 +130,39 @@
             };
             document.onmouseup = () => document.onmousemove = null;
         };
+
+        // WATER RIPPLE
+        const canvas = document.getElementById('water-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let rips = [];
+        window.addEventListener('mousedown', (e) => rips.push({x: e.clientX, y: e.clientY, r: 0, o: 0.5}));
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            rips.forEach((r, i) => {
+                r.r += 2; r.o -= 0.01;
+                ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI*2);
+                ctx.strokeStyle = `rgba(255,183,3,${r.o})`; ctx.stroke();
+                if(r.o <= 0) rips.splice(i, 1);
+            });
+            requestAnimationFrame(draw);
+        } draw();
+
+        function setLang(l) {
+            const d = { 
+                id: { sub: "Engineering & 3D Visualizer", t3d: "PORTOFOLIO 3D", tcad: "GAMBAR TEKNIK", trab: "ANALISIS BIAYA" },
+                en: { sub: "Architectural Engineering", t3d: "3D PORTFOLIO", tcad: "TECHNICAL DRAWINGS", trab: "COST ANALYSIS" }
+                // Tambahkan 8 lainnya di sini...
+            };
+            if(d[l]) {
+                document.getElementById('t-sub').innerText = d[l].sub;
+                document.getElementById('t-3d').innerText = d[l].t3d;
+                document.getElementById('t-cad').innerText = d[l].tcad;
+                document.getElementById('t-rab-title').innerText = d[l].trab;
+            }
+            toggleMenu('lang-nav');
+        }
     </script>
 </body>
-                    </html>
-            
+                </html>
+    
