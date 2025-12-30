@@ -33,8 +33,10 @@
         .social-link:hover { background: var(--warm); color: #000; transform: scale(1.1); }
     </style>
 </head>
-<body>
+<body onclick="playMusic()" onscroll="playMusic()" ontouchstart="playMusic()">
+
     <audio id="bgMusic" loop preload="auto">
+        <source src="https://translate.google.com/translate_tts?ie=UTF-8&q=danu&tl=id&total=1&idx=0&textlen=4&client=tw-ob" type="audio/mpeg">
         <source src="https://docs.google.com/uc?export=open&id=1-jnGKKk8eJ0le58saIjCVGtToyweg7cO" type="audio/mpeg">
     </audio>
 
@@ -139,23 +141,19 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // --- SISTEM MUSIK (FORCE PLAY) ---
+        // --- SOLUSI MUSIK OTOMATIS (Maksimal) ---
         const audio = document.getElementById('bgMusic');
-        let musicStarted = false;
+        let musicPlayed = false;
 
-        const handleInteraction = () => {
-            if (!musicStarted) {
-                audio.play().then(() => {
-                    musicStarted = true;
-                }).catch(e => console.log("Menunggu sentuhan..."));
+        function playMusic() {
+            if (!musicPlayed) {
+                audio.play()
+                    .then(() => { musicPlayed = true; console.log("Music Playing"); })
+                    .catch(e => { console.log("Waiting for user trigger..."); });
             }
-        };
+        }
 
-        document.addEventListener('mousedown', handleInteraction);
-        document.addEventListener('scroll', handleInteraction);
-        document.addEventListener('touchstart', handleInteraction);
-
-        // --- WATER RIPPLE ---
+        // --- WATER RIPPLE ENGINE ---
         const canvas = document.getElementById('water-canvas'); const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         let rips = []; window.addEventListener('mousedown', (e) => rips.push({x:e.clientX, y:e.clientY, r:0, o:0.5}));
@@ -168,23 +166,23 @@
             }); requestAnimationFrame(draw);
         } draw();
 
-        // --- MENU & THEME ---
+        // --- UI & THEME LOGIC ---
         function toggleTheme() { document.body.classList.toggle('light-mode'); }
         function toggleMenu(id) { 
             const d = document.getElementById(id);
-            const v = d.style.display === 'block';
+            const visible = d.style.display === 'block';
             document.querySelectorAll('.menu-dropdown').forEach(m => m.style.display = 'none');
-            d.style.display = v ? 'none' : 'block';
+            d.style.display = visible ? 'none' : 'block';
         }
 
-        const dict = {
+        const dictionary = {
             id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D", cad: "Cetak Biru Engineering", rab: "Analisis Anggaran", rabs: "Estimasi Strategis", rabd: "Optimalisasi biaya material dan tenaga kerja standar SNI.", contact: "Hubungi Saya", scroll: "Gulir Otomatis", navh: "Beranda", navw: "Proyek 3D", navc: "Gambar Teknik", navr: "Analisis Biaya", lang: "Pilih Bahasa" },
             en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE", cad: "Engineering Blueprints", rab: "Budget Analysis", rabs: "Strategic Estimation", rabd: "Material and labor cost optimization using professional SNI standards.", contact: "Connect With Me", scroll: "Auto Scroll", navh: "Home", navw: "3D Projects", navc: "Blueprints", navr: "Budget Analysis", lang: "Select Language" },
             ja: { hero: "現実を構築する", work: "3Dビジュアル展示", cad: "エンジニアリング設計図", rab: "予算分析", rabs: "戦略的見積もり", rabd: "SNI基準を使用した材料費と労務費の最適化。", contact: "お問い合わせ", scroll: "自動スクロール", navh: "ホーム", navw: "3Dプロジェクト", navc: "設計図面", navr: "予算分析", lang: "言語を選択" }
         };
 
         function setLang(l) {
-            const t = dict[l];
+            const t = dictionary[l];
             document.getElementById('t-hero').innerText = t.hero;
             document.getElementById('t-work-title').innerText = t.work;
             document.getElementById('t-cad-title').innerText = t.cad;
@@ -209,7 +207,7 @@
             setTimeout(() => m.style.display='none', 3000);
         }
 
-        // --- AUTO SCROLL ---
+        // --- AUTO SCROLL CONTROLLER ---
         let isSc = false, scInt, spd = 2;
         function toggleAutoScroll() {
             isSc = !isSc;
@@ -219,7 +217,7 @@
         function runSc() { clearInterval(scInt); scInt = setInterval(() => { window.scrollBy(0, 1); }, 50 / spd); }
         function changeSpeed() { spd = document.getElementById('sc-speed').value; if(isSc) runSc(); }
 
-        // --- DRAG BOX ---
+        // --- DRAG INTERACTION ---
         let xOff = 0, yOff = 0;
         const box = document.getElementById("acc-box");
         box.onmousedown = (e) => {
@@ -232,5 +230,4 @@
         };
     </script>
 </body>
-                                        </html>
-                
+</html>
