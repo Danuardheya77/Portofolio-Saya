@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,256 +7,224 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
     
     <style>
-        :root { 
-            --accent: #3b82f6; --neon: #00f2ff; 
-            --bg: radial-gradient(circle at 50% 50%, #0a192f 0%, #020617 100%);
-            --text: #ffffff; --grid: rgba(59, 130, 246, 0.05);
+        :root { --warm: #ffb703; --bg: #020617; --text: #ffffff; --grid: rgba(59, 130, 246, 0.05); }
+        .light-mode { --bg: #fffcf2; --text: #252422; --grid: rgba(255, 183, 3, 0.1); }
+        body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: 0.5s; overflow-x: hidden; margin: 0; }
+        body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; }
+
+        /* WARM RUNNING GLOW */
+        @keyframes warmRunning {
+            0%, 100% { border-color: #ffb703; box-shadow: 0 0 5px #ffb703; }
+            50% { border-color: #fb8500; box-shadow: 0 0 20px #fb8500; }
         }
-        .light-mode { 
-            --bg: radial-gradient(circle at 50% 50%, #f8fafc 0%, #e2e8f0 100%);
-            --text: #0f172a; --grid: rgba(59, 130, 246, 0.15);
-        }
+        .warm-glow { animation: warmRunning 2s infinite ease-in-out; border-width: 2px !important; }
 
-        body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.5s ease; overflow-x: hidden; }
-        
-        /* Grid Concept */
-        body::before {
-            content: ""; position: fixed; inset: 0;
-            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-            background-size: 50px 50px; z-index: -1; mask-image: radial-gradient(ellipse at center, black, transparent 80%);
-        }
-
-        .side-branding {
-            position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
-            writing-mode: vertical-rl; font-size: 10px; letter-spacing: 0.8em; 
-            color: rgba(59, 130, 246, 0.3); text-transform: uppercase; z-index: 1; display: none;
-        }
-        @media (min-width: 1024px) { .side-branding { display: block; } }
-
-        /* RGB Border Animation */
-        @keyframes rgbBorder {
-            0% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; }
-            33% { border-color: #00ff00; box-shadow: 0 0 8px #00ff00; }
-            66% { border-color: #0000ff; box-shadow: 0 0 8px #0000ff; }
-            100% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; }
-        }
-        .rgb-active { animation: rgbBorder 3s linear infinite !important; border-width: 2px !important; }
-
-        .tool-btn { 
-            background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); 
-            width: 45px; height: 45px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-        }
-
-        .menu-dropdown { 
-            position: fixed; z-index: 10001; background: rgba(2, 6, 23, 0.98); 
-            backdrop-filter: blur(25px); border-radius: 20px; padding: 20px; 
-            border: 1px solid rgba(59, 130, 246, 0.3); display: none; width: 260px;
-        }
-
-        /* Vertical Grid Layout */
-        .work-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 25px; width: 100%; }
-        @media (min-width: 768px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1024px) { .work-grid { grid-template-columns: repeat(3, 1fr); } }
-
-        .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s ease; }
-        .image-card:hover { transform: translateY(-10px); border-color: var(--neon); }
-        .image-card img { width: 100%; height: auto; display: block; }
-
-        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
-
-        #floating-acc { position: fixed; top: 120px; left: 20px; z-index: 10000; width: 50px; height: 50px; cursor: move; touch-action: none; }
-        #water-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
-
-        section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
+        .hero-section { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(to bottom, rgba(2,6,23,0.8), var(--bg)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000'); background-size: cover; background-position: center; }
+        .brand-name { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-style: italic; letter-spacing: 0.1em; }
+        .tool-btn { background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); }
+        .menu-dropdown { position: fixed; z-index: 10001; background: rgba(2, 6, 23, 0.98); backdrop-filter: blur(25px); border-radius: 20px; padding: 20px; border: 1px solid var(--warm); display: none; width: 220px; }
+        .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; background: #000; }
+        .image-card:hover { transform: translateY(-10px); border-color: var(--warm); }
+        .greeting-bubble { position: absolute; bottom: 75px; left: 0; background: var(--warm); color: #000; padding: 8px 15px; border-radius: 15px; font-size: 11px; font-weight: 800; display: none; white-space: nowrap; z-index: 10003; }
+        #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; cursor: move; }
+        .social-link { width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .social-link:hover { background: var(--warm); color: #000; transform: scale(1.1); }
     </style>
 </head>
 <body>
-    <canvas id="water-canvas"></canvas>
-    <div class="side-branding">PRECISION ENGINEERING • 3D VISUALIZATION • ESTIMATION</div>
+    <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:9998;"></canvas>
 
-    <div class="top-toolbar fixed top-[25px] right-[25px] z-[10001] flex gap-3">
-        <div class="tool-btn rgb-active" onclick="toggleTheme()"><i id="theme-icon" class="fas fa-moon text-xs"></i></div>
-        <div class="tool-btn" onclick="toggleMenu('dropdown')"><i class="fas fa-bars opacity-50 text-xs"></i></div>
+    <div class="fixed top-6 right-6 z-[10001] flex gap-3">
+        <div class="tool-btn warm-glow" onclick="toggleTheme()"><i id="theme-icon" class="fas fa-moon"></i></div>
+        <div class="tool-btn warm-glow" onclick="toggleMenu('dropdown')"><i class="fas fa-bars"></i></div>
     </div>
 
-    <div id="dropdown" class="menu-dropdown top-[85px] right-[25px]">
-        <div class="p-2 text-[10px] opacity-40 tracking-widest border-b border-white/10 mb-2 uppercase">Menu</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-400" onclick="location.href='#home'">Home</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-400" onclick="location.href='#work'">3D Projects</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-400" onclick="location.href='#cad'">2D Blueprints</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-blue-400" onclick="location.href='#rab'">Cost Analysis</div>
+    <div id="dropdown" class="menu-dropdown top-24 right-6">
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-home" onclick="location.href='#home'">Beranda</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-work" onclick="location.href='#work'">Proyek 3D</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-cad" onclick="location.href='#cad'">Gambar Teknik</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-rab" onclick="location.href='#rab'">Analisis Biaya</div>
     </div>
 
-    <div id="floating-acc" onmousedown="dragStart(event)" ontouchstart="dragStart(event)">
-        <div class="tool-btn rgb-active w-full h-full rounded-full" onclick="toggleMenu('acc-nav')">
-            <i class="fas fa-language text-cyan-400"></i>
-        </div>
-        <div id="acc-nav" class="menu-dropdown top-[60px] left-0">
-            <div class="text-[10px] opacity-40 mb-3 tracking-widest uppercase">Language</div>
+    <div id="acc-box">
+        <div class="tool-btn warm-glow w-12 h-12 rounded-full" onclick="toggleMenu('lang-nav')"><i class="fas fa-language"></i></div>
+        <div id="lang-nav" class="menu-dropdown mt-3 left-0">
+            <div class="text-[10px] opacity-50 mb-3 uppercase t-lang-title">Pilih Bahasa</div>
             <div class="grid grid-cols-1 gap-1 text-[11px]">
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer flex justify-between" onclick="setLang('id')"><span>Indonesian</span> <span>ID</span></div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer flex justify-between" onclick="setLang('en')"><span>English</span> <span>EN</span></div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer flex justify-between" onclick="setLang('ar')"><span>Arabic</span> <span>AR</span></div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer flex justify-between" onclick="setLang('zh')"><span>Chinese</span> <span>ZH</span></div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer flex justify-between" onclick="setLang('ja')"><span>Japanese</span> <span>JA</span></div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer flex justify-between" onclick="setLang('ko')"><span>Korean</span> <span>KO</span></div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer flex justify-between" onclick="setLang('de')"><span>German</span> <span>DE</span></div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer flex justify-between" onclick="setLang('fr')"><span>French</span> <span>FR</span></div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer flex justify-between" onclick="setLang('es')"><span>Spanish</span> <span>ES</span></div>
-                <div class="py-2 px-3 hover:bg-blue-500/20 rounded cursor-pointer flex justify-between" onclick="setLang('ru')"><span>Russian</span> <span>RU</span></div>
+                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('id')">Indonesian</div>
+                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('en')">English</div>
+                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('ja')">Japanese</div>
             </div>
         </div>
     </div>
 
-    <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center">
-        <div class="profile-img-container mb-8" data-aos="zoom-in" style="width:150px; height:150px; border-radius:50%; border:2px solid var(--neon); padding:5px; background:rgba(0,242,255,0.05);">
-            <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
+    <div class="fixed bottom-8 left-8 z-[10002]" onclick="showGreeting()" style="cursor:pointer;">
+        <div id="greet-msg" class="greeting-bubble">Halo!</div>
+        <div class="w-16 h-16 rounded-full border-2 border-orange-400 overflow-hidden bg-white p-1 hover:scale-110 transition shadow-2xl">
+            <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-contain rounded-full">
         </div>
-        <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter" data-aos="fade-up">DANUARDHEYA</h1>
-        <p id="t-hero" class="text-blue-400 tracking-[0.6em] text-sm md:text-xl uppercase mt-4">Architecting Reality</p>
+    </div>
+
+    <section id="home" class="hero-section text-center px-4">
+        <div class="mb-6" data-aos="zoom-in">
+            <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-orange-400 p-1 bg-white mx-auto shadow-2xl">
+                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
+            </div>
+        </div>
+        <h1 class="brand-name font-bold mb-2 text-white" data-aos="fade-up">Danuardheya</h1>
+        <p id="t-hero" class="text-orange-400 tracking-[0.5em] text-[10px] md:text-xs uppercase font-light">Architectural Design Studio</p>
     </section>
 
-    <section id="work">
-        <div class="flex items-center gap-4 mb-12" data-aos="fade-right">
-            <div class="h-[1px] w-12 bg-blue-500"></div>
-            <h2 id="t-h-work" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">3D Visual Showcase</h2>
-        </div>
-        <div class="work-grid" data-aos="fade-up">
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13HPMYy_WXBT190cxMeROkomIofbmg2M0&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13_QC3PSpTFgsRz9OKGUfWDjybteLfytu&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=146en6-VAKyGWQymoPmIrI3o301EqfrQ2&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1kSpfXzm_pg8SJLs08mEAxLtnnn2GwQI_&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz&sz=w800"></div>
-        </div>
-    </section>
-
-    <section id="cad">
-        <div class="flex items-center gap-4 mb-12" data-aos="fade-right">
-            <div class="h-[1px] w-12 bg-blue-500"></div>
-            <h2 id="t-h-cad" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">Engineering Blueprints</h2>
-        </div>
-        <div class="work-grid" data-aos="fade-up">
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800"></div>
+    <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 id="t-work-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Pameran Visual 3D</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13HPMYy_WXBT190cxMeROkomIofbmg2M0&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13_QC3PSpTFgsRz9OKGUfWDjybteLfytu&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=146en6-VAKyGWQymoPmIrI3o301EqfrQ2&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1kSpfXzm_pg8SJLs08mEAxLtnnn2GwQI_&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz&sz=w800" class="w-full h-full object-cover"></div>
         </div>
     </section>
 
-    <section id="rab">
-        <div class="flex items-center gap-4 mb-12" data-aos="fade-right">
-            <div class="h-[1px] w-12 bg-blue-500"></div>
-            <h2 id="t-h-rab" class="text-sm font-bold tracking-[0.3em] uppercase text-blue-400">Budget Analyst</h2>
+    <section id="cad" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 id="t-cad-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Cetak Biru Engineering</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800" class="w-full"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800" class="w-full"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800" class="w-full"></div>
         </div>
-        <div class="glass-card overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-0" data-aos="zoom-in">
+    </section>
+
+    <section id="rab" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 id="t-rab-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Analisis Anggaran</h2>
+        <div class="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-white/10">
             <div class="p-8 flex flex-col justify-center">
-                <h3 class="text-2xl font-bold mb-4">Strategic Estimation</h3>
-                <p id="t-rab-desc" class="text-gray-400 text-sm leading-relaxed">Optimization of material and labor costs using professional SNI standards.</p>
+                <h3 id="t-rab-sub" class="text-2xl font-bold mb-4">Estimasi Strategis</h3>
+                <p id="t-rab-desc" class="text-gray-400 text-sm leading-relaxed">Optimalisasi biaya material dan tenaga kerja menggunakan standar profesional SNI untuk hasil yang presisi dan efisien.</p>
             </div>
             <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-64 object-cover">
         </div>
     </section>
 
-    <section class="text-center">
-        <h2 id="t-contact" class="text-sm font-bold tracking-[0.4em] text-blue-400 uppercase mb-12">Connect With Me</h2>
-        <div class="flex flex-wrap justify-center gap-6" data-aos="fade-up">
-            <a href="#" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-youtube"></i></a>
-            <a href="#" class="w-14 h-14 rounded-full glass-card flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
+    <section class="py-20 text-center">
+        <h2 id="t-contact-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Hubungi Saya</h2>
+        <div class="flex justify-center gap-6">
+            <a href="https://wa.me/6285700398394" target="_blank" class="social-link"><i class="fab fa-whatsapp text-xl"></i></a>
+            <a href="https://www.instagram.com/danuardheya" target="_blank" class="social-link"><i class="fab fa-instagram text-xl"></i></a>
+            <a href="https://youtube.com/@abysheha7946" target="_blank" class="social-link"><i class="fab fa-youtube text-xl"></i></a>
+            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="social-link"><i class="fab fa-linkedin-in text-xl"></i></a>
         </div>
     </section>
 
-    <footer class="py-20 text-center opacity-20 text-[10px] tracking-[1.5em]">DANUARDHEYA • 2025</footer>
+    <div class="fixed bottom-8 right-8 z-[10001] flex flex-col items-center gap-2 opacity-30 hover:opacity-100 transition">
+        <span id="t-scroll-label" class="text-[8px] text-orange-400 font-bold uppercase">Auto Scroll</span>
+        <div class="flex items-center gap-3">
+            <div onclick="toggleAutoScroll()" id="sc-btn" class="w-10 h-10 border border-orange-400 rounded-full flex items-center justify-center warm-glow cursor-pointer">
+                <i id="sc-icon" class="fas fa-play text-[10px] text-orange-400"></i>
+            </div>
+            <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-16" oninput="changeSpeed()">
+        </div>
+    </div>
+
+    <footer class="py-10 text-center opacity-20 text-[10px] tracking-[1em]">DANUARDHEYA • 2025</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Theme Toggle
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            const icon = document.getElementById('theme-icon');
-            icon.classList.toggle('fa-moon'); icon.classList.toggle('fa-sun');
-        }
+        // Water Ripple Asli
+        const canvas = document.getElementById('water-canvas'); const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let rips = []; window.addEventListener('mousedown', (e) => rips.push({x:e.clientX, y:e.clientY, r:0, o:0.5}));
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            rips.forEach((r,i) => {
+                r.r+=2; r.o-=0.01; ctx.beginPath(); ctx.arc(r.x,r.y,r.r,0,Math.PI*2);
+                ctx.strokeStyle=`rgba(255,183,3,${r.o})`; ctx.stroke();
+                if(r.o<=0) rips.splice(i,1);
+            }); requestAnimationFrame(draw);
+        } draw();
 
-        // Language Logic
-        const trans = {
-            id: { hero: "MEMBANGUN REALITAS", hWork: "PAMERAN VISUAL 3D", hCad: "CETAK BIRU TEKNIK", hRab: "ANALISIS ANGGARAN", contact: "TERHUBUNG DENGAN SAYA", rabDesc: "Optimalisasi biaya material dan tenaga kerja menggunakan standar profesional SNI." },
-            en: { hero: "ARCHITECTING REALITY", hWork: "3D VISUAL SHOWCASE", hCad: "ENGINEERING BLUEPRINTS", hRab: "BUDGET ANALYST", contact: "CONNECT WITH ME", rabDesc: "Optimization of material and labor costs using professional SNI standards." }
+        // Dictionary Ganti Bahasa (Semua Kalimat)
+        const dictionary = {
+            id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D", cad: "Cetak Biru Engineering", rab: "Analisis Anggaran", rabs: "Estimasi Strategis", rabd: "Optimalisasi biaya material dan tenaga kerja standar SNI.", contact: "Hubungi Saya", scroll: "Gulir Otomatis", navh: "Beranda", navw: "Proyek 3D", navc: "Gambar Teknik", navr: "Analisis Biaya", lang: "Pilih Bahasa" },
+            en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE", cad: "Engineering Blueprints", rab: "Budget Analysis", rabs: "Strategic Estimation", rabd: "Material and labor cost optimization using professional SNI standards.", contact: "Connect With Me", scroll: "Auto Scroll", navh: "Home", navw: "3D Projects", navc: "Blueprints", navr: "Budget Analysis", lang: "Select Language" },
+            ja: { hero: "現実を構築する", work: "3Dビジュアル展示", cad: "エンジニアリング設計図", rab: "予算分析", rabs: "戦略的見積もり", rabd: "SNI基準を使用した材料費と労務費の最適化。", contact: "お問い合わせ", scroll: "自動スクロール", navh: "ホーム", navw: "3Dプロジェクト", navc: "設計図面", navr: "予算分析", lang: "言語を選択" }
         };
 
         function setLang(l) {
-            const t = trans[l] || trans['en'];
+            const t = dictionary[l];
             document.getElementById('t-hero').innerText = t.hero;
-            document.getElementById('t-h-work').innerText = t.hWork;
-            document.getElementById('t-h-cad').innerText = t.hCad;
-            document.getElementById('t-h-rab').innerText = t.hRab;
-            document.getElementById('t-contact').innerText = t.contact;
-            document.getElementById('t-rab-desc').innerText = t.rabDesc;
-            toggleMenu('acc-nav');
+            document.getElementById('t-work-title').innerText = t.work;
+            document.getElementById('t-cad-title').innerText = t.cad;
+            document.getElementById('t-rab-title').innerText = t.rab;
+            document.getElementById('t-rab-sub').innerText = t.rabs;
+            document.getElementById('t-rab-desc').innerText = t.rabd;
+            document.getElementById('t-contact-title').innerText = t.contact;
+            document.getElementById('t-scroll-label').innerText = t.scroll;
+            document.querySelector('.t-nav-home').innerText = t.navh;
+            document.querySelector('.t-nav-work').innerText = t.navw;
+            document.querySelector('.t-nav-cad').innerText = t.navc;
+            document.querySelector('.t-nav-rab').innerText = t.navr;
+            document.querySelector('.t-lang-title').innerText = t.lang;
+            toggleMenu('lang-nav');
         }
 
-        function toggleMenu(id) {
+        // Standard Functions
+        function toggleTheme() { document.body.classList.toggle('light-mode'); }
+        function toggleMenu(id) { 
             const d = document.getElementById(id);
-            const isVisible = d.style.display === 'block';
+            const visible = d.style.display === 'block';
             document.querySelectorAll('.menu-dropdown').forEach(m => m.style.display = 'none');
-            d.style.display = isVisible ? 'none' : 'block';
+            d.style.display = visible ? 'none' : 'block';
         }
 
-        // Drag Logic
-        let dragItem = document.querySelector("#floating-acc");
-        let active = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
-        function dragStart(e) {
-            initialX = (e.type === "touchstart" ? e.touches[0].clientX : e.clientX) - xOffset;
-            initialY = (e.type === "touchstart" ? e.touches[0].clientY : e.clientY) - yOffset;
-            if (e.target.closest('.tool-btn')) active = true;
+        function showGreeting() {
+            const h = new Date().getHours();
+            const m = document.getElementById('greet-msg');
+            let g = h<11?"Pagi! ☀️":h<15?"Siang! 🌤️":h<18?"Sore! 🌥️":"Malam! 🌙";
+            m.innerText = "Selamat " + g;
+            m.style.display = 'block';
+            setTimeout(() => m.style.display='none', 3000);
         }
-        function drag(e) {
-            if (active) {
-                e.preventDefault();
-                currentX = (e.type === "touchmove" ? e.touches[0].clientX : e.clientX) - initialX;
-                currentY = (e.type === "touchmove" ? e.touches[0].clientY : e.clientY) - initialY;
-                xOffset = currentX; yOffset = currentY;
-                dragItem.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-            }
-        }
-        window.addEventListener("mousemove", drag); window.addEventListener("touchmove", drag, {passive: false});
-        window.addEventListener("mouseup", () => active = false); window.addEventListener("touchend", () => active = false);
 
-        // Water Ripple
-        const canvas = document.getElementById('water-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let ripples = [];
-        window.addEventListener('mousedown', (e) => ripples.push({x: e.clientX, y: e.clientY, r: 0, o: 0.6}));
-        function anim() {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            ripples.forEach((r, i) => {
-                r.r += 2.5; r.o -= 0.015;
-                ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI*2);
-                ctx.strokeStyle = `rgba(0, 242, 255, ${r.o})`; ctx.stroke();
-                if(r.o <= 0) ripples.splice(i,1);
-            });
-            requestAnimationFrame(anim);
+        // Auto Scroll
+        let isSc = false, scInt, spd = 2;
+        function toggleAutoScroll() {
+            isSc = !isSc;
+            if(isSc) { runSc(); document.getElementById('sc-icon').className='fas fa-pause text-[10px] text-orange-400'; }
+            else { clearInterval(scInt); document.getElementById('sc-icon').className='fas fa-play text-[10px] text-orange-400'; }
         }
-        anim();
+        function runSc() { clearInterval(scInt); scInt = setInterval(() => { window.scrollBy(0, 1); }, 50 / spd); }
+        function changeSpeed() { spd = document.getElementById('sc-speed').value; if(isSc) runSc(); }
+
+        // Drag Accessibility Logic
+        let xOff = 0, yOff = 0;
+        const box = document.getElementById("acc-box");
+        box.onmousedown = (e) => {
+            let startX = e.clientX - xOff, startY = e.clientY - yOff;
+            document.onmousemove = (ev) => {
+                xOff = ev.clientX - startX; yOff = ev.clientY - startY;
+                box.style.transform = `translate(${xOff}px, ${yOff}px)`;
+            };
+            document.onmouseup = () => document.onmousemove = null;
+        };
     </script>
 </body>
     </html>
