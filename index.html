@@ -7,148 +7,166 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
     
     <style>
-        :root { --warm: #ffb703; --bg: #020617; --text: #ffffff; --grid: rgba(59, 130, 246, 0.05); }
-        .light-mode { --bg: #fffcf2; --text: #252422; --grid: rgba(255, 183, 3, 0.1); }
-        body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: 0.5s; overflow-x: hidden; margin: 0; cursor: pointer; }
-        body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; }
+        :root { --warm: #ffb703; --bg: #020617; --text: #ffffff; }
+        .light-mode { --bg: #fffcf2; --text: #252422; }
+        body { background: var(--bg); color: var(--text); font-family: 'sans-serif'; transition: 0.5s; overflow-x: hidden; margin: 0; cursor: pointer; }
+        
+        .bg-grid { position: fixed; inset: 0; background-image: linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; }
 
-        /* Sembunyikan Player YouTube */
-        #yt-player { position: absolute; top: -1000px; left: -1000px; pointer-events: none; opacity: 0; }
-
-        @keyframes warmRunning {
-            0%, 100% { border-color: #ffb703; box-shadow: 0 0 5px #ffb703; }
-            50% { border-color: #fb8500; box-shadow: 0 0 20px #fb8500; }
-        }
-        .warm-glow { animation: warmRunning 2s infinite ease-in-out; border-width: 2px !important; }
-
-        .hero-section { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(to bottom, rgba(2,6,23,0.8), var(--bg)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000'); background-size: cover; background-position: center; }
-        .brand-name { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-style: italic; letter-spacing: 0.1em; }
-        .tool-btn { background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); }
-        .menu-dropdown { position: fixed; z-index: 10001; background: rgba(2, 6, 23, 0.98); backdrop-filter: blur(25px); border-radius: 20px; padding: 20px; border: 1px solid var(--warm); display: none; width: 220px; }
-        .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; background: #000; }
+        .warm-glow { border: 2px solid var(--warm) !important; box-shadow: 0 0 15px rgba(255,183,3,0.3); }
+        .hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(to bottom, rgba(2,6,23,0.8), var(--bg)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000'); background-size: cover; background-position: center; }
+        
+        .image-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; background: #000; position: relative; }
         .image-card:hover { transform: translateY(-10px); border-color: var(--warm); }
-        .greeting-bubble { position: absolute; bottom: 75px; left: 0; background: var(--warm); color: #000; padding: 8px 15px; border-radius: 15px; font-size: 11px; font-weight: 800; display: none; white-space: nowrap; z-index: 10003; }
-        #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; cursor: move; }
+        
+        #acc-box { position: fixed; top: 100px; left: 20px; z-index: 9999; cursor: move; touch-action: none; }
+        .menu-dropdown { background: rgba(2,6,23,0.95); backdrop-filter: blur(10px); border: 1px solid var(--warm); border-radius: 15px; padding: 15px; display: none; }
+        
+        .greeting-bubble { position: absolute; bottom: 80px; left: 0; background: var(--warm); color: #000; padding: 5px 12px; border-radius: 10px; font-size: 10px; font-weight: bold; display: none; white-space: nowrap; }
     </style>
 </head>
-<body onclick="playMusic()">
+<body onclick="startMusic()">
 
-    <div id="yt-player"></div>
+    <div class="bg-grid"></div>
+    <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:10;"></canvas>
 
-    <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:9998;"></canvas>
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
 
-    <div class="fixed top-6 right-6 z-[10001] flex gap-3">
-        <div class="tool-btn warm-glow" onclick="toggleTheme()"><i id="theme-icon" class="fas fa-moon"></i></div>
-        <div class="tool-btn warm-glow" onclick="toggleMenu('dropdown')"><i class="fas fa-bars"></i></div>
+    <div class="fixed top-6 right-6 z-[100] flex gap-3">
+        <button onclick="toggleTheme()" class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20"><i id="theme-icon" class="fas fa-moon"></i></button>
+        <button onclick="toggleMenu('main-nav')" class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20"><i class="fas fa-bars"></i></button>
     </div>
 
-    <div id="dropdown" class="menu-dropdown top-24 right-6">
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#home'">Beranda</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#work'">Proyek 3D</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#cad'">Gambar Teknik</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#rab'">Analisis Biaya</div>
+    <div id="main-nav" class="fixed top-20 right-6 z-[100] menu-dropdown w-48">
+        <a href="#home" class="block py-2 hover:text-orange-400">Beranda</a>
+        <a href="#work" class="block py-2 hover:text-orange-400">Visual 3D</a>
+        <a href="#cad" class="block py-2 hover:text-orange-400">Gambar Kerja</a>
+        <a href="#rab" class="block py-2 hover:text-orange-400">Analisis Biaya</a>
     </div>
 
     <div id="acc-box">
-        <div class="tool-btn warm-glow w-12 h-12 rounded-full" onclick="toggleMenu('lang-nav')"><i class="fas fa-language"></i></div>
-        <div id="lang-nav" class="menu-dropdown mt-3 left-0">
-            <div class="text-[10px] opacity-50 mb-3 uppercase">Pilih Bahasa</div>
-            <div class="grid grid-cols-1 gap-1 text-[11px]">
-                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('id')">Indonesian</div>
-                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('en')">English</div>
-                <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('ja')">Japanese</div>
-            </div>
+        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center shadow-lg warm-glow" onclick="toggleMenu('lang-nav')">
+            <i class="fas fa-language text-white"></i>
+        </div>
+        <div id="lang-nav" class="menu-dropdown mt-2">
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('id')">Indonesian</div>
+            <div class="cursor-pointer py-1 text-xs hover:text-orange-400" onclick="setLang('en')">English</div>
         </div>
     </div>
 
-    <div class="fixed bottom-8 left-8 z-[10002]" onclick="showGreeting()" style="cursor:pointer;">
+    <div class="fixed bottom-8 left-8 z-[100]" onclick="showGreeting()">
         <div id="greet-msg" class="greeting-bubble">Halo!</div>
-        <div class="w-16 h-16 rounded-full border-2 border-orange-400 overflow-hidden bg-white p-1 hover:scale-110 transition shadow-2xl">
-            <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-contain rounded-full">
+        <div class="w-14 h-14 rounded-full border-2 border-orange-400 p-1 bg-white shadow-xl">
+            <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
         </div>
     </div>
 
-    <section id="home" class="hero-section text-center px-4">
-        <div class="mb-6" data-aos="zoom-in">
-            <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-orange-400 p-1 bg-white mx-auto shadow-2xl">
-                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
-            </div>
+    <section id="home" class="hero-section">
+        <div data-aos="zoom-in">
+            <h1 class="text-4xl md:text-6xl font-bold mb-2 tracking-tighter">Danuardheya</h1>
+            <p class="text-orange-400 tracking-[0.4em] uppercase text-[10px] md:text-xs">Engineering & 3D Visualizer</p>
+            <p class="mt-10 text-[9px] opacity-40 animate-pulse">KLIK DI MANA SAJA UNTUK MUSIK</p>
         </div>
-        <h1 class="brand-name font-bold mb-2 text-white" data-aos="fade-up">Danuardheya</h1>
-        <p class="text-orange-400 tracking-[0.5em] text-[10px] md:text-xs uppercase font-light">Architectural Design Studio</p>
     </section>
 
     <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Pameran Visual 3D</h2>
+        <h2 class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-10 border-l-4 border-orange-400 pl-4">Pameran Visual 3D</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800" class="w-full h-full object-cover"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800" class="w-full h-full object-cover"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800" class="w-full h-full object-cover"></div>
+            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800" class="w-full h-full object-cover"></div>
         </div>
     </section>
 
-    <footer class="py-10 text-center opacity-20 text-[10px] tracking-[1em]">DANUARDHEYA • 2025</footer>
+    <section id="cad" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-10 border-l-4 border-orange-400 pl-4">Cetak Biru & CAD</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" data-aos="fade-right">
+            <div class="image-card h-80"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800" class="w-full h-full object-contain bg-gray-900"></div>
+            <div class="image-card h-80"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800" class="w-full h-full object-contain bg-gray-900"></div>
+        </div>
+    </section>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <section id="rab" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-10 border-l-4 border-orange-400 pl-4">Analisis Biaya (RAB)</h2>
+        <div class="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-white/10" data-aos="flip-up">
+            <div class="p-10 flex flex-col justify-center">
+                <h3 class="text-2xl font-bold mb-4">Estimasi Presisi</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-6">Penghitungan volume material dan analisa harga satuan pekerjaan yang akurat untuk menjamin efisiensi budget proyek Anda.</p>
+                <div class="flex gap-4"><div class="px-4 py-2 bg-orange-500/20 text-orange-400 rounded-full text-[10px] font-bold uppercase">Standar SNI</div></div>
+            </div>
+            <div class="h-64 md:h-full"><img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-full object-cover"></div>
+        </div>
+    </section>
+
+    <section class="py-20 text-center">
+        <div class="flex justify-center gap-10">
+            <a href="https://wa.me/6285700398394" class="text-2xl hover:text-orange-400 transition"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://instagram.com/danuardheya" class="text-2xl hover:text-orange-400 transition"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/@abysheha7946" class="text-2xl hover:text-orange-400 transition"><i class="fab fa-youtube"></i></a>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-[10px] opacity-20 tracking-[1em]">DANUARDHEYA • 2025</footer>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // --- YOUTUBE API ENGINE ---
-        let player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('yt-player', {
-                height: '0', width: '0',
-                videoId: '5qap5aO4i9A', // ID Video Musik YouTube
-                playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': '5qap5aO4i9A' },
-                events: { 'onReady': onPlayerReady }
-            });
+        // --- MUSIC ---
+        let musicActive = false;
+        function startMusic() {
+            const audio = document.getElementById('bgMusic');
+            if(!musicActive) { audio.play(); musicActive = true; }
         }
-        function onPlayerReady(event) { event.target.setVolume(50); }
-        function playMusic() { if(player && player.playVideo) { player.playVideo(); } }
 
-        // --- WATER RIPPLE ---
-        const canvas = document.getElementById('water-canvas'); const ctx = canvas.getContext('2d');
+        // --- RIPPLE ---
+        const canvas = document.getElementById('water-canvas');
+        const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let rips = []; window.addEventListener('mousedown', (e) => rips.push({x:e.clientX, y:e.clientY, r:0, o:0.5}));
+        let rips = [];
+        window.addEventListener('mousedown', (e) => rips.push({x: e.clientX, y: e.clientY, r: 0, o: 0.5}));
         function draw() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
-            rips.forEach((r,i) => {
-                r.r+=2; r.o-=0.01; ctx.beginPath(); ctx.arc(r.x,r.y,r.r,0,Math.PI*2);
-                ctx.strokeStyle=`rgba(255,183,3,${r.o})`; ctx.stroke();
-                if(r.o<=0) rips.splice(i,1);
-            }); requestAnimationFrame(draw);
-        } draw();
+            rips.forEach((r, i) => {
+                r.r += 2; r.o -= 0.01;
+                ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI*2);
+                ctx.strokeStyle = `rgba(255,183,3,${r.o})`; ctx.stroke();
+                if(r.o <= 0) rips.splice(i, 1);
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
 
-        // --- UI TOOLS ---
+        // --- UI ---
         function toggleTheme() { document.body.classList.toggle('light-mode'); }
-        function toggleMenu(id) { 
-            const d = document.getElementById(id);
-            const v = d.style.display === 'block';
-            document.querySelectorAll('.menu-dropdown').forEach(m => m.style.display = 'none');
-            d.style.display = v ? 'none' : 'block';
+        function toggleMenu(id) {
+            const m = document.getElementById(id);
+            m.style.display = (m.style.display === 'block') ? 'none' : 'block';
         }
         function showGreeting() {
-            const m = document.getElementById('greet-msg');
-            m.innerText = "Selamat Datang!"; m.style.display = 'block';
-            setTimeout(() => m.style.display='none', 3000);
+            const g = document.getElementById('greet-msg');
+            g.style.display = 'block'; setTimeout(() => g.style.display='none', 3000);
         }
 
-        // --- DRAG BOX ---
-        let xOff = 0, yOff = 0;
-        const box = document.getElementById("acc-box");
+        // --- DRAG ---
+        const box = document.getElementById('acc-box');
+        let dx = 0, dy = 0;
         box.onmousedown = (e) => {
-            let startX = e.clientX - xOff, startY = e.clientY - yOff;
+            let sx = e.clientX - dx, sy = e.clientY - dy;
             document.onmousemove = (ev) => {
-                xOff = ev.clientX - startX; yOff = ev.clientY - startY;
-                box.style.transform = `translate(${xOff}px, ${yOff}px)`;
+                dx = ev.clientX - sx; dy = ev.clientY - sy;
+                box.style.transform = `translate(${dx}px, ${dy}px)`;
             };
             document.onmouseup = () => document.onmousemove = null;
         };
     </script>
 </body>
-    </html>
-        
+                                             </html>
+                
