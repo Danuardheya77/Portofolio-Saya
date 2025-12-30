@@ -15,7 +15,6 @@
         body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: 0.5s; overflow-x: hidden; margin: 0; }
         body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; }
 
-        /* WARM RUNNING GLOW */
         @keyframes warmRunning {
             0%, 100% { border-color: #ffb703; box-shadow: 0 0 5px #ffb703; }
             50% { border-color: #fb8500; box-shadow: 0 0 20px #fb8500; }
@@ -36,6 +35,16 @@
 </head>
 <body>
     <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:9998;"></canvas>
+
+    <audio id="bg-music" loop>
+        <source src="https://docs.google.com/uc?export=download&id=1E5tGcbgP7lO7vCgS5jJHs1ysWXKCoqdH" type="audio/mpeg">
+    </audio>
+
+    <div class="fixed top-6 left-6 z-[10001]">
+        <div id="music-btn" class="tool-btn warm-glow" onclick="toggleMusic()">
+            <i id="music-icon" class="fas fa-music"></i>
+        </div>
+    </div>
 
     <div class="fixed top-6 right-6 z-[10001] flex gap-3">
         <div class="tool-btn warm-glow" onclick="toggleTheme()"><i id="theme-icon" class="fas fa-moon"></i></div>
@@ -84,69 +93,39 @@
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800" class="w-full h-full object-cover"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800" class="w-full h-full object-cover"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1ZbdMzE1lay8P6jylH7eSLEPHljhhzIqC&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1GXJUu4ozWj4DQhfyDfpk1swO9Z31YOll&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13HPMYy_WXBT190cxMeROkomIofbmg2M0&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=13_QC3PSpTFgsRz9OKGUfWDjybteLfytu&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1i407Wek0Wn8xwFQ4Ti_HWSy1VPSSOGye&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=146en6-VAKyGWQymoPmIrI3o301EqfrQ2&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1kSpfXzm_pg8SJLs08mEAxLtnnn2GwQI_&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1fkj2qNGeJQDpdJdviIEcFvP7eFN8rP4O&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pIbIHPh4FADK1DXQ-AMgatt7sOcFWoJ7&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1iTJKbDOv-OZullpV0P0a3XXVMP5Z7Rxk&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1gJbgDrI8s_yir_L1lwWSXSqKDhnNQe39&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1X5hN2q98HRMuwh8fYa5UyjBOKSwcrcEz&sz=w800" class="w-full h-full object-cover"></div>
         </div>
     </section>
-
-    <section id="cad" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 id="t-cad-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Cetak Biru Engineering</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800" class="w-full"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800" class="w-full"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800" class="w-full"></div>
-        </div>
-    </section>
-
-    <section id="rab" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 id="t-rab-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Analisis Anggaran</h2>
-        <div class="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-white/10">
-            <div class="p-8 flex flex-col justify-center">
-                <h3 id="t-rab-sub" class="text-2xl font-bold mb-4">Estimasi Strategis</h3>
-                <p id="t-rab-desc" class="text-gray-400 text-sm leading-relaxed">Optimalisasi biaya material dan tenaga kerja menggunakan standar profesional SNI untuk hasil yang presisi dan efisien.</p>
-            </div>
-            <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-64 object-cover">
-        </div>
-    </section>
-
-    <section class="py-20 text-center">
-        <h2 id="t-contact-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Hubungi Saya</h2>
-        <div class="flex justify-center gap-6">
-            <a href="https://wa.me/6285700398394" target="_blank" class="social-link"><i class="fab fa-whatsapp text-xl"></i></a>
-            <a href="https://www.instagram.com/danuardheya" target="_blank" class="social-link"><i class="fab fa-instagram text-xl"></i></a>
-            <a href="https://youtube.com/@abysheha7946" target="_blank" class="social-link"><i class="fab fa-youtube text-xl"></i></a>
-            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="social-link"><i class="fab fa-linkedin-in text-xl"></i></a>
-        </div>
-    </section>
-
-    <div class="fixed bottom-8 right-8 z-[10001] flex flex-col items-center gap-2 opacity-30 hover:opacity-100 transition">
-        <span id="t-scroll-label" class="text-[8px] text-orange-400 font-bold uppercase">Auto Scroll</span>
-        <div class="flex items-center gap-3">
-            <div onclick="toggleAutoScroll()" id="sc-btn" class="w-10 h-10 border border-orange-400 rounded-full flex items-center justify-center warm-glow cursor-pointer">
-                <i id="sc-icon" class="fas fa-play text-[10px] text-orange-400"></i>
-            </div>
-            <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-16" oninput="changeSpeed()">
-        </div>
-    </div>
 
     <footer class="py-10 text-center opacity-20 text-[10px] tracking-[1em]">DANUARDHEYA • 2025</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        // LOGIK MUSIK
+        const audio = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+        let hasInteracted = false;
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                musicIcon.className = 'fas fa-pause';
+            } else {
+                audio.pause();
+                musicIcon.className = 'fas fa-music';
+            }
+        }
+
+        // Auto-play saat user pertama kali mengklik layar (Bypass kebijakan Browser)
+        document.body.addEventListener('click', function() {
+            if (!hasInteracted) {
+                audio.play().then(() => {
+                    musicIcon.className = 'fas fa-pause';
+                    hasInteracted = true;
+                }).catch(err => console.log("Menunggu interaksi user..."));
+            }
+        }, { once: true });
 
         // Water Ripple Asli
         const canvas = document.getElementById('water-canvas'); const ctx = canvas.getContext('2d');
@@ -161,32 +140,22 @@
             }); requestAnimationFrame(draw);
         } draw();
 
-        // Dictionary Ganti Bahasa (Semua Kalimat)
+        // Dictionary Ganti Bahasa
         const dictionary = {
-            id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D", cad: "Cetak Biru Engineering", rab: "Analisis Anggaran", rabs: "Estimasi Strategis", rabd: "Optimalisasi biaya material dan tenaga kerja standar SNI.", contact: "Hubungi Saya", scroll: "Gulir Otomatis", navh: "Beranda", navw: "Proyek 3D", navc: "Gambar Teknik", navr: "Analisis Biaya", lang: "Pilih Bahasa" },
-            en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE", cad: "Engineering Blueprints", rab: "Budget Analysis", rabs: "Strategic Estimation", rabd: "Material and labor cost optimization using professional SNI standards.", contact: "Connect With Me", scroll: "Auto Scroll", navh: "Home", navw: "3D Projects", navc: "Blueprints", navr: "Budget Analysis", lang: "Select Language" },
-            ja: { hero: "現実を構築する", work: "3Dビジュアル展示", cad: "エンジニアリング設計図", rab: "予算分析", rabs: "戦略的見積もり", rabd: "SNI基準を使用した材料費と労務費の最適化。", contact: "お問い合わせ", scroll: "自動スクロール", navh: "ホーム", navw: "3Dプロジェクト", navc: "設計図面", navr: "予算分析", lang: "言語を選択" }
+            id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D", navh: "Beranda", lang: "Pilih Bahasa" },
+            en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE", navh: "Home", lang: "Select Language" },
+            ja: { hero: "現実を構築する", work: "3Dビジュアル展示", navh: "ホーム", lang: "言語を選択" }
         };
 
         function setLang(l) {
             const t = dictionary[l];
             document.getElementById('t-hero').innerText = t.hero;
             document.getElementById('t-work-title').innerText = t.work;
-            document.getElementById('t-cad-title').innerText = t.cad;
-            document.getElementById('t-rab-title').innerText = t.rab;
-            document.getElementById('t-rab-sub').innerText = t.rabs;
-            document.getElementById('t-rab-desc').innerText = t.rabd;
-            document.getElementById('t-contact-title').innerText = t.contact;
-            document.getElementById('t-scroll-label').innerText = t.scroll;
             document.querySelector('.t-nav-home').innerText = t.navh;
-            document.querySelector('.t-nav-work').innerText = t.navw;
-            document.querySelector('.t-nav-cad').innerText = t.navc;
-            document.querySelector('.t-nav-rab').innerText = t.navr;
             document.querySelector('.t-lang-title').innerText = t.lang;
             toggleMenu('lang-nav');
         }
 
-        // Standard Functions
         function toggleTheme() { document.body.classList.toggle('light-mode'); }
         function toggleMenu(id) { 
             const d = document.getElementById(id);
@@ -204,17 +173,6 @@
             setTimeout(() => m.style.display='none', 3000);
         }
 
-        // Auto Scroll
-        let isSc = false, scInt, spd = 2;
-        function toggleAutoScroll() {
-            isSc = !isSc;
-            if(isSc) { runSc(); document.getElementById('sc-icon').className='fas fa-pause text-[10px] text-orange-400'; }
-            else { clearInterval(scInt); document.getElementById('sc-icon').className='fas fa-play text-[10px] text-orange-400'; }
-        }
-        function runSc() { clearInterval(scInt); scInt = setInterval(() => { window.scrollBy(0, 1); }, 50 / spd); }
-        function changeSpeed() { spd = document.getElementById('sc-speed').value; if(isSc) runSc(); }
-
-        // Drag Accessibility Logic
         let xOff = 0, yOff = 0;
         const box = document.getElementById("acc-box");
         box.onmousedown = (e) => {
@@ -227,5 +185,5 @@
         };
     </script>
 </body>
-                                        </html>
-                                                                                                    
+    </html>
+    
