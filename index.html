@@ -15,6 +15,9 @@
         body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: 0.5s; overflow-x: hidden; margin: 0; cursor: pointer; }
         body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; }
 
+        /* Sembunyikan Player YouTube */
+        #yt-player { position: absolute; top: -1000px; left: -1000px; pointer-events: none; opacity: 0; }
+
         @keyframes warmRunning {
             0%, 100% { border-color: #ffb703; box-shadow: 0 0 5px #ffb703; }
             50% { border-color: #fb8500; box-shadow: 0 0 20px #fb8500; }
@@ -29,16 +32,11 @@
         .image-card:hover { transform: translateY(-10px); border-color: var(--warm); }
         .greeting-bubble { position: absolute; bottom: 75px; left: 0; background: var(--warm); color: #000; padding: 8px 15px; border-radius: 15px; font-size: 11px; font-weight: 800; display: none; white-space: nowrap; z-index: 10003; }
         #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; cursor: move; }
-        .social-link { width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; transition: 0.3s; color: inherit; }
-        .social-link:hover { background: var(--warm); color: #000; transform: scale(1.1); }
     </style>
 </head>
-<body onclick="playMusic()" onscroll="playMusic()" ontouchstart="playMusic()">
+<body onclick="playMusic()">
 
-    <audio id="bgMusic" loop preload="auto">
-        <source src="https://translate.google.com/translate_tts?ie=UTF-8&q=danu&tl=id&total=1&idx=0&textlen=4&client=tw-ob" type="audio/mpeg">
-        <source src="https://docs.google.com/uc?export=open&id=1-jnGKKk8eJ0le58saIjCVGtToyweg7cO" type="audio/mpeg">
-    </audio>
+    <div id="yt-player"></div>
 
     <canvas id="water-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:9998;"></canvas>
 
@@ -48,16 +46,16 @@
     </div>
 
     <div id="dropdown" class="menu-dropdown top-24 right-6">
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-home" onclick="location.href='#home'">Beranda</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-work" onclick="location.href='#work'">Proyek 3D</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-cad" onclick="location.href='#cad'">Gambar Teknik</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 t-nav-rab" onclick="location.href='#rab'">Analisis Biaya</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#home'">Beranda</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#work'">Proyek 3D</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#cad'">Gambar Teknik</div>
+        <div class="py-2 text-sm cursor-pointer hover:text-orange-400" onclick="location.href='#rab'">Analisis Biaya</div>
     </div>
 
     <div id="acc-box">
         <div class="tool-btn warm-glow w-12 h-12 rounded-full" onclick="toggleMenu('lang-nav')"><i class="fas fa-language"></i></div>
         <div id="lang-nav" class="menu-dropdown mt-3 left-0">
-            <div class="text-[10px] opacity-50 mb-3 uppercase t-lang-title">Pilih Bahasa</div>
+            <div class="text-[10px] opacity-50 mb-3 uppercase">Pilih Bahasa</div>
             <div class="grid grid-cols-1 gap-1 text-[11px]">
                 <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('id')">Indonesian</div>
                 <div class="p-2 hover:bg-orange-500/10 rounded cursor-pointer" onclick="setLang('en')">English</div>
@@ -80,80 +78,39 @@
             </div>
         </div>
         <h1 class="brand-name font-bold mb-2 text-white" data-aos="fade-up">Danuardheya</h1>
-        <p id="t-hero" class="text-orange-400 tracking-[0.5em] text-[10px] md:text-xs uppercase font-light">Architectural Design Studio</p>
+        <p class="text-orange-400 tracking-[0.5em] text-[10px] md:text-xs uppercase font-light">Architectural Design Studio</p>
     </section>
 
     <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 id="t-work-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Pameran Visual 3D</h2>
+        <h2 class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Pameran Visual 3D</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w800" class="w-full h-full object-cover"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w800" class="w-full h-full object-cover"></div>
             <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w800" class="w-full h-full object-cover"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w800" class="w-full h-full object-cover"></div>
         </div>
     </section>
-
-    <section id="cad" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 id="t-cad-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Cetak Biru Engineering</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w800" class="w-full"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w800" class="w-full"></div>
-            <div class="image-card"><img src="https://drive.google.com/thumbnail?id=109LVAU185YdsxNojnOz5AHexYqP-Qwhu&sz=w800" class="w-full"></div>
-        </div>
-    </section>
-
-    <section id="rab" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 id="t-rab-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Analisis Anggaran</h2>
-        <div class="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-white/10">
-            <div class="p-8 flex flex-col justify-center">
-                <h3 id="t-rab-sub" class="text-2xl font-bold mb-4">Estimasi Strategis</h3>
-                <p id="t-rab-desc" class="text-gray-400 text-sm leading-relaxed">Optimalisasi biaya material dan tenaga kerja menggunakan standar profesional SNI untuk hasil yang presisi dan efisien.</p>
-            </div>
-            <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w800" class="w-full h-64 object-cover">
-        </div>
-    </section>
-
-    <section class="py-20 text-center">
-        <h2 id="t-contact-title" class="text-xs font-bold tracking-[0.4em] uppercase text-orange-400 mb-12">Hubungi Saya</h2>
-        <div class="flex justify-center gap-6">
-            <a href="https://wa.me/6285700398394" target="_blank" class="social-link"><i class="fab fa-whatsapp text-xl"></i></a>
-            <a href="https://www.instagram.com/danuardheya" target="_blank" class="social-link"><i class="fab fa-instagram text-xl"></i></a>
-            <a href="https://youtube.com/@abysheha7946" target="_blank" class="social-link"><i class="fab fa-youtube text-xl"></i></a>
-            <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="social-link"><i class="fab fa-linkedin-in text-xl"></i></a>
-        </div>
-    </section>
-
-    <div class="fixed bottom-8 right-8 z-[10001] flex flex-col items-center gap-2 opacity-30 hover:opacity-100 transition">
-        <span id="t-scroll-label" class="text-[8px] text-orange-400 font-bold uppercase">Auto Scroll</span>
-        <div class="flex items-center gap-3">
-            <div onclick="toggleAutoScroll()" id="sc-btn" class="w-10 h-10 border border-orange-400 rounded-full flex items-center justify-center warm-glow cursor-pointer">
-                <i id="sc-icon" class="fas fa-play text-[10px] text-orange-400"></i>
-            </div>
-            <input type="range" id="sc-speed" min="1" max="10" value="2" class="w-16" oninput="changeSpeed()">
-        </div>
-    </div>
 
     <footer class="py-10 text-center opacity-20 text-[10px] tracking-[1em]">DANUARDHEYA • 2025</footer>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // --- SOLUSI MUSIK OTOMATIS (Maksimal) ---
-        const audio = document.getElementById('bgMusic');
-        let musicPlayed = false;
-
-        function playMusic() {
-            if (!musicPlayed) {
-                audio.play()
-                    .then(() => { musicPlayed = true; console.log("Music Playing"); })
-                    .catch(e => { console.log("Waiting for user trigger..."); });
-            }
+        // --- YOUTUBE API ENGINE ---
+        let player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                height: '0', width: '0',
+                videoId: '5qap5aO4i9A', // ID Video Musik YouTube
+                playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': '5qap5aO4i9A' },
+                events: { 'onReady': onPlayerReady }
+            });
         }
+        function onPlayerReady(event) { event.target.setVolume(50); }
+        function playMusic() { if(player && player.playVideo) { player.playVideo(); } }
 
-        // --- WATER RIPPLE ENGINE ---
+        // --- WATER RIPPLE ---
         const canvas = document.getElementById('water-canvas'); const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         let rips = []; window.addEventListener('mousedown', (e) => rips.push({x:e.clientX, y:e.clientY, r:0, o:0.5}));
@@ -166,58 +123,21 @@
             }); requestAnimationFrame(draw);
         } draw();
 
-        // --- UI & THEME LOGIC ---
+        // --- UI TOOLS ---
         function toggleTheme() { document.body.classList.toggle('light-mode'); }
         function toggleMenu(id) { 
             const d = document.getElementById(id);
-            const visible = d.style.display === 'block';
+            const v = d.style.display === 'block';
             document.querySelectorAll('.menu-dropdown').forEach(m => m.style.display = 'none');
-            d.style.display = visible ? 'none' : 'block';
+            d.style.display = v ? 'none' : 'block';
         }
-
-        const dictionary = {
-            id: { hero: "MEMBANGUN REALITAS", work: "PAMERAN VISUAL 3D", cad: "Cetak Biru Engineering", rab: "Analisis Anggaran", rabs: "Estimasi Strategis", rabd: "Optimalisasi biaya material dan tenaga kerja standar SNI.", contact: "Hubungi Saya", scroll: "Gulir Otomatis", navh: "Beranda", navw: "Proyek 3D", navc: "Gambar Teknik", navr: "Analisis Biaya", lang: "Pilih Bahasa" },
-            en: { hero: "ARCHITECTING REALITY", work: "3D VISUAL SHOWCASE", cad: "Engineering Blueprints", rab: "Budget Analysis", rabs: "Strategic Estimation", rabd: "Material and labor cost optimization using professional SNI standards.", contact: "Connect With Me", scroll: "Auto Scroll", navh: "Home", navw: "3D Projects", navc: "Blueprints", navr: "Budget Analysis", lang: "Select Language" },
-            ja: { hero: "現実を構築する", work: "3Dビジュアル展示", cad: "エンジニアリング設計図", rab: "予算分析", rabs: "戦略的見積もり", rabd: "SNI基準を使用した材料費と労務費の最適化。", contact: "お問い合わせ", scroll: "自動スクロール", navh: "ホーム", navw: "3Dプロジェクト", navc: "設計図面", navr: "予算分析", lang: "言語を選択" }
-        };
-
-        function setLang(l) {
-            const t = dictionary[l];
-            document.getElementById('t-hero').innerText = t.hero;
-            document.getElementById('t-work-title').innerText = t.work;
-            document.getElementById('t-cad-title').innerText = t.cad;
-            document.getElementById('t-rab-title').innerText = t.rab;
-            document.getElementById('t-rab-sub').innerText = t.rabs;
-            document.getElementById('t-rab-desc').innerText = t.rabd;
-            document.getElementById('t-contact-title').innerText = t.contact;
-            document.getElementById('t-scroll-label').innerText = t.scroll;
-            document.querySelector('.t-nav-home').innerText = t.navh;
-            document.querySelector('.t-nav-work').innerText = t.navw;
-            document.querySelector('.t-nav-cad').innerText = t.navc;
-            document.querySelector('.t-nav-rab').innerText = t.navr;
-            document.querySelector('.t-lang-title').innerText = t.lang;
-            toggleMenu('lang-nav');
-        }
-
         function showGreeting() {
-            const h = new Date().getHours();
             const m = document.getElementById('greet-msg');
-            let g = h<11?"Pagi! ☀️":h<15?"Siang! 🌤️":h<18?"Sore! 🌥️":"Malam! 🌙";
-            m.innerText = "Selamat " + g; m.style.display = 'block';
+            m.innerText = "Selamat Datang!"; m.style.display = 'block';
             setTimeout(() => m.style.display='none', 3000);
         }
 
-        // --- AUTO SCROLL CONTROLLER ---
-        let isSc = false, scInt, spd = 2;
-        function toggleAutoScroll() {
-            isSc = !isSc;
-            if(isSc) { runSc(); document.getElementById('sc-icon').className='fas fa-pause text-[10px] text-orange-400'; }
-            else { clearInterval(scInt); document.getElementById('sc-icon').className='fas fa-play text-[10px] text-orange-400'; }
-        }
-        function runSc() { clearInterval(scInt); scInt = setInterval(() => { window.scrollBy(0, 1); }, 50 / spd); }
-        function changeSpeed() { spd = document.getElementById('sc-speed').value; if(isSc) runSc(); }
-
-        // --- DRAG INTERACTION ---
+        // --- DRAG BOX ---
         let xOff = 0, yOff = 0;
         const box = document.getElementById("acc-box");
         box.onmousedown = (e) => {
@@ -230,4 +150,5 @@
         };
     </script>
 </body>
-</html>
+    </html>
+        
