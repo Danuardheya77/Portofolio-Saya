@@ -3,34 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danuardheya | Portofolio Pro</title>
+    <title>Danuardheya | Portofolio Lengkap</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     
     <style>
         :root { --warm: #ffb703; --bg: #020617; --text: #ffffff; }
         .light-mode { --bg: #fffcf2; --text: #252422; }
         body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; transition: 0.5s; overflow-x: hidden; margin: 0; cursor: pointer; }
 
+        /* WARM GLOW RUNNING EFFECT */
         @keyframes warmRunning {
             0%, 100% { border-color: #ffb703; box-shadow: 0 0 10px #ffb703; }
             50% { border-color: #fb8500; box-shadow: 0 0 25px #fb8500; }
         }
         .warm-glow { animation: warmRunning 2s infinite ease-in-out; border: 2px solid var(--warm) !important; }
 
+        /* BACKGROUND HERO GEDUNG */
         .hero-section { 
-            position: relative; min-height: 100vh; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; 
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
             background: linear-gradient(to bottom, rgba(2,6,23,0.7), var(--bg)), 
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000'); 
+            url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000'); 
             background-size: cover; background-position: center; 
         }
 
-        .img-original { width: 100%; height: auto; border-radius: 15px; transition: 0.5s; border: 1px solid rgba(255,255,255,0.1); }
-        .img-original:hover { transform: scale(1.02); border-color: var(--warm); }
+        /* PHOTO TOOLBAR (RASIO ASLI) */
+        .portfolio-grid { column-count: 1; column-gap: 1.5rem; }
+        @media (min-width: 768px) { .portfolio-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .portfolio-grid { column-count: 3; } }
+        
+        .img-card { break-inside: avoid; margin-bottom: 1.5rem; border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; background: rgba(255,255,255,0.02); }
+        .img-card:hover { transform: scale(1.03); border-color: var(--warm); }
+        .img-card img { width: 100%; height: auto; display: block; }
 
+        /* DROPDOWN MENU */
         .menu-dropdown { 
             position: fixed; z-index: 10001; background: rgba(2, 6, 23, 0.95); 
             backdrop-filter: blur(20px); border-radius: 20px; padding: 20px; 
@@ -38,10 +46,10 @@
         }
 
         #acc-box { position: fixed; top: 120px; left: 20px; z-index: 10005; touch-action: none; cursor: move; }
-        .greeting-bubble { position: absolute; bottom: 80px; left: 0; background: var(--warm); color: #000; padding: 6px 15px; border-radius: 12px; font-size: 11px; font-weight: bold; display: none; white-space: nowrap; }
+        .greeting-bubble { position: absolute; bottom: 85px; left: 0; background: var(--warm); color: #000; padding: 6px 15px; border-radius: 12px; font-size: 11px; font-weight: bold; display: none; white-space: nowrap; }
     </style>
 </head>
-<body onclick="playRomanticMusic()">
+<body onclick="playMusic()">
 
     <audio id="bgMusic" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
@@ -58,20 +66,20 @@
         <div class="py-2 text-sm cursor-pointer hover:text-orange-400 nav-item" data-key="nav1" onclick="location.href='#home'">Beranda</div>
         <div class="py-2 text-sm cursor-pointer hover:text-orange-400 nav-item" data-key="nav2" onclick="location.href='#work'">Proyek 3D</div>
         <div class="py-2 text-sm cursor-pointer hover:text-orange-400 nav-item" data-key="nav3" onclick="location.href='#cad'">Gambar Teknik</div>
-        <div class="py-2 text-sm cursor-pointer hover:text-orange-400 nav-item" data-key="nav4" onclick="location.href='#rab'">Analisis RAB</div>
     </div>
 
     <div class="fixed bottom-8 left-8 z-[10002]" onclick="showGreeting()">
-        <div id="greet-msg" class="greeting-bubble shadow-xl">Selamat Datang! ✨</div>
+        <div id="greet-msg" class="greeting-bubble">Halo, Selamat Datang! ✨</div>
         <div class="w-16 h-16 rounded-full warm-glow overflow-hidden bg-white p-1 hover:scale-110 transition cursor-pointer">
             <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
         </div>
     </div>
 
     <div id="acc-box">
-        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center warm-glow text-white" onclick="toggleMenu('lang-nav')"><i class="fas fa-language"></i></div>
+        <div class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center warm-glow text-white shadow-xl" onclick="toggleMenu('lang-nav')">
+            <i class="fas fa-language"></i>
+        </div>
         <div id="lang-nav" class="menu-dropdown mt-3 left-0 max-h-64 overflow-y-auto w-44">
-            <div class="text-[10px] opacity-50 mb-2 uppercase">Language</div>
             <div class="grid grid-cols-1 gap-1 text-xs">
                 <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('id')">Indonesian</div>
                 <div class="p-2 hover:bg-orange-500/20 rounded cursor-pointer" onclick="translateTo('en')">English</div>
@@ -89,102 +97,77 @@
 
     <section id="home" class="hero-section text-center px-4">
         <div data-aos="zoom-in" class="mb-6">
-            <div class="w-32 h-32 rounded-full warm-glow p-1 bg-white mx-auto">
-                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover rounded-full">
+            <div class="w-32 h-32 rounded-full warm-glow p-1 bg-white mx-auto overflow-hidden">
+                <img src="https://drive.google.com/thumbnail?id=13WamvUJaR5e-hplSEzrKqG-KbfgOnD9p&sz=w500" class="w-full h-full object-cover">
             </div>
         </div>
-        <h1 class="text-4xl md:text-6xl font-bold tracking-tighter" data-aos="fade-up">Danuardheya</h1>
-        <p id="t-sub" class="text-orange-400 tracking-[0.5em] text-[10px] uppercase font-light mt-3 trans" data-key="sub">Engineering & 3D Visualizer</p>
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tighter">Danuardheya</h1>
+        <p id="t-sub" class="text-orange-400 tracking-[0.5em] text-[10px] uppercase mt-3 trans" data-key="sub">Engineering & 3D Visualizer</p>
     </section>
 
     <section id="work" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4 trans" data-key="title3d">PORTOFOLIO 3D</h2>
-        <div class="columns-1 md:columns-3 gap-6 space-y-6" data-aos="fade-up">
-            <img src="https://drive.google.com/thumbnail?id=1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ&sz=w1000" class="img-original">
-            <img src="https://drive.google.com/thumbnail?id=1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ&sz=w1000" class="img-original">
-            <img src="https://drive.google.com/thumbnail?id=1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X&sz=w1000" class="img-original">
-            <img src="https://drive.google.com/thumbnail?id=1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD&sz=w1000" class="img-original">
-            <img src="https://drive.google.com/thumbnail?id=1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9&sz=w1000" class="img-original">
-            <img src="https://drive.google.com/thumbnail?id=1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH&sz=w1000" class="img-original">
-        </div>
-    </section>
-
-    <section id="cad" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4 trans" data-key="titlecad">GAMBAR KERJA (2D)</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" data-aos="fade-right">
-            <img src="https://drive.google.com/thumbnail?id=1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC&sz=w1000" class="img-original">
-            <img src="https://drive.google.com/thumbnail?id=1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN&sz=w1000" class="img-original">
-        </div>
-    </section>
-
-    <section id="rab" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4 trans" data-key="titlerab">ANALISIS RAB</h2>
-        <div class="bg-white/5 p-8 rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            <div>
-                <h3 class="text-2xl font-bold mb-4 trans" data-key="rabsub">Estimasi Budget</h3>
-                <p class="text-gray-400 text-sm trans" data-key="rabdesc">Penghitungan presisi untuk efisiensi biaya material dan tenaga kerja.</p>
+        <h2 id="t-3d" class="text-xs font-bold tracking-widest text-orange-400 mb-10 border-l-4 border-orange-400 pl-4 trans" data-key="title3d">PROYEK INTERIOR & EKSTERIOR</h2>
+        <div class="portfolio-grid" id="photo-toolbar">
             </div>
-            <img src="https://drive.google.com/thumbnail?id=15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3&sz=w1000" class="img-original">
-        </div>
     </section>
 
     <section class="py-20 text-center flex justify-center flex-wrap gap-6 px-4">
-        <a href="https://wa.me/6285700398394" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20 text-xl"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://youtube.com/@abysheha7946" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20 text-xl"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20 text-xl"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://instagram.com/danuardheya" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20 text-xl"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/6285700398394" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://youtube.com/@abysheha7946" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.linkedin.com/in/himam-aby-a56aa2372" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://instagram.com/danuardheya" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full warm-glow bg-black/20"><i class="fab fa-instagram"></i></a>
     </section>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000 });
+        AOS.init();
 
-        const languages = {
-            id: { sub: "Engineering & 3D Visualizer", title3d: "PORTOFOLIO 3D", titlecad: "GAMBAR KERJA (2D)", titlerab: "ANALISIS RAB", rabsub: "Estimasi Budget", rabdesc: "Penghitungan presisi untuk efisiensi biaya.", nav1: "Beranda", nav2: "Proyek 3D", nav3: "Gambar Teknik", nav4: "Analisis RAB" },
-            en: { sub: "Engineering & 3D Visualizer", title3d: "3D PORTFOLIO", titlecad: "TECHNICAL DRAWINGS", titlerab: "COST ANALYSIS", rabsub: "Budget Estimation", rabdesc: "Precision calculation for cost efficiency.", nav1: "Home", nav2: "3D Projects", nav3: "Technical Dwg", nav4: "Cost Analysis" },
-            ja: { sub: "エンジニアリング＆3Dビジュアライザー", title3d: "3Dポートフォリオ", titlecad: "設計図", titlerab: "費用分析", rabsub: "予算見積もり", rabdesc: "コスト効率のための精密な計算。", nav1: "ホーム", nav2: "3Dプロジェクト", nav3: "設計図面", nav4: "費用分析" }
-            // Ar, Zh, Ko, Fr, De, Ru, Es bisa ditambahkan polanya sama
-        };
+        // 17 ID FOTO ANDA
+        const photos = [
+            '1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ', '1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ', '1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X',
+            '1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD', '1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9', '1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH',
+            '1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC', '1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN', '15ep8LCY13zS1jpR5Eew6yK9-uPmMlTl3',
+            '1oP7-ZXInhF8iKxU_skjZZ9R6AyBsapfZ', '1hE-v3xnxynjaNBIhunawBYX9iFs0bruJ', '1vvmFhmyDC1EnWg3476Rz5kSXw5AXrH8X',
+            '1M6z1kf71-r0ravWfoQMzYZuoljTH3wYD', '1mLqb2WBbFwiRQqXfy3QG1ScnFnZoK0b9', '1Qz_rYs3tCwrL3CAoA_uHuiPdMYvsuZpH',
+            '1pZEssqugPLeWVOhe5KpJPjkeuZYtHOmC', '1AyxvLoBLrOLBOUr-14wB_0dInN2eCRSN'
+        ];
 
-        function translateTo(lang) {
-            const data = languages[lang] || languages['en'];
-            document.querySelectorAll('.trans, .nav-item').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if(data[key]) el.innerText = data[key];
-            });
-            toggleMenu('lang-nav');
-        }
+        const grid = document.getElementById('photo-toolbar');
+        photos.forEach(id => {
+            grid.innerHTML += `<div class="img-card" data-aos="fade-up"><img src="https://drive.google.com/thumbnail?id=${id}&sz=w1000"></div>`;
+        });
 
-        let isMusicPlaying = false;
-        function playRomanticMusic() {
-            const audio = document.getElementById('bgMusic');
-            if(!isMusicPlaying) { audio.play(); isMusicPlaying = true; }
-        }
-
+        // MUSIK & UI LOGIC
+        let playing = false;
+        function playMusic() { if(!playing) { document.getElementById('bgMusic').play(); playing = true; } }
         function toggleTheme() { document.body.classList.toggle('light-mode'); }
         function toggleMenu(id) {
             const m = document.getElementById(id);
-            const isVisible = m.style.display === 'block';
-            document.querySelectorAll('.menu-dropdown').forEach(d => d.style.display = 'none');
-            m.style.display = isVisible ? 'none' : 'block';
+            m.style.display = (m.style.display === 'block') ? 'none' : 'block';
+        }
+        function showGreeting() {
+            const g = document.getElementById('greet-msg');
+            g.style.display = 'block'; setTimeout(() => g.style.display='none', 3000);
         }
 
+        // DRAG
         const box = document.getElementById('acc-box');
         let dx=0, dy=0;
         box.onmousedown = (e) => {
-            let sx = e.clientX - dx, sy = e.clientY - dy;
+            let sx = e.clientX-dx, sy = e.clientY-dy;
             document.onmousemove = (ev) => {
-                dx = ev.clientX - sx; dy = ev.clientY - sy;
+                dx = ev.clientX-sx; dy = ev.clientY-sy;
                 box.style.transform = `translate(${dx}px, ${dy}px)`;
             };
             document.onmouseup = () => document.onmousemove = null;
         };
 
+        // RIPPLE
         const canvas = document.getElementById('water-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         let rips = [];
-        window.addEventListener('mousedown', (e) => rips.push({x: e.clientX, y: e.clientY, r: 0, o: 0.5}));
+        window.onmousedown = (e) => rips.push({x: e.clientX, y: e.clientY, r: 0, o: 0.5});
         function draw() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
             rips.forEach((r, i) => {
@@ -196,11 +179,20 @@
             requestAnimationFrame(draw);
         } draw();
 
-        function showGreeting() {
-            const g = document.getElementById('greet-msg');
-            g.style.display = 'block'; setTimeout(() => g.style.display='none', 3000);
+        // TRANSLATE SYSTEM (10 Bahasa)
+        function translateTo(lang) {
+            const dict = {
+                en: { sub: "Engineering & 3D Visualizer", title3d: "3D PROJECTS", nav1: "Home", nav2: "Portfolio" },
+                ja: { sub: "エンジニアリング＆3Dビジュアライザー", title3d: "3Dプロジェクト", nav1: "ホーム", nav2: "作品集" },
+                // ... Tambahkan sesuai kebutuhan ...
+            };
+            if(dict[lang]) {
+                document.getElementById('t-sub').innerText = dict[lang].sub;
+                document.getElementById('t-3d').innerText = dict[lang].title3d;
+            }
+            toggleMenu('lang-nav');
         }
     </script>
 </body>
-    </html>
-                    
+        </html>
+            
